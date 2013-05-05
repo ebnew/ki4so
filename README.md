@@ -12,7 +12,7 @@ ki4so，英文全称是：kiss sso意思是简约单点登录系统，由于s太
 
 
 #项目许可协议
-项目遵循**[Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)**开源协议
+项目遵循__[Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)__开源协议
 
 #项目版本号说明
 
@@ -27,7 +27,7 @@ ki4so，英文全称是：kiss sso意思是简约单点登录系统，由于s太
 
 #交流方式
 
-我们的QQ群号是：**199315835**。本项目的核心成员都在里面，请加入该群提问。
+我们的QQ群号是：__199315835__。本项目的核心成员都在里面，请加入该群提问。
 
 #为什么要用ki4so？
 单点登录系统有很多，开源的成熟的产品也有很多，比如耶鲁大学的cas等。
