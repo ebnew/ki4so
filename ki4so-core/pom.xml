@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <groupId>com.github.ki4so</groupId>
+	<artifactId>ki4so-parent</artifactId>
+    <version>${ki4so.version}</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>ki4so-core</artifactId>
+  <packaging>jar</packaging>
+  <name>简约单点登录系统核心模块</name>
+  <description>
+	简约单点登录系统核心模块，定义了最核心的一些接口，抽象类以及一些默认的实现类，该模块是最核心的模块，其他模块均依赖本模块。
+  </description>
+
+  <dependencies>
+
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-core</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-beans</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>org.mockito</groupId>
+		<artifactId>mockito-core</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+	</dependency>
+    
+  </dependencies>
+
+</project>
