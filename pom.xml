@@ -21,7 +21,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	<modules>
 		<module>ki4so-core</module>
 		<module>ki4so-web</module>
-		<module>ki4so-dao</module>
 	</modules>
 	
 	<build>
