@@ -49,8 +49,7 @@ public class LoginAction {
 		}
 		//有已认证凭据
 		else{
-			//校验原始凭据正确性。
-			
+			//走已认证的登录。
 			
 		}
 		mv.getModel().put("hello", "测试一下");

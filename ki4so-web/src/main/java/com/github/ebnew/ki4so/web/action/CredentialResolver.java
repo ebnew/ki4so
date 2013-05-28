@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.github.ebnew.ki4so.core.authentication.Credential;
 
 /**
- * 凭据解析器，从web请求中解析参数中的各种凭据。
+ * 凭据解析器，从http请求中解析参数中的各种类型的凭据。
  * 包括已认证凭据和未认证凭据。
  * @author burgess yang
  *
