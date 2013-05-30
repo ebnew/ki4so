@@ -7,12 +7,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.ebnew.ki4so.core.authentication.Authentication;
 import com.github.ebnew.ki4so.core.authentication.Credential;
+import com.github.ebnew.ki4so.core.service.Ki4soService;
 
 @Controller
 public class LoginAction {
 	
 	protected CredentialResolver credentialResolver;
+	
+	protected Ki4soService ki4soService;
+	
+	protected AuthenticationToView authenticationToView;
+
+	public void setAuthenticationToView(AuthenticationToView authenticationToView) {
+		this.authenticationToView = authenticationToView;
+	}
+
+	public void setKi4soService(Ki4soService ki4soService) {
+		this.ki4soService = ki4soService;
+	}
 
 	/**
 	 * 设置用户凭据解析器。
@@ -32,27 +46,21 @@ public class LoginAction {
 	public ModelAndView login(HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("login");
-		//解析出已认证凭据。
-		Credential authenticatedCredential = credentialResolver.resolveAuthenticatedCredential(request);
-		//没有已经认证凭据。
-		if(authenticatedCredential==null){
-			//解析未认证原始凭据。
-			Credential unAuthenticatedCredential = credentialResolver.resolveUnAuthenticatedCredential(request);
-			if(unAuthenticatedCredential==null){
-				//返回到登录页面，索取用户凭据。
-				return mv;
-			}
-			//有原始凭据，则走认证原始凭据过程。
-			else{
-				
-			}
-		}
-		//有已认证凭据
-		else{
-			//走已认证的登录。
-			
-		}
 		mv.getModel().put("hello", "测试一下");
+		//解析用户凭据。
+		Credential credential = credentialResolver.resolveCredential(request);
+		//没有提供任何认证凭据。
+		if(credential==null){
+			//返回到登录页面，索取用户凭据。
+			return mv;
+		}
+		//提供了用户凭据
+		else{
+			//调用核心结果进行凭据认证。
+			Authentication authentication = ki4soService.login(credential);
+			//将验证结果转换为视图输出结果。
+			mv = authenticationToView.authenticationToView(mv, authentication);
+		}
 		return mv;
 	}
 	

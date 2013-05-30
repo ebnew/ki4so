@@ -19,14 +19,6 @@ public interface CredentialResolver {
 	 * @param request http servlet请求对象，不能空。
 	 * @return 若没有合法的凭据，请返回空。
 	 */
-	public Credential resolveUnAuthenticatedCredential(HttpServletRequest request);
-	
-	/**
-	 * 从http请求中解析已经经过认证的加密后的用户凭据若没有解析出合法的凭据，
-	 * 则返回null
-	 * @param request http servlet请求对象，不能空。
-	 * @return 若没有合法的凭据，请返回空。
-	 */
-	public Credential resolveAuthenticatedCredential(HttpServletRequest request);
+	public Credential resolveCredential(HttpServletRequest request);
 
 }
