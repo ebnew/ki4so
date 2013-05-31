@@ -1,6 +1,5 @@
 package com.github.ebnew.ki4so.core.service;
 
-import com.github.ebnew.ki4so.core.authentication.Authentication;
 import com.github.ebnew.ki4so.core.authentication.Credential;
 
 /**
@@ -12,7 +11,12 @@ import com.github.ebnew.ki4so.core.authentication.Credential;
  */
 public interface Ki4soService {
 	
-	public Authentication login(Credential credential);
+	/**
+	 * 使用一个用户凭据登录ki4so中心认证服务。
+	 * @param credential 用户凭据。
+	 * @return 登录结果。
+	 */
+	public LoginResult login(Credential credential);
 	
 
 }

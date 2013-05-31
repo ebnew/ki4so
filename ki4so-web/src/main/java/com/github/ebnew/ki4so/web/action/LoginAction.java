@@ -7,9 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.github.ebnew.ki4so.core.authentication.Authentication;
 import com.github.ebnew.ki4so.core.authentication.Credential;
 import com.github.ebnew.ki4so.core.service.Ki4soService;
+import com.github.ebnew.ki4so.core.service.LoginResult;
 
 @Controller
 public class LoginAction {
@@ -18,10 +18,10 @@ public class LoginAction {
 	
 	protected Ki4soService ki4soService;
 	
-	protected AuthenticationToView authenticationToView;
+	protected LoginResultToView loginResultToView;
 
-	public void setAuthenticationToView(AuthenticationToView authenticationToView) {
-		this.authenticationToView = authenticationToView;
+	public void setLoginResultToView(LoginResultToView loginResultToView) {
+		this.loginResultToView = loginResultToView;
 	}
 
 	public void setKi4soService(Ki4soService ki4soService) {
@@ -57,9 +57,9 @@ public class LoginAction {
 		//提供了用户凭据
 		else{
 			//调用核心结果进行凭据认证。
-			Authentication authentication = ki4soService.login(credential);
+			LoginResult result = ki4soService.login(credential);
 			//将验证结果转换为视图输出结果。
-			mv = authenticationToView.authenticationToView(mv, authentication);
+			mv = loginResultToView.loginResultToView(mv, result);
 		}
 		return mv;
 	}

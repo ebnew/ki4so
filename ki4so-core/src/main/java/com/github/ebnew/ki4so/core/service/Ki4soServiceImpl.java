@@ -1,6 +1,5 @@
 package com.github.ebnew.ki4so.core.service;
 
-import com.github.ebnew.ki4so.core.authentication.Authentication;
 import com.github.ebnew.ki4so.core.authentication.AuthenticationManager;
 import com.github.ebnew.ki4so.core.authentication.Credential;
 
@@ -23,7 +22,7 @@ public class Ki4soServiceImpl implements Ki4soService {
 	}
 
 	@Override
-	public Authentication login(Credential credential){
+	public LoginResult login(Credential credential){
 		return null;
 	}
 

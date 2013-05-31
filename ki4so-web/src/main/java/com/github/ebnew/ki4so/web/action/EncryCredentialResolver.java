@@ -5,11 +5,11 @@ import javax.servlet.http.HttpServletRequest;
 import com.github.ebnew.ki4so.core.authentication.Credential;
 
 /**
- * 用户名和密码凭据解析器，从参数中解析出用户的用户名和密码信息。
+ * 经过认证加密后的凭据信息解析器，从http请求的cookie中解析出对应的加密后的凭据信息。
  * @author burgess yang
  *
  */
-public class UsernamePasswordCredentialResolver implements CredentialResolver{
+public class EncryCredentialResolver implements CredentialResolver {
 
 	@Override
 	public Credential resolveCredential(HttpServletRequest request) {
