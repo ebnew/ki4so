@@ -194,6 +194,7 @@ public class LoginActionTest {
 		Assert.assertNotNull(response.getCookies()[0]);
 		Assert.assertEquals(WebConstants.KI4SO_SERVER_ENCRYPTED_CREDENTIAL_COOKIE_KEY, response.getCookies()[0].getName());
 		Assert.assertNotNull(response.getCookies()[0].getValue());
+		//检查返回的cookie值是否正确。
 		
 	}
 	

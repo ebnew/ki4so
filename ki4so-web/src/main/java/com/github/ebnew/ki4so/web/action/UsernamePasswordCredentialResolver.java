@@ -24,7 +24,7 @@ public class UsernamePasswordCredentialResolver implements CredentialResolver{
 
 	@Override
 	public Credential resolveCredential(HttpServletRequest request) {
-		if(request.getParameter(USERNAME_PARAM_NAME)!=null && 
+		if(request!=null && request.getParameter(USERNAME_PARAM_NAME)!=null && 
 				request.getParameter(PASSWORD_PARAM_NAME)!=null){
 			UsernamePasswordCredential credential = new UsernamePasswordCredential();
 			credential.setUsername(request.getParameter(USERNAME_PARAM_NAME));
