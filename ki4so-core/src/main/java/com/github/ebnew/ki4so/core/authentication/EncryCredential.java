@@ -19,7 +19,11 @@ public class EncryCredential implements Credential {
 	public void setCredential(String credential) {
 		this.credential = credential;
 	}
-	
+
+	public EncryCredential(String credential) {
+		super();
+		this.credential = credential;
+	}
 	
 
 }

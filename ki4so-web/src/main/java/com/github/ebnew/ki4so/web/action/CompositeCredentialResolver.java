@@ -12,8 +12,14 @@ import com.github.ebnew.ki4so.core.authentication.Credential;
  */
 public class CompositeCredentialResolver implements CredentialResolver {
 
+	/**
+	 * 加密后的凭据解析器。
+	 */
 	private CredentialResolver encryCredentialResolver;
 	
+	/**
+	 * 原始用户名密码凭据解析器。
+	 */
 	private CredentialResolver usernamePasswordCredentialResolver;
 
 	public CompositeCredentialResolver(){
@@ -21,14 +27,38 @@ public class CompositeCredentialResolver implements CredentialResolver {
 	}
 
 	/**
-	 * <font color="#3f5fbf">从<u>http请求参数的cookie或者参数值中解析出凭据信息对象。</u></font>
-	 * <font color="#3f5fbf"><u>返回解析后的凭据对象。
-	 * 先解析加密后的已认证凭据，若没有则再解析出原始的用户名秘密凭据，若任何凭据都没有则返回null.</u></font>
-	 * 
+	 * 从http请求参数的cookie或者参数值中解析出凭据信息对象。
+	 * 返回解析后的凭据对象。
+	 * 先解析加密后的已认证凭据，若没有则再解析出原始的用户名秘密凭据，若任何凭据都没有则返回null.
 	 * @param request
 	 */
 	public Credential resolveCredential(HttpServletRequest request){
-		return null;
+		if(request==null){
+			return null;
+		}
+		
+		Credential credential = null;
+		if(encryCredentialResolver!=null){
+			//先解析加密后的凭据。
+			credential = encryCredentialResolver.resolveCredential(request);
+		}
+		//若返回空，则用原始凭据解析器解析。
+		if(credential==null){
+			if(usernamePasswordCredentialResolver!=null){
+				credential = usernamePasswordCredentialResolver.resolveCredential(request);
+			}
+		}
+		return credential;
 	}
 
+	public void setEncryCredentialResolver(
+			CredentialResolver encryCredentialResolver) {
+		this.encryCredentialResolver = encryCredentialResolver;
+	}
+
+	public void setUsernamePasswordCredentialResolver(
+			CredentialResolver usernamePasswordCredentialResolver) {
+		this.usernamePasswordCredentialResolver = usernamePasswordCredentialResolver;
+	}
+	
 }
