@@ -8,5 +8,11 @@ package com.github.ebnew.ki4so.core.authentication;
  *
  */
 public interface Credential {
+	
+	/**
+	 * 是否原始凭据，即未认证过的原始信息。
+	 * @return 是否原始凭据，true：原始凭据，false:加密后的凭据。
+	 */
+	public boolean isOriginal();
 
 }

@@ -24,6 +24,11 @@ public class EncryCredential implements Credential {
 		super();
 		this.credential = credential;
 	}
+
+	@Override
+	public boolean isOriginal() {
+		return false;
+	}
 	
 
 }

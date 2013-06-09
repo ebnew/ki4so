@@ -1,6 +1,5 @@
 package com.github.ebnew.ki4so.web.action;
 
-import static org.junit.Assert.*;
 import junit.framework.Assert;
 
 import org.junit.After;
