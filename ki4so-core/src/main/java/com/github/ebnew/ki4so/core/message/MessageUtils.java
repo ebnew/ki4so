@@ -3,8 +3,10 @@ package com.github.ebnew.ki4so.core.message;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.github.ebnew.ki4so.core.exception.EmptyCredentialException;
 import com.github.ebnew.ki4so.core.exception.InvalidEncryCredentialException;
 import com.github.ebnew.ki4so.core.exception.PasswordInvalidException;
+import com.github.ebnew.ki4so.core.exception.UnsupportedCredentialsException;
 import com.github.ebnew.ki4so.core.exception.UsernameInvalidException;
 import com.github.ebnew.ki4so.core.exception.UsernameOrPasswordEmptyException;
 
@@ -28,7 +30,8 @@ public class MessageUtils {
 		msgMap.put(UsernameOrPasswordEmptyException.MSG_KEY, "用户名或者密码为空");
 		msgMap.put(UsernameInvalidException.MSG_KEY, "用户名不存在");
 		msgMap.put(PasswordInvalidException.MSG_KEY, "密码错误");
-		
+		msgMap.put(EmptyCredentialException.MSG_KEY, "凭据为空");
+		msgMap.put(UnsupportedCredentialsException.MSG_KEY, "不支持的用户凭据");
 	}
 	
 	

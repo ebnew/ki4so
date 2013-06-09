@@ -31,6 +31,11 @@ public class UsernamePasswordCredential implements Credential{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	@Override
+	public boolean isOriginal() {
+		return true;
+	}
 	
 	
 	

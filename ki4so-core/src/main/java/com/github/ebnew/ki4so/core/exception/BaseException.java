@@ -21,7 +21,7 @@ public abstract class BaseException extends RuntimeException {
 	/**
 	 * 异常详细信息键值，根据该键值查找某种语言下的具体值。
 	 */
-	private String meessage;
+	private String msgKey;
 
 	public String getCode() {
 		return code;
@@ -31,21 +31,18 @@ public abstract class BaseException extends RuntimeException {
 		this.code = code;
 	}
 
-	public String getMeessage() {
-		return meessage;
+	public String getMsgKey() {
+		return msgKey;
 	}
 
-	public void setMeessage(String meessage) {
-		this.meessage = meessage;
+	public void setMsgKey(String msgKey) {
+		this.msgKey = msgKey;
 	}
 
-	public BaseException(String code, String meessage) {
+	public BaseException(String code, String msgKey) {
 		super();
 		this.code = code;
-		this.meessage = meessage;
+		this.msgKey = msgKey;
 	}
-	
-	
-	
 	
 }
