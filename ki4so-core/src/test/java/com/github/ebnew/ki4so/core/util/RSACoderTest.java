@@ -22,15 +22,18 @@ public class RSACoderTest {
 
 	@Test
 	public void test() throws Exception {
-		String str = "tianchen";
+		String str = "[id:1234,loginName:tianchen,appId:123]";
 		byte [] data = str.getBytes();
 		//公钥加密字符串
 		byte [] enStr = RSACoder.encryptByPublicKey(data, publicKey);
+		//解密后上午字符串。用base64转换成字符串给给前端
+		String enCode = RSACoder.encryptBASE64(enStr);
+		//用base64解密成byte数组
+		byte [] deCode = RSACoder.decryptBASE64(enCode);
 		//私钥解密
-		byte [] deStr = RSACoder.decryptByPrivateKey(enStr, privateKey);
+		byte [] deStr = RSACoder.decryptByPrivateKey(deCode, privateKey);
 		
-		System.out.println("原始字符串:"+str+"\n"+"加密后字符串"+enStr+"\n解密后字符串:"+new String(deStr));
+		System.out.println("原始字符串:"+str+"\n"+"加密后字符串:"+enCode+"\n解密后字符串:"+new String(deStr));
 	}
 
-	
 }
