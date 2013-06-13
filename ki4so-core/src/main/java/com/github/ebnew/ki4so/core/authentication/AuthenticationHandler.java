@@ -11,7 +11,7 @@ public interface AuthenticationHandler {
 	/**
 	 * 认证方法，返回true表示认证成功，false表示认证失败
 	 * 
-	 * @param credential
+	 * @param credential 用户凭据
 	 */
 	public boolean authenticate(Credential credential);
 
@@ -19,7 +19,7 @@ public interface AuthenticationHandler {
 	 * 是否支持用户凭证credential的认证处理，返回值true表示支持，
 	 * false表示不支持，若不支持该凭证，则忽略。
 	 * 
-	 * @param credential
+	 * @param credential 用户凭据
 	 */
 	public boolean supports(Credential credential);
 

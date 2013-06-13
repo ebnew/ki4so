@@ -28,26 +28,15 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 	 */
 	private AuthenticationPostHandler authenticationPostHandler;
 	
-	public AuthenticationPostHandler getAuthenticationPostHandler() {
-		return authenticationPostHandler;
-	}
 
 	public void setAuthenticationPostHandler(
 			AuthenticationPostHandler authenticationPostHandler) {
 		this.authenticationPostHandler = authenticationPostHandler;
 	}
 
-	public List<CredentialToPrincipalResolver> getCredentialToPrincipalResolvers() {
-		return credentialToPrincipalResolvers;
-	}
-
 	public void setCredentialToPrincipalResolvers(
 			List<CredentialToPrincipalResolver> credentialToPrincipalResolvers) {
 		this.credentialToPrincipalResolvers = credentialToPrincipalResolvers;
-	}
-
-	public List<AuthenticationHandler> getAuthenticationHandlers() {
-		return authenticationHandlers;
 	}
 
 	public void setAuthenticationHandlers(
@@ -94,6 +83,8 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 		}
 		
 		Principal principal = null;
+		//初始化是否找到合适的凭据转换器。
+		foundSupported = false;
 		//循环调用所有的用户凭据解析器。
 		if(credentialToPrincipalResolvers!=null && credentialToPrincipalResolvers.size()>0){
 			for(CredentialToPrincipalResolver resolver:credentialToPrincipalResolvers){
@@ -112,7 +103,7 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 		if(!foundSupported){
 			throw new UnsupportedCredentialsException();
 		}
-		return authenticationPostHandler.postAuthentication(credential, principal);
+		return authenticationPostHandler.postAuthentication(authenticated, credential, principal);
 	}
 
 }
