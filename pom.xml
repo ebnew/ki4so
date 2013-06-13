@@ -21,6 +21,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	<modules>
 		<module>ki4so-core</module>
 		<module>ki4so-web</module>
+		<module>ki4so-common</module>
 	</modules>
 	
 	<build>
@@ -111,6 +112,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 				<scope>test</scope>
 			</dependency>
             
+            <dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>1.2.17</version>
+			</dependency>
+			            
 
 		</dependencies>
 	</dependencyManagement>

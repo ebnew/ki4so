@@ -268,8 +268,7 @@ public abstract class RSACoder {
 	 * @throws Exception
 	 */
 	public static Map<String, Object> initKey(String seed) throws Exception {
-				KeyPairGenerator keyPairGen = KeyPairGenerator
-				.getInstance(KEY_ALGORITHM);
+				KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
 		
 		SecureRandom secureRandom = new SecureRandom();
 		secureRandom.setSeed(seed.getBytes());
