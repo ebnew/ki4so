@@ -3,6 +3,7 @@ package com.github.ebnew.ki4so.core.authentication;
 import java.util.List;
 import com.github.ebnew.ki4so.core.exception.EmptyCredentialException;
 import com.github.ebnew.ki4so.core.exception.InvalidCredentialException;
+import com.github.ebnew.ki4so.core.exception.NoAuthenticationPostHandlerException;
 import com.github.ebnew.ki4so.core.exception.UnsupportedCredentialsException;
 
 /**
@@ -102,6 +103,10 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 		//未找到支持的用户凭据解析器。
 		if(!foundSupported){
 			throw new UnsupportedCredentialsException();
+		}
+		//若认证后处理器对象为空，则抛出异常。
+		if(authenticationPostHandler==null){
+			throw new NoAuthenticationPostHandlerException();
 		}
 		return authenticationPostHandler.postAuthentication(authenticated, credential, principal);
 	}

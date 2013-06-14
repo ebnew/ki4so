@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.github.ebnew.ki4so.core.exception.EmptyCredentialException;
+import com.github.ebnew.ki4so.core.exception.NoAuthenticationPostHandlerException;
 import com.github.ebnew.ki4so.core.exception.UnsupportedCredentialsException;
 
 public class AuthenticationManagerImplTest {
@@ -75,7 +76,7 @@ public class AuthenticationManagerImplTest {
 		}
 		
 		
-		//测试情况5，测试存在合法的认证处理器的情况。
+		//测试情况5，测试存在合法的认证处理器的情况，但是无合法的凭据转换器。
 		handler = Mockito.mock(AuthenticationHandler.class);
 		Mockito.when(handler.supports(credential)).thenReturn(true);
 		Mockito.when(handler.authenticate(credential)).thenReturn(true);
@@ -84,11 +85,68 @@ public class AuthenticationManagerImplTest {
 			authenticationHandlers.add(handler);
 			authenticationManager.setAuthenticationHandlers(authenticationHandlers);
 			authenticationManager.authenticate(credential);
-			fail("当没有认证处理器应该抛出异常信息");
+			fail("当没有凭据转换器应该抛出异常信息");
 		}catch (UnsupportedCredentialsException e) {
 			
 		}
 		
+		
+		//测试情况6，测试存在合法的认证处理器的情况，但是凭据转换器列表不为空，但是集合中的元素为空。
+		List<CredentialToPrincipalResolver> resolvers = new ArrayList<CredentialToPrincipalResolver>();
+		handler = Mockito.mock(AuthenticationHandler.class);
+		Mockito.when(handler.supports(credential)).thenReturn(true);
+		Mockito.when(handler.authenticate(credential)).thenReturn(true);
+		try{
+			authenticationHandlers = new ArrayList<AuthenticationHandler>();
+			authenticationHandlers.add(handler);
+			authenticationManager.setAuthenticationHandlers(authenticationHandlers);
+			authenticationManager.setCredentialToPrincipalResolvers(resolvers);
+			authenticationManager.authenticate(credential);
+			fail("当没有凭据转换器应该抛出异常信息");
+		}catch (UnsupportedCredentialsException e) {
+			
+		}
+		
+		//测试情况7，测试存在合法的认证处理器的情况，但是凭据转换器列表不为空，但是集合中的元素不为空，认证后处理器对象是空。
+		handler = Mockito.mock(AuthenticationHandler.class);
+		Mockito.when(handler.supports(credential)).thenReturn(true);
+		Mockito.when(handler.authenticate(credential)).thenReturn(true);
+		CredentialToPrincipalResolver resolver = Mockito.mock(CredentialToPrincipalResolver.class);
+		Principal principal = Mockito.mock(Principal.class);
+		Mockito.when(resolver.supports(credential)).thenReturn(true);
+		Mockito.when(resolver.resolvePrincipal(credential)).thenReturn(principal);
+		try{
+			authenticationHandlers = new ArrayList<AuthenticationHandler>();
+			authenticationHandlers.add(handler);
+			authenticationManager.setAuthenticationHandlers(authenticationHandlers);
+			resolvers = new ArrayList<CredentialToPrincipalResolver>();
+			resolvers.add(resolver);
+			authenticationManager.setCredentialToPrincipalResolvers(resolvers);
+			authenticationManager.authenticate(credential);
+			fail("当没有认证后处理器应该抛出异常信息");
+		}catch (NoAuthenticationPostHandlerException e) {
+			
+		}
+		
+		//测试情况8，测试存在合法的认证处理器的情况，但是凭据转换器列表不为空，但是集合中的元素不为空，认证后处理器对象不是空。
+		handler = Mockito.mock(AuthenticationHandler.class);
+		Mockito.when(handler.supports(credential)).thenReturn(true);
+		Mockito.when(handler.authenticate(credential)).thenReturn(true);
+		resolver = Mockito.mock(CredentialToPrincipalResolver.class);
+		principal = Mockito.mock(Principal.class);
+		Mockito.when(resolver.supports(credential)).thenReturn(true);
+		Mockito.when(resolver.resolvePrincipal(credential)).thenReturn(principal);
+		AuthenticationPostHandler authenticationPostHandler = Mockito.mock(AuthenticationPostHandler.class);
+		Authentication authentication = Mockito.mock(Authentication.class);
+		Mockito.when(authenticationPostHandler.postAuthentication(true, credential, principal)).thenReturn(authentication);
+		authenticationHandlers = new ArrayList<AuthenticationHandler>();
+		authenticationHandlers.add(handler);
+		authenticationManager.setAuthenticationHandlers(authenticationHandlers);
+		resolvers = new ArrayList<CredentialToPrincipalResolver>();
+		resolvers.add(resolver);
+		authenticationManager.setCredentialToPrincipalResolvers(resolvers);
+		authenticationManager.setAuthenticationPostHandler(authenticationPostHandler);
+		authenticationManager.authenticate(credential);
 	}
 
 }
