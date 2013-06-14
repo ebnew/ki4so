@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>ki4so-parent</artifactId>
+    <groupId>com.github.ki4so</groupId>
+    <version>${ki4so.version}</version>
+  </parent>
+  <groupId>ki4so-common</groupId>
+  <artifactId>ki4so-common</artifactId>
+  <version>${ki4so.version}</version>
+  <name>简约单点登录系统工具模块</name>
+  <description>简约单点登录系统工具模块，提供加密解密等工具类</description>
+  
+  <dependencies>
+
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-core</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-beans</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>org.mockito</groupId>
+		<artifactId>mockito-core</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+	</dependency>
+	
+    <dependency>
+	  <groupId>net.sf.json-lib</groupId>
+	  <artifactId>json-lib</artifactId>
+	  <version>2.4</version>
+	  <classifier>jdk15</classifier>
+	</dependency>
+  </dependencies>
+</project>

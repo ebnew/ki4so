@@ -12,7 +12,7 @@ public class RSACoderTest {
 
 	@Before
 	public void setUp() throws Exception {
-		Map<String, Object> keyMap = RSACoder.initKey("MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCMfU9jlnAqAmztEMmQfABlmChOzRpvFv9Rab9Q");
+		Map<String, Object> keyMap = RSACoder.initKey("123123213213");
 
 		publicKey = RSACoder.getPublicKey(keyMap);
 		privateKey = RSACoder.getPrivateKey(keyMap);
