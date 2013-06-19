@@ -10,3 +10,5 @@
 /ki4so-common/.settings
 /ki4so-common/target
 /ki4so-common/.classpath
+/.project
+/.gitignore
