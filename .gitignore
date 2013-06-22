@@ -6,3 +6,9 @@
 /ki4so-web/.classpath
 /ki4so-web/target
 /ki4so-core/target
+/ki4so-common/.project
+/ki4so-common/.settings
+/ki4so-common/target
+/ki4so-common/.classpath
+/.project
+/.gitignore
