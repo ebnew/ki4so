@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.github.ebnew.ki4so.core.authentication.handlers.AuthenticationHandler;
+import com.github.ebnew.ki4so.core.authentication.resolvers.CredentialToPrincipalResolver;
 import com.github.ebnew.ki4so.core.exception.EmptyCredentialException;
 import com.github.ebnew.ki4so.core.exception.NoAuthenticationPostHandlerException;
 import com.github.ebnew.ki4so.core.exception.UnsupportedCredentialsException;

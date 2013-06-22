@@ -3,6 +3,7 @@ package com.github.ebnew.ki4so.core.authentication;
 import java.util.List;
 
 import com.github.ebnew.ki4so.core.authentication.handlers.AuthenticationHandler;
+import com.github.ebnew.ki4so.core.authentication.resolvers.CredentialToPrincipalResolver;
 import com.github.ebnew.ki4so.core.exception.EmptyCredentialException;
 import com.github.ebnew.ki4so.core.exception.InvalidCredentialException;
 import com.github.ebnew.ki4so.core.exception.NoAuthenticationPostHandlerException;
