@@ -26,10 +26,13 @@ public class UsernamePasswordCredentialToPrincipalResolver implements Credential
 	@Override
 	public Principal resolvePrincipal(Credential credential) {
 		//若类型匹配，则进行转换。
-		if(credential instanceof UsernamePasswordCredential){
+		if(credential!=null && this.supports(credential)){
 			UsernamePasswordCredential usernamePasswordCredential = (UsernamePasswordCredential)credential;
 			DefaultUserPrincipal principal = new DefaultUserPrincipal();
+			//设置用户名为唯一标识。
 			principal.setId(usernamePasswordCredential.getUsername());
+			//设置参数表为用户属性。
+			principal.setAttributes(usernamePasswordCredential.getParameters());
 			return principal;
 		}
 		return null;

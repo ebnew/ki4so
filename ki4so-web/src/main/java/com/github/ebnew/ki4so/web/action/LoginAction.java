@@ -3,6 +3,7 @@ package com.github.ebnew.ki4so.web.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,8 +15,10 @@ import com.github.ebnew.ki4so.core.service.LoginResult;
 @Controller
 public class LoginAction {
 	
+	@Autowired
 	protected CredentialResolver credentialResolver;
 	
+	@Autowired
 	protected Ki4soService ki4soService;
 	
 	protected LoginResultToView loginResultToView;
