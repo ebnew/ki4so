@@ -17,6 +17,8 @@
 	<bean id="ki4soService" class="com.github.ebnew.ki4so.core.service.Ki4soServiceImpl">
 		<property name="authenticationManager" ref="authenticationManager"></property>
 	</bean>
+	
+	<bean id="loginResultToView" class="com.github.ebnew.ki4so.web.action.DefaultLoginResultToView"></bean>
 
 	<!-- 认证管理器对象。 -->
 	<bean id="authenticationManager" class="com.github.ebnew.ki4so.core.authentication.AuthenticationManagerImpl">
@@ -33,9 +35,7 @@
 		</property>
 		
 		<property name="authenticationPostHandler">
-			<list>
-				<bean class="com.github.ebnew.ki4so.core.authentication.resolvers.UsernamePasswordCredentialToPrincipalResolver"></bean>
-			</list>
+			<bean class="com.github.ebnew.ki4so.core.authentication.DefaultAuthenticationPostHandler"></bean>
 		</property>
 	</bean>
 

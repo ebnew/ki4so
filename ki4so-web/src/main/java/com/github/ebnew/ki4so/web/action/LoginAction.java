@@ -21,6 +21,7 @@ public class LoginAction {
 	@Autowired
 	protected Ki4soService ki4soService;
 	
+	@Autowired
 	protected LoginResultToView loginResultToView;
 
 	public void setLoginResultToView(LoginResultToView loginResultToView) {

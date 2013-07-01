@@ -13,8 +13,7 @@ public class DefaultLoginResultToView implements LoginResultToView {
 
 	@Override
 	public ModelAndView loginResultToView(ModelAndView mv, LoginResult result) {
-		// TODO Auto-generated method stub
-		return null;
+		return mv;
 	}
 
 }
