@@ -1,6 +1,6 @@
 package com.github.ebnew.ki4so.core.authentication;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,7 +140,7 @@ public class AuthenticationManagerImplTest {
 		Mockito.when(resolver.resolvePrincipal(credential)).thenReturn(principal);
 		AuthenticationPostHandler authenticationPostHandler = Mockito.mock(AuthenticationPostHandler.class);
 		Authentication authentication = Mockito.mock(Authentication.class);
-		Mockito.when(authenticationPostHandler.postAuthentication(true, credential, principal)).thenReturn(authentication);
+		Mockito.when(authenticationPostHandler.postAuthentication(credential, principal)).thenReturn(authentication);
 		authenticationHandlers = new ArrayList<AuthenticationHandler>();
 		authenticationHandlers.add(handler);
 		authenticationManager.setAuthenticationHandlers(authenticationHandlers);

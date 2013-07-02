@@ -1,6 +1,6 @@
 package com.github.ebnew.ki4so.core.exception;
 
-public class NoAuthenticationPostHandlerException extends BaseException{
+public class NoAuthenticationPostHandlerException extends AuthenticationException{
 
 	/**
 	 * 

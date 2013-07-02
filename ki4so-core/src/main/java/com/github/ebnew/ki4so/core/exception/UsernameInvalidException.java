@@ -1,11 +1,13 @@
 package com.github.ebnew.ki4so.core.exception;
 
 /**
- * 用户名不合法的异常信息
+ * 用户名不合法的异常类。
  * @author burgess yang
  *
  */
-public class UsernameInvalidException extends InvalidCredentialException {
+public class UsernameInvalidException extends InvalidCredentialException{
+	
+	public static final UsernameInvalidException INSTANCE = new UsernameInvalidException();
 
 	/**
 	 * 
@@ -25,5 +27,4 @@ public class UsernameInvalidException extends InvalidCredentialException {
 	public UsernameInvalidException() {
 		super(CODE, MSG_KEY);
 	}
-
 }

@@ -12,3 +12,11 @@
 /ki4so-common/.classpath
 /.project
 /.gitignore
+/ki4so-parent.ipr
+/ki4so-parent.iws
+/ki4so-parent.iml
+/ki4so-core/ki4so-core.iml
+/ki4so-core/.idea
+/ki4so-web/ki4so-web.iml
+/ki4so-web/.idea
+/ki4so-common/ki4so-common.iml

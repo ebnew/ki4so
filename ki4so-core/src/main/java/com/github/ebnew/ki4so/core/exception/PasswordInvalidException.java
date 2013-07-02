@@ -6,6 +6,9 @@ package com.github.ebnew.ki4so.core.exception;
  *
  */
 public class PasswordInvalidException extends InvalidCredentialException {
+	
+	public static final PasswordInvalidException INSTANCE = new PasswordInvalidException();
+	
 	/**
 	 * 
 	 */

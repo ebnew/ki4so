@@ -4,12 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.github.ebnew.ki4so.core.exception.EmptyCredentialException;
+import com.github.ebnew.ki4so.core.exception.InvalidCredentialException;
 import com.github.ebnew.ki4so.core.exception.InvalidEncryCredentialException;
 import com.github.ebnew.ki4so.core.exception.NoAuthenticationPostHandlerException;
 import com.github.ebnew.ki4so.core.exception.PasswordInvalidException;
 import com.github.ebnew.ki4so.core.exception.UnsupportedCredentialsException;
-import com.github.ebnew.ki4so.core.exception.UsernameInvalidException;
 import com.github.ebnew.ki4so.core.exception.UsernameOrPasswordEmptyException;
+import com.github.ebnew.ki4so.core.exception.UsernameOrPasswordInvalidException;
 
 /**
  * 使用简单的国际化策略，只支持中文，以后可以改成更加灵活的
@@ -27,9 +28,10 @@ public class MessageUtils {
 	static{
 		//初始化消息表。
 		msgMap = new HashMap<String, String>();
-		msgMap.put(InvalidEncryCredentialException.MSG_KEY, "不合法的登录凭据");
+		msgMap.put(InvalidCredentialException.MSG_KEY, "不合法的凭据");
+		msgMap.put(InvalidEncryCredentialException.MSG_KEY, "不合法的加密凭据");
 		msgMap.put(UsernameOrPasswordEmptyException.MSG_KEY, "用户名或者密码为空");
-		msgMap.put(UsernameInvalidException.MSG_KEY, "用户名不存在");
+		msgMap.put(UsernameOrPasswordInvalidException.MSG_KEY, "用户名或者密码不正确");
 		msgMap.put(PasswordInvalidException.MSG_KEY, "密码错误");
 		msgMap.put(EmptyCredentialException.MSG_KEY, "凭据为空");
 		msgMap.put(UnsupportedCredentialsException.MSG_KEY, "不支持的用户凭据");

@@ -5,10 +5,26 @@ package com.github.ebnew.ki4so.core.exception;
  * @author Administrator
  *
  */
-public class InvalidCredentialException extends BaseException {
+public class InvalidCredentialException extends AuthenticationException {
+	
+	public static final InvalidCredentialException INSTANCE = new InvalidCredentialException();
+	
+	/**
+	 * 异常代码值。
+	 */
+	public static final String CODE = "INVALID.CREDENTIAL.CODE";
+	
+	/**
+	 * 异常信息键值，要转换为具体的语言值。
+	 */
+	public static final String MSG_KEY = "INVALID.CREDENTIAL.MSG";
+	
+	public InvalidCredentialException(String code, String msgKey) {
+		super(code, msgKey);
+	}
 
-	public InvalidCredentialException(String code, String meessage) {
-		super(code, meessage);
+	public InvalidCredentialException() {
+		super(CODE, MSG_KEY);
 	}
 
 	/**

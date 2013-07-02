@@ -1,6 +1,8 @@
 package com.github.ebnew.ki4so.core.exception;
 
 public class EmptyCredentialException extends InvalidCredentialException {
+	
+	public static final EmptyCredentialException INSTANCE = new EmptyCredentialException();
 
 	/**
 	 * 

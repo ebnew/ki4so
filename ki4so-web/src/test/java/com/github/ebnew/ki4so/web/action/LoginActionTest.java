@@ -7,6 +7,7 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,6 +44,10 @@ public class LoginActionTest {
 		//构造模拟请求和响应对象。
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpServletResponse response = new MockHttpServletResponse();
+		
+		CredentialResolver credentialResolver = Mockito.mock(CredentialResolver.class);
+		loginAction.setCredentialResolver(credentialResolver);
+		
 		/**
 		 * 测试无任何认证凭据的情况。
 		 */

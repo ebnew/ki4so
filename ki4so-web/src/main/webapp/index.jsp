@@ -7,6 +7,9 @@
 <title>首页</title>
 </head>
 <body>
-首页
+这是ki4so服务端的web工程，请访问默认登录页面。
+<p>
+	<a href="login.do">登录页面</a>
+</p>
 </body>
 </html>

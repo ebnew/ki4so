@@ -2,7 +2,7 @@ package com.github.ebnew.ki4so.core.authentication.handlers;
 
 import com.github.ebnew.ki4so.core.authentication.Credential;
 import com.github.ebnew.ki4so.core.authentication.UsernamePasswordCredential;
-import com.github.ebnew.ki4so.core.exception.InvalidCredentialException;
+import com.github.ebnew.ki4so.core.exception.AuthenticationException;
 
 /**
  * Abstract class to override supports so that we don't need to duplicate the
@@ -42,7 +42,7 @@ public abstract class AbstractUsernamePasswordAuthenticationHandler extends
 	 * subclasses do not need to cast.
 	 */
 	protected final boolean doAuthentication(final Credential credential)
-			throws InvalidCredentialException {
+			throws AuthenticationException {
 		return authenticateUsernamePasswordInternal((UsernamePasswordCredential) credential);
 	}
 
@@ -59,7 +59,7 @@ public abstract class AbstractUsernamePasswordAuthenticationHandler extends
 	 */
 	protected abstract boolean authenticateUsernamePasswordInternal(
 			final UsernamePasswordCredential credential)
-			throws InvalidCredentialException;
+			throws AuthenticationException;
 
 	/**
 	 * Method to return the PasswordEncoder to be used to encode passwords.

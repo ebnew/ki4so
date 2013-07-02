@@ -15,6 +15,7 @@
 	<legend>登录</legend>
 	<label>用户名：<input type="text" name="username"/></label>
 	<label>密&nbsp;码：<input type="password" name="password"/></label>
+	<label></label>
 	<label><input type="submit" name="submit" value="提交"/></label>
 </fieldset>
 </form>

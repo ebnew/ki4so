@@ -21,6 +21,7 @@ package com.github.ebnew.ki4so.core.authentication.handlers;
 import org.springframework.util.StringUtils;
 
 import com.github.ebnew.ki4so.core.authentication.UsernamePasswordCredential;
+import com.github.ebnew.ki4so.core.exception.UsernameOrPasswordInvalidException;
 
 /**
  * Simple test implementation of a AuthenticationHandler that returns true if
@@ -49,6 +50,6 @@ public final class SimpleTestUsernamePasswordAuthenticationHandler extends
 				&& username.equals(getPasswordEncoder().encode(password))) {
 			return true;
 		}
-		return false;
+		throw UsernameOrPasswordInvalidException.INSTANCE;
 	}
 }

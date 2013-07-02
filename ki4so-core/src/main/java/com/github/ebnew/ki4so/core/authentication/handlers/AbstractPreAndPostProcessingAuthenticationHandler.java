@@ -1,6 +1,7 @@
 package com.github.ebnew.ki4so.core.authentication.handlers;
 
 import com.github.ebnew.ki4so.core.authentication.Credential;
+import com.github.ebnew.ki4so.core.exception.AuthenticationException;
 import com.github.ebnew.ki4so.core.exception.InvalidCredentialException;
 
 /**
@@ -37,7 +38,7 @@ public abstract class AbstractPreAndPostProcessingAuthenticationHandler
 	}
 
 	public final boolean authenticate(final Credential credential)
-			throws InvalidCredentialException {
+			throws AuthenticationException {
 
 		if (!preAuthenticate(credential)) {
 			return false;
@@ -56,6 +57,6 @@ public abstract class AbstractPreAndPostProcessingAuthenticationHandler
 	 * @throws InvalidCredentialException
 	 */
 	protected abstract boolean doAuthentication(final Credential credential)
-			throws InvalidCredentialException;
+			throws AuthenticationException;
 
 }

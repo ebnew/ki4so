@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.github.ebnew.ki4so.core.authentication.handlers.AuthenticationHandler;
 import com.github.ebnew.ki4so.core.authentication.resolvers.CredentialToPrincipalResolver;
+import com.github.ebnew.ki4so.core.exception.AuthenticationException;
 import com.github.ebnew.ki4so.core.exception.EmptyCredentialException;
 import com.github.ebnew.ki4so.core.exception.InvalidCredentialException;
 import com.github.ebnew.ki4so.core.exception.NoAuthenticationPostHandlerException;
@@ -67,23 +68,37 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 		if(credential==null){
 			throw new EmptyCredentialException();
 		}
+		
+		//初始化的认证异常信息。
+		AuthenticationException unAuthSupportedHandlerException = InvalidCredentialException.INSTANCE; 
+		
 		//循环调用所有的认证处理器。
 		if(authenticationHandlers!=null && authenticationHandlers.size()>0){
 			for(AuthenticationHandler handler:authenticationHandlers){
 				//认证处理器是否支持该凭据。
 				if(handler.supports(credential)){
 					foundSupported = true;
-					authenticated = handler.authenticate(credential);
-					//若认证成功，则跳出循环。
-					if(authenticated){
-						break;
+					try {
+						authenticated = handler.authenticate(credential);
+						//若认证成功，则跳出循环。
+						if(authenticated){
+							break;
+						}
+					}catch (AuthenticationException e) {
+						unAuthSupportedHandlerException = e;
 					}
+					
 				}
 			}
 		}
 		//未找到支持的认证处理器。
 		if(!foundSupported){
 			throw new UnsupportedCredentialsException();
+		}
+		
+		//若未认证通过，则抛出最后一个异常信息。
+		if(!authenticated){
+			throw unAuthSupportedHandlerException;
 		}
 		
 		Principal principal = null;
@@ -111,7 +126,9 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 		if(authenticationPostHandler==null){
 			throw new NoAuthenticationPostHandlerException();
 		}
-		return authenticationPostHandler.postAuthentication(authenticated, credential, principal);
+		
+		//交由认证后处理器进行处理。
+		return authenticationPostHandler.postAuthentication(credential, principal);
 	}
 
 }
