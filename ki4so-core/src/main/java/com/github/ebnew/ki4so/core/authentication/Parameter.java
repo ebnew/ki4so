@@ -18,9 +18,15 @@ public interface Parameter {
 	
 	
 	/**
-	 * 通过所有的参数表。
+	 * 获得所有的参数表。
 	 * @return 所有的参数列表。
 	 */
 	public Map<String, Object> getParameters();
+	
+	/**
+	 * 设置参数列表。
+	 * @param parameters 要设置的参数表。
+	 */
+	public void setParameters(Map<String, Object> parameters);
 
 }

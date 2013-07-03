@@ -54,6 +54,9 @@ public class UsernamePasswordCredentialResolverTest {
 		Assert.assertNotNull(credential);
 		Assert.assertEquals(username, credential.getUsername());
 		Assert.assertEquals(password, credential.getPassword());
+		
+		Assert.assertEquals(2, credential.getParameters().size());
+		
 	}
 
 }

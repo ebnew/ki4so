@@ -5,7 +5,7 @@ package com.github.ebnew.ki4so.core.authentication;
  * @author bugess yang
  *
  */
-public class EncryCredential implements Credential {
+public class EncryCredential extends AbstractParameter implements Credential{
 	
 	/**
 	 * 加密后的用户凭据串。

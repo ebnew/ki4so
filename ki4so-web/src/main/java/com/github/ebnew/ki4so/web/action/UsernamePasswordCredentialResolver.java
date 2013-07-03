@@ -10,7 +10,7 @@ import com.github.ebnew.ki4so.core.authentication.UsernamePasswordCredential;
  * @author burgess yang
  *
  */
-public class UsernamePasswordCredentialResolver implements CredentialResolver{
+public class UsernamePasswordCredentialResolver extends AbstractParameterCredentialResolver{
 	
 	/**
 	 * 用户名的参数名。
@@ -23,7 +23,7 @@ public class UsernamePasswordCredentialResolver implements CredentialResolver{
 	public static final String PASSWORD_PARAM_NAME = "password";
 
 	@Override
-	public Credential resolveCredential(HttpServletRequest request) {
+	public Credential doResolveCredential(HttpServletRequest request) {
 		if(request!=null && request.getParameter(USERNAME_PARAM_NAME)!=null && 
 				request.getParameter(PASSWORD_PARAM_NAME)!=null){
 			UsernamePasswordCredential credential = new UsernamePasswordCredential();
