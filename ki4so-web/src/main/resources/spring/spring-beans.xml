@@ -25,6 +25,7 @@
 		<property name="authenticationHandlers">
 			<list>
 				<bean class="com.github.ebnew.ki4so.core.authentication.handlers.SimpleTestUsernamePasswordAuthenticationHandler"></bean>
+				<bean class="com.github.ebnew.ki4so.core.authentication.handlers.EncryCredentialAuthenticationHandler"></bean>
 			</list>
 		</property>
 		

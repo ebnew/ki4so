@@ -4,49 +4,90 @@ import javax.servlet.http.Cookie;
 
 import junit.framework.Assert;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.github.ebnew.ki4so.core.authentication.Credential;
 import com.github.ebnew.ki4so.core.exception.InvalidEncryCredentialException;
 import com.github.ebnew.ki4so.core.exception.PasswordInvalidException;
 import com.github.ebnew.ki4so.core.exception.UsernameInvalidException;
 import com.github.ebnew.ki4so.core.exception.UsernameOrPasswordEmptyException;
 import com.github.ebnew.ki4so.core.message.MessageUtils;
+import com.github.ebnew.ki4so.core.service.Ki4soService;
+import com.github.ebnew.ki4so.core.service.LoginResult;
 import com.github.ebnew.ki4so.web.utils.WebConstants;
 
-public class LoginActionTest {
+/**
+ * LoginAction类测试，包括集成测试和单元测试。
+ * @author burgess yang
+ *
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"classpath:spring/springmvc-config.xml", "classpath:spring/spring-beans.xml"})
+public class LoginActionTest extends AbstractJUnit4SpringContextTests{
 
 	/**
 	 * 被测对象。
 	 */
+	@Autowired
 	private LoginAction loginAction;
 	
-	@Before
-	public void setUp() throws Exception {
-		loginAction = new LoginAction();
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-
-	/**
-	 * 测试登录方法。
-	 */
 	@Test
-	public void testLogin() {
+	public void unitTestLogin() {
+		LoginAction action = new LoginAction();
 		//构造模拟请求和响应对象。
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		
 		CredentialResolver credentialResolver = Mockito.mock(CredentialResolver.class);
-		loginAction.setCredentialResolver(credentialResolver);
+		action.setCredentialResolver(credentialResolver);
+		
+		/**
+		 * 测试无任何认证凭据的情况。
+		 */
+		ModelAndView mv = action.login(request, response);
+		Mockito.when(credentialResolver.resolveCredential(request)).thenReturn(null);
+		Assert.assertNotNull(mv);
+		//直接返回登录页面。
+		Assert.assertEquals("login", mv.getViewName());
+		//无参数输出。
+		Assert.assertEquals(0, mv.getModel().size());
+		
+		/**
+		 * 测试返回凭据对象的情况。
+		 */
+		Credential credential = Mockito.mock(Credential.class);
+		LoginResult loginResult = Mockito.mock(LoginResult.class);
+		ModelAndView result = Mockito.mock(ModelAndView.class);
+		
+		Mockito.when(credentialResolver.resolveCredential(request)).thenReturn(credential);
+		Ki4soService ki4soService = Mockito.mock(Ki4soService.class);
+		action.setKi4soService(ki4soService);
+		LoginResultToView loginResultToView = Mockito.mock(LoginResultToView.class);
+		action.setLoginResultToView(loginResultToView);
+		Mockito.when(ki4soService.login(Mockito.any(Credential.class))).thenReturn(loginResult);
+		Mockito.when(loginResultToView.loginResultToView(Mockito.any(ModelAndView.class), Mockito.any(LoginResult.class))).thenReturn(result);
+		mv = action.login(request, response);
+		Assert.assertTrue(mv == result);
+	}
+	
+	/**
+	 * 登录方法的集成测试
+	 */
+	@Test
+	public void integrationTestLogin() {
+		//构造模拟请求和响应对象。
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletResponse response = new MockHttpServletResponse();
 		
 		/**
 		 * 测试无任何认证凭据的情况。
