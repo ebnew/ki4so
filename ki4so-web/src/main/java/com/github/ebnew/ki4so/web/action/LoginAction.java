@@ -12,6 +12,11 @@ import com.github.ebnew.ki4so.core.authentication.Credential;
 import com.github.ebnew.ki4so.core.service.Ki4soService;
 import com.github.ebnew.ki4so.core.service.LoginResult;
 
+/**
+ * 登入web控制器类，处理登录的请求。
+ * @author burgess yang
+ *
+ */
 @Controller
 public class LoginAction {
 	
