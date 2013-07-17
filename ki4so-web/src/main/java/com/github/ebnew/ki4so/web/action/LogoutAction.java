@@ -4,9 +4,14 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.github.ebnew.ki4so.core.authentication.Credential;
+import com.github.ebnew.ki4so.core.service.Ki4soService;
 
 /**
  * 登出web控制器，处理登出的请求。
@@ -16,19 +21,40 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LogoutAction {
 	
+	@Autowired
+	protected CredentialResolver credentialResolver;
+	
+	@Autowired
+	protected Ki4soService ki4soService;
+	
+	public void setKi4soService(Ki4soService ki4soService) {
+		this.ki4soService = ki4soService;
+	}
+
 	/**
-	 * 查询用户登录的所有应用列表。
+	 * 设置用户凭据解析器。
+	 * @param credentialResolver
+	 */
+	public void setCredentialResolver(CredentialResolver credentialResolver) {
+		this.credentialResolver = credentialResolver;
+	}
+	
+	/**
+	 * 查询用户登录的所有应用列表。输出一个json串，该串表示的是当前用户登录的应用列表。
+	 * json串的格式如下所示：
+	 * {[{appId:1, appName:'系统1', logoutUrl:'http://www.test.com/app1/logout.do'}, {appId:2, appName:'系统2', logoutUrl:'http://www.test.com/app2/logout.do'}]}
 	 * @param request 请求对象。
 	 * @param response 响应对象。
 	 * @return 模型和视图对象。
 	 */
 	@RequestMapping("/getAppList")
-	public ModelAndView getAppList(HttpServletRequest request,
+	@ResponseBody
+	public Object getAppList(HttpServletRequest request,
 			HttpServletResponse response){
-		ModelAndView mv = new ModelAndView();
-		
-		
-		return mv;
+		//解析用户凭据。
+		Credential credential = credentialResolver.resolveCredential(request);
+		//实现输出为json串。
+		return this.ki4soService.getAppList(credential);
 	}
 	
 	/**

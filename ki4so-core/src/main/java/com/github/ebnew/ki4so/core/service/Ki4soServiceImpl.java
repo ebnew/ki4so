@@ -1,5 +1,8 @@
 package com.github.ebnew.ki4so.core.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.github.ebnew.ki4so.core.authentication.Authentication;
 import com.github.ebnew.ki4so.core.authentication.AuthenticationManager;
 import com.github.ebnew.ki4so.core.authentication.Credential;
@@ -54,6 +57,18 @@ public class Ki4soServiceImpl implements Ki4soService {
 
 	public void logout(){
 
+	}
+
+	@Override
+	public void logout(Credential credential) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Map<String, Object>> getAppList(Credential credential) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

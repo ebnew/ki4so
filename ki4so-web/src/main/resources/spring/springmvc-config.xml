@@ -17,9 +17,29 @@
 	<!-- 添加注解驱动 -->
 	<mvc:annotation-driven />
 	
+	<context:annotation-config/>
+	
 	<!-- 视图解析器配置，使用内部资源视图解析器，使用位于/WEB-INF/pages/目录下的后缀为jsp的文件作为视图 -->
 	<bean id="viewResolver"
 	class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 	p:prefix="/WEB-INF/pages/" p:suffix=".jsp" />
+	
+	<!-- 配置注解方法处理适配器 -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJacksonHttpMessageConverter"/>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 配置jackson http json转换器。 -->
+	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
 
 </beans>  
