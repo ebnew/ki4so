@@ -3,7 +3,7 @@
   <parent>
     <artifactId>ki4so-parent</artifactId>
     <groupId>com.github.ki4so</groupId>
-    <version>${ki4so.version}</version>
+    <version>1.0.0-SNAPSHOT</version>
   </parent>
   <groupId>ki4so-common</groupId>
   <artifactId>ki4so-common</artifactId>

@@ -83,7 +83,6 @@ public class LoginActionTest extends AbstractJUnit4SpringContextTests{
 	/**
 	 * 登录方法的集成测试
 	 */
-	@Test
 	public void integrationTestLogin() {
 		//构造模拟请求和响应对象。
 		MockHttpServletRequest request = new MockHttpServletRequest();
