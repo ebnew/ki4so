@@ -26,7 +26,8 @@ public class EncryCredentialResolver implements CredentialResolver {
 						String value = cookie.getValue();
 						//若存在cookie值，则返回凭据对象。
 						if(value!=null){
-							return new EncryCredential(value);
+							//去除空串后返回。
+							return new EncryCredential(value.trim());
 						}
 						return null;
 					}

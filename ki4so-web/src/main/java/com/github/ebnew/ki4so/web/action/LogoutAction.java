@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.github.ebnew.ki4so.core.authentication.Credential;
 import com.github.ebnew.ki4so.core.service.Ki4soService;
@@ -82,6 +83,8 @@ public class LogoutAction {
 				response.addCookie(cookie);
 			}
 		}
+		//登出后返回登录页面。
+		mv.setView(new RedirectView("login.do"));
 		return mv;
 	}
 

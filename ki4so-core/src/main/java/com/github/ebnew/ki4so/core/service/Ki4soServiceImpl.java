@@ -1,5 +1,7 @@
 package com.github.ebnew.ki4so.core.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -67,8 +69,18 @@ public class Ki4soServiceImpl implements Ki4soService {
 
 	@Override
 	public List<Map<String, Object>> getAppList(Credential credential) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("appId", "1");
+		data.put("url", "http://www.test.com/app1/logout.do");
+		list.add(data);
+		
+		data = new HashMap<String, Object>();
+		data.put("appId", "2");
+		data.put("url", "http://www.test.com/app2/logout.do");
+		list.add(data);
+		
+		return list;
 	}
 
 }
