@@ -21,6 +21,7 @@ import com.github.ebnew.ki4so.core.service.Ki4soService;
  */
 @Controller
 public class LogoutAction {
+
 	
 	@Autowired
 	protected CredentialResolver credentialResolver;
