@@ -14,10 +14,17 @@ import org.springframework.util.StringUtils;
 import com.github.ebnew.ki4so.common.Base64Coder;
 import com.github.ebnew.ki4so.common.DESCoder;
 import com.github.ebnew.ki4so.core.exception.InvalidEncryCredentialException;
+import com.github.ebnew.ki4so.core.key.KeyService;
 import com.github.ebnew.ki4so.core.model.EncryCredentialInfo;
 
 public class EncryCredentialManagerImpl implements EncryCredentialManager{
 	
+	private KeyService keyService;
+	
+	public void setKeyService(KeyService keyService) {
+		this.keyService = keyService;
+	}
+
 	private static final Logger LOGGER = Logger.getLogger(EncryCredentialManagerImpl.class.getName());
 
 	@Override
@@ -70,7 +77,8 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 				if(!org.apache.commons.lang.StringUtils.isEmpty(items[0])){
 					//使用base64解码为源字符串。
 					byte[] data =  Base64Coder.decryptBASE64(items[0]);
-					Key key = DESCoder.initSecretKey("12345645");
+					//查询键值。
+					Key key = keyService.findKeyById(encryCredentialInfo.getKeyId());
 					//使用密钥进行解密。
 					byte[] origin = DESCoder.decrypt(data, key);
 					//将byte数组转换为字符串。
@@ -131,7 +139,8 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 		map.put("createTime", encryCredentialInfo.getCreateTime().getTime());
 		map.put("expiredTime", encryCredentialInfo.getExpiredTime().getTime());
 		JSONObject jsonObject = JSONObject.fromObject(map);
-		Key key = DESCoder.initSecretKey("12345645");
+		//查询键值。
+		Key key = keyService.findKeyById(encryCredentialInfo.getKeyId());
 		byte[] data = DESCoder.encrypt(jsonObject.toString().getBytes(), key);
 		return Base64Coder.encryptBASE64(data);
 	}
