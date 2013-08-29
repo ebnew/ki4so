@@ -10,9 +10,10 @@ import com.github.ebnew.ki4so.core.model.EncryCredentialInfo;
 public interface EncryCredentialManager {
 
 	/**
-	 * 对编码的凭据信息进行解码。
+	 * 对编码的凭据信息进行解码，解码后为
+	 * 一个凭据对象。
 	 */
-	public void decrypt(EncryCredential encryCredential);
+	public EncryCredentialInfo decrypt(EncryCredential encryCredential);
 	
 	
 	/**

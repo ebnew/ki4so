@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.ebnew.ki4so.core.exception.InvalidEncryCredentialException;
 import com.github.ebnew.ki4so.core.model.EncryCredentialInfo;
 
 public class EncryCredentialManagerImplTest {
@@ -23,6 +24,38 @@ public class EncryCredentialManagerImplTest {
 	public void tearDown() throws Exception {
 		encryCredentialManager = null;
 	}
+	
+	/**
+	 * 测试解密方法。
+	 */
+	@Test
+	public void testDecrypt(){
+		//测试异常输入情况。
+		Assert.assertNull(encryCredentialManager.decrypt(null));
+		
+		EncryCredential encryCredential = new EncryCredential("");
+		Assert.assertNull(encryCredentialManager.decrypt(encryCredential));
+		
+		//错误的凭据格式。
+		encryCredential = new EncryCredential("error");
+		try{
+			encryCredentialManager.decrypt(encryCredential);
+			Assert.fail("should throw excption");
+		}catch (InvalidEncryCredentialException e) {
+			// TODO: handle exception
+		}
+		
+		//测试正常情况。
+		EncryCredentialInfo encryCredentialInfo = buildTextEncryCredentialInfo();
+		String result =  encryCredentialManager.encrypt(encryCredentialInfo);
+		EncryCredentialInfo actual = encryCredentialManager.decrypt(new EncryCredential(result));
+		Assert.assertNotNull(actual);
+		Assert.assertEquals(encryCredentialInfo.getUserId(), actual.getUserId());
+		Assert.assertEquals(encryCredentialInfo.getAppId(), actual.getAppId());
+		Assert.assertEquals(encryCredentialInfo.getCreateTime(), actual.getCreateTime());
+		Assert.assertEquals(encryCredentialInfo.getExpiredTime(), actual.getExpiredTime());
+		Assert.assertEquals(encryCredentialInfo.getKeyId(), actual.getKeyId());
+	}
 
 	/**
 	 * 测试加密方法。
@@ -32,7 +65,14 @@ public class EncryCredentialManagerImplTest {
 		//测试对null加密的情况，返回''。
 		Assert.assertEquals(0, encryCredentialManager.encrypt(null).length());
 		
+		//测试正确情况。
+		String result =  encryCredentialManager.encrypt(buildTextEncryCredentialInfo());
+		Assert.assertNotNull(result);
+		Assert.assertTrue(result.endsWith("?appId=1&keyId=333"));
 		
+	}
+	
+	private EncryCredentialInfo buildTextEncryCredentialInfo(){
 		EncryCredentialInfo encryCredentialInfo = new EncryCredentialInfo();
 		encryCredentialInfo.setAppId("1");
 		Date createTime = new Date();
@@ -41,10 +81,6 @@ public class EncryCredentialManagerImplTest {
 		encryCredentialInfo.setExpiredTime(expiredTime);
 		encryCredentialInfo.setKeyId("333");
 		encryCredentialInfo.setUserId("wubingyang");
-		
-		String result =  encryCredentialManager.encrypt(encryCredentialInfo);
-		Assert.assertNotNull(result);
-		Assert.assertTrue(result.endsWith("?appId=1&keyId=333"));
-		
+		return encryCredentialInfo;
 	}
 }

@@ -17,7 +17,7 @@ import com.github.ebnew.ki4so.core.exception.UnsupportedCredentialsException;
  * @updated 30-五月-2013 21:33:16
  */
 public class AuthenticationManagerImpl implements AuthenticationManager {
-
+	
 	/**
 	 * 认证处理器集合，使用多个认证处理器对凭证逐一校验，只要有一个通过即可。
 	 */
