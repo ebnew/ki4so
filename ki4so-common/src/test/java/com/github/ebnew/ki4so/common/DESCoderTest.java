@@ -4,12 +4,13 @@ import java.security.Key;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sf.json.JSONObject;
-
 import org.junit.Test;
+
+import com.alibaba.fastjson.JSON;
 
 public class DESCoderTest {
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public  void test() throws Exception {
 		
@@ -27,8 +28,7 @@ public class DESCoderTest {
 		
 		byte[] decryptData = DESCoder.decrypt(Base64Coder.decryptBASE64(enStr), key);
 		System.out.println("de affter:"+new String(decryptData));
-		
-		Map<String,Object> map = JSONObject.fromObject(new String(decryptData));
+		Map<String,Object> map = (Map<String, Object>) JSON.parse(new String(decryptData));;
 		System.out.println(map);
 	}
 	@SuppressWarnings("unchecked")
@@ -38,13 +38,13 @@ public class DESCoderTest {
 		map.put("k2", 2);
 		map.put("k3", 3);
 		map.put("k4", 4);
-		String str = JSONObject.fromObject(map).toString();
+		String str = JSON.toJSONString(map);
 		System.out.println(str);
-		Map<String,Object> jsonMap = JSONObject.fromObject(str);
+		Map<String,Object> jsonMap = (Map<String, Object>) JSON.parse(str);
 		System.out.println(jsonMap);
 		
 		String str_en = "{\"k3\":3,\"k4\":4,\"k1\":1,\"k2\":2}";
-		Map<String,Object> jsonMap_en = JSONObject.fromObject(str_en);
+		Map<String,Object> jsonMap_en = (Map<String, Object>) JSON.parse(str_en);
 		System.out.println(jsonMap_en.get("k3"));
 	}
 }

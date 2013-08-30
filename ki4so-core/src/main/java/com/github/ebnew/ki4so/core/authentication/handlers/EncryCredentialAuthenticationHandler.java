@@ -10,7 +10,6 @@ import com.github.ebnew.ki4so.core.authentication.EncryCredentialManager;
 import com.github.ebnew.ki4so.core.exception.AuthenticationException;
 import com.github.ebnew.ki4so.core.exception.InvalidEncryCredentialException;
 import com.github.ebnew.ki4so.core.model.EncryCredentialInfo;
-import com.github.ebnew.ki4so.core.utils.DateUtils;
 
 /**
  * 认证后的凭据认证处理器实现类，需要验证认证后的凭据是否有效，凭据是否过期等等其它
@@ -53,7 +52,7 @@ public class EncryCredentialAuthenticationHandler extends
 					Date now = new Date();
 					if(encryCredentialInfo.getExpiredTime()!=null){
 						//比较过期时间与当前时间。
-						long bet = DateUtils.betDate(now, encryCredentialInfo.getExpiredTime());
+						long bet = now.getTime()-encryCredentialInfo.getExpiredTime().getTime();
 						//若凭据未过期，则直接返true.
 						if(bet>0){
 							return true;

@@ -7,10 +7,9 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import net.sf.json.JSONObject;
-
 import org.springframework.util.StringUtils;
 
+import com.alibaba.fastjson.JSON;
 import com.github.ebnew.ki4so.common.Base64Coder;
 import com.github.ebnew.ki4so.common.DESCoder;
 import com.github.ebnew.ki4so.core.exception.InvalidEncryCredentialException;
@@ -52,7 +51,7 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 			//如果长度是2.
 			if(items.length==2){
 				//第2个字符串不为空，先解析第二个字符串。
-				if(!org.apache.commons.lang.StringUtils.isEmpty(items[1])){
+				if(!StringUtils.isEmpty(items[1])){
 					//使用&分割字符。
 					String[] params = items[1].split("&");
 					for(int i=0; i<params.length; i++){
@@ -74,7 +73,7 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 					throw new InvalidEncryCredentialException();
 				}
 				//第1个字符串不为空
-				if(!org.apache.commons.lang.StringUtils.isEmpty(items[0])){
+				if(!StringUtils.isEmpty(items[0])){
 					//使用base64解码为源字符串。
 					byte[] data =  Base64Coder.decryptBASE64(items[0]);
 					//查询键值。
@@ -83,9 +82,8 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 					byte[] origin = DESCoder.decrypt(data, key);
 					//将byte数组转换为字符串。
 					String json = new String(origin);
-					JSONObject jsonObject = JSONObject.fromObject(json);
 					@SuppressWarnings("rawtypes")
-					Map map = (Map)JSONObject.toBean(jsonObject, Map.class);
+					Map map = (Map)JSON.parse(json);
 					if(map!=null){
 						Object userId = map.get("userId");
 						Object createTime = map.get("createTime");
@@ -138,10 +136,9 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 		map.put("userId", encryCredentialInfo.getUserId());
 		map.put("createTime", encryCredentialInfo.getCreateTime().getTime());
 		map.put("expiredTime", encryCredentialInfo.getExpiredTime().getTime());
-		JSONObject jsonObject = JSONObject.fromObject(map);
 		//查询键值。
 		Key key = keyService.findKeyById(encryCredentialInfo.getKeyId());
-		byte[] data = DESCoder.encrypt(jsonObject.toString().getBytes(), key);
+		byte[] data = DESCoder.encrypt(JSON.toJSONBytes(map), key);
 		return Base64Coder.encryptBASE64(data);
 	}
 

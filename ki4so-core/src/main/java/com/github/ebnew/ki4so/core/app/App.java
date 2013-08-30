@@ -64,6 +64,11 @@ public class App implements Serializable {
 	public void setLogoutUrl(String logoutUrl) {
 		this.logoutUrl = logoutUrl;
 	}
-	
 
+	@Override
+	public String toString() {
+		return "App [appId=" + appId + ", appName=" + appName + ", host="
+				+ host + ", logoutUrl=" + logoutUrl + "]";
+	}
+	
 }
