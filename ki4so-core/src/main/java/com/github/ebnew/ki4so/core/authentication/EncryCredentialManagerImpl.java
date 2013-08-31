@@ -14,6 +14,7 @@ import com.github.ebnew.ki4so.common.Base64Coder;
 import com.github.ebnew.ki4so.common.DESCoder;
 import com.github.ebnew.ki4so.core.exception.InvalidEncryCredentialException;
 import com.github.ebnew.ki4so.core.key.KeyService;
+import com.github.ebnew.ki4so.core.key.Ki4soKey;
 import com.github.ebnew.ki4so.core.model.EncryCredentialInfo;
 
 public class EncryCredentialManagerImpl implements EncryCredentialManager{
@@ -77,20 +78,22 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 					//使用base64解码为源字符串。
 					byte[] data =  Base64Coder.decryptBASE64(items[0]);
 					//查询键值。
-					Key key = keyService.findKeyById(encryCredentialInfo.getKeyId());
-					//使用密钥进行解密。
-					byte[] origin = DESCoder.decrypt(data, key);
-					//将byte数组转换为字符串。
-					String json = new String(origin);
-					@SuppressWarnings("rawtypes")
-					Map map = (Map)JSON.parse(json);
-					if(map!=null){
-						Object userId = map.get("userId");
-						Object createTime = map.get("createTime");
-						Object expiredTime = map.get("expiredTime");
-						encryCredentialInfo.setUserId(userId==null?null:userId.toString());
-						encryCredentialInfo.setCreateTime(createTime==null?null:new Date((Long.parseLong(createTime.toString()))));
-						encryCredentialInfo.setExpiredTime(expiredTime==null?null:new Date((Long.parseLong(expiredTime.toString()))));
+					Ki4soKey ki4soKey = keyService.findKeyByKeyId(encryCredentialInfo.getKeyId());
+					if(ki4soKey!=null){
+						//使用密钥进行解密。
+						byte[] origin = DESCoder.decrypt(data, ki4soKey.toSecurityKey());
+						//将byte数组转换为字符串。
+						String json = new String(origin);
+						@SuppressWarnings("rawtypes")
+						Map map = (Map)JSON.parse(json);
+						if(map!=null){
+							Object userId = map.get("userId");
+							Object createTime = map.get("createTime");
+							Object expiredTime = map.get("expiredTime");
+							encryCredentialInfo.setUserId(userId==null?null:userId.toString());
+							encryCredentialInfo.setCreateTime(createTime==null?null:new Date((Long.parseLong(createTime.toString()))));
+							encryCredentialInfo.setExpiredTime(expiredTime==null?null:new Date((Long.parseLong(expiredTime.toString()))));
+						}
 					}
 				}
 				else{
@@ -137,9 +140,14 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 		map.put("createTime", encryCredentialInfo.getCreateTime().getTime());
 		map.put("expiredTime", encryCredentialInfo.getExpiredTime().getTime());
 		//查询键值。
-		Key key = keyService.findKeyById(encryCredentialInfo.getKeyId());
-		byte[] data = DESCoder.encrypt(JSON.toJSONBytes(map), key);
-		return Base64Coder.encryptBASE64(data);
+		Ki4soKey ki4soKey = keyService.findKeyByKeyId(encryCredentialInfo.getKeyId());
+		if(ki4soKey!=null){
+			//查询键值。
+			Key key = ki4soKey.toSecurityKey();
+			byte[] data = DESCoder.encrypt(JSON.toJSONBytes(map), key);
+			return Base64Coder.encryptBASE64(data);
+		}
+		return null;
 	}
 
 

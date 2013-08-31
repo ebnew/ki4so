@@ -19,13 +19,19 @@
 	</bean>
 	
 	<bean id="loginResultToView" class="com.github.ebnew.ki4so.web.action.DefaultLoginResultToView"></bean>
+	
+	<bean id="appService" class="com.github.ebnew.ki4so.core.app.AppServiceImpl"></bean>
+	
+	<bean id="keyService" class="com.github.ebnew.ki4so.core.key.KeyServiceImpl"></bean>
+	
+	<bean id="encryCredentialManager" class="com.github.ebnew.ki4so.core.authentication.EncryCredentialManagerImpl" autowire="byName"></bean>
 
 	<!-- 认证管理器对象。 -->
 	<bean id="authenticationManager" class="com.github.ebnew.ki4so.core.authentication.AuthenticationManagerImpl">
 		<property name="authenticationHandlers">
 			<list>
 				<bean class="com.github.ebnew.ki4so.core.authentication.handlers.SimpleTestUsernamePasswordAuthenticationHandler"></bean>
-				<bean class="com.github.ebnew.ki4so.core.authentication.handlers.EncryCredentialAuthenticationHandler"></bean>
+				<bean class="com.github.ebnew.ki4so.core.authentication.handlers.EncryCredentialAuthenticationHandler" autowire="byName"/>
 			</list>
 		</property>
 		
@@ -36,7 +42,7 @@
 		</property>
 		
 		<property name="authenticationPostHandler">
-			<bean class="com.github.ebnew.ki4so.core.authentication.DefaultAuthenticationPostHandler"></bean>
+			<bean class="com.github.ebnew.ki4so.core.authentication.DefaultAuthenticationPostHandler" autowire="byName"></bean>
 		</property>
 	</bean>
 
