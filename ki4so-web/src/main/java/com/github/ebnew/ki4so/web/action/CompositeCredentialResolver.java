@@ -2,6 +2,9 @@ package com.github.ebnew.ki4so.web.action;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.web.util.WebUtils;
+
+import com.github.ebnew.ki4so.core.authentication.AbstractParameter;
 import com.github.ebnew.ki4so.core.authentication.Credential;
 
 /**
@@ -47,6 +50,13 @@ public class CompositeCredentialResolver implements CredentialResolver {
 			if(usernamePasswordCredentialResolver!=null){
 				credential = usernamePasswordCredentialResolver.resolveCredential(request);
 			}
+		}
+		
+		//如果是抽象的参数凭据对象，则解析其它的参数。
+		if(credential instanceof AbstractParameter){
+			AbstractParameter abstractParameter = (AbstractParameter)credential;
+			//将所有的参数设置到参数列表中，方便以后处理使用。
+			abstractParameter.setParameters(WebUtils.getParametersStartingWith(request, null));
 		}
 		return credential;
 	}

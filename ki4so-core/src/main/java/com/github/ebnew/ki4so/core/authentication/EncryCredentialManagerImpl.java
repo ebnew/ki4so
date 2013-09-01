@@ -1,5 +1,7 @@
 package com.github.ebnew.ki4so.core.authentication;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -39,7 +41,7 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 	}
 	
 	/**
-	 * 解析加密后的凭据信息为凭据对象。
+	 * 解析加密后的凭据信息为凭据对象。过程与加密过程相反的逆过程。
 	 * @param 加密过的凭据字符串。
 	 * @return 凭据对象。
 	 * @throws Exception 
@@ -47,6 +49,8 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 	private EncryCredentialInfo parseEncryCredential(String credential) throws InvalidEncryCredentialException{
 		EncryCredentialInfo encryCredentialInfo = new EncryCredentialInfo();
 		try{
+			//先使用URL进行解码。
+			credential = URLDecoder.decode(credential, "UTF-8");
 			//问号分割字符串。
 			String[] items = credential.split("\\?");
 			//如果长度是2.
@@ -105,7 +109,7 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 			}
 		}
 		catch (Exception e) {
-			LOGGER.log(Level.SEVERE, "parse encry credential exception");
+			LOGGER.log(Level.SEVERE, "parse encry credential exception", e);
 			throw new InvalidEncryCredentialException();
 		}
 		
@@ -118,6 +122,7 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 	 * 组合成json格式的数据，然后使用密钥对该字符串进行DES加密,再将加密后的字符串通过Base64编码。
 	 * 2.将上述加密串与其它非敏感信息进行拼接，格式如是：[敏感信息加密串]?appId=1&keyId=2
 	 * 其中敏感信息加密串为第一步得到的结果，appId为应用标识，keyId为密钥标识。
+	 * 3.使用URL进行编码。防止tomcat7下报cookie错误。
 	 */
 	@Override
 	public String encrypt(EncryCredentialInfo encryCredentialInfo) {
@@ -127,8 +132,9 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 				String data = encryptSensitiveInfo(encryCredentialInfo);
 				sb.append(data).append("?appId=").append(encryCredentialInfo.getAppId())
 				.append("&keyId=").append(encryCredentialInfo.getKeyId());
+				return URLEncoder.encode(sb.toString(), "UTF-8");
 			} catch (Exception e) {
-				System.out.println(e.toString());
+				LOGGER.log(Level.SEVERE, "encrypt data exception", e);
 			}
 		}
 		return sb.toString();

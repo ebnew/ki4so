@@ -1,6 +1,7 @@
 package com.github.ebnew.ki4so.web.action;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 import junit.framework.Assert;
 
@@ -75,7 +76,7 @@ public class LoginActionTest extends AbstractJUnit4SpringContextTests{
 		LoginResultToView loginResultToView = Mockito.mock(LoginResultToView.class);
 		action.setLoginResultToView(loginResultToView);
 		Mockito.when(ki4soService.login(Mockito.any(Credential.class))).thenReturn(loginResult);
-		Mockito.when(loginResultToView.loginResultToView(Mockito.any(ModelAndView.class), Mockito.any(LoginResult.class))).thenReturn(result);
+		Mockito.when(loginResultToView.loginResultToView(Mockito.any(ModelAndView.class), Mockito.any(LoginResult.class), Mockito.any(HttpServletResponse.class))).thenReturn(result);
 		mv = action.login(request, response);
 		Assert.assertTrue(mv == result);
 	}

@@ -38,6 +38,7 @@
 		<property name="credentialToPrincipalResolvers">
 			<list>
 				<bean class="com.github.ebnew.ki4so.core.authentication.resolvers.UsernamePasswordCredentialToPrincipalResolver"></bean>
+				<bean class="com.github.ebnew.ki4so.core.authentication.resolvers.EncryCredentialToPrincipalResolver" autowire="byName"></bean>
 			</list>
 		</property>
 		

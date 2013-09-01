@@ -67,7 +67,7 @@ public class LoginAction {
 			//调用核心结果进行凭据认证。
 			LoginResult result = ki4soService.login(credential);
 			//将验证结果转换为视图输出结果。
-			mv = loginResultToView.loginResultToView(mv, result);
+			mv = loginResultToView.loginResultToView(mv, result, response);
 		}
 		return mv;
 	}

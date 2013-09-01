@@ -49,6 +49,7 @@ public class EncryCredentialAuthenticationHandler extends
 			try{
 				EncryCredentialInfo encryCredentialInfo = this.encryCredentialManager.decrypt(encryCredential);
 				if(encryCredentialInfo!=null){
+					encryCredential.setEncryCredentialInfo(encryCredentialInfo);
 					Date now = new Date();
 					if(encryCredentialInfo.getExpiredTime()!=null){
 						//比较过期时间与当前时间。

@@ -15,7 +15,8 @@
 认证时间：${authentication.authenticatedDate}
 </p>
 <p>
-<a href="login.do">返回登录页面</a>
+<a href="logout.do">注销登录</a>&nbsp;&nbsp;&nbsp;
+<a href="login.do">返回登录</a>
 </p>
 </body>
 </html>

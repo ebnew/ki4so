@@ -1,10 +1,13 @@
 package com.github.ebnew.ki4so.core.app;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -23,14 +26,22 @@ public class AppServiceImpl extends FileSystemDao implements AppService {
 	/**
 	 * 外部数据文件地址，优先级更高。
 	 */
-	public static final String  DEFAULT_EXTERNAL_DATA =  "E:\\workspace\\ki4so\\ki4so-core\\target\\classes\\app.js";
+	public static final String  DEFAULT_EXTERNAL_DATA =  "E:\\workspace\\ki4so\\ki4so-core\\target\\classes\\apps.js";
 	
 	/**
 	 * 默认的数据文件地址，在classpath下。
 	 */
-	public static final String DEFAULT_CLASSPATH_DATA = "classpath:app.js";
+	public static final String DEFAULT_CLASSPATH_DATA = "classpath:apps.js";
 	
+	/**
+	 * 应用的映射表，key是appId，value是应用对象信息。
+	 */
 	private Map<String, App> appMap = null;
+	
+	/**
+	 * ki4so服务器本身的应用配置信息。
+	 */
+	private App ki4soServerApp = null;
 	
 	
 	/**
@@ -51,6 +62,12 @@ public class AppServiceImpl extends FileSystemDao implements AppService {
 			appMap = new HashMap<String, App>(apps.size());
 			for(App app:apps){
 				appMap.put(app.getAppId(), app);
+				//设置ki4so应用服务器。
+				if(ki4soServerApp==null){
+					if(app.isKi4soServer()){
+						this.ki4soServerApp = app;
+					}
+				}
 			}
 			apps = null;
 		}catch (Exception e) {
@@ -70,6 +87,25 @@ public class AppServiceImpl extends FileSystemDao implements AppService {
 	public static void main(String[] args) {
 		AppServiceImpl appServiceImpl = new AppServiceImpl();
 		System.out.println(appServiceImpl.findAppById("1"));
+	}
+
+	@Override
+	public App findKi4soServerApp() {
+		return this.ki4soServerApp;
+	}
+
+	@Override
+	public App findAppByHost(String host) {
+		if(StringUtils.isEmpty(host)){
+			return null;
+		}
+		Collection<App> apps = appMap.values();
+		for(App app: apps){
+			if(host.startsWith(app.getHost())){
+				return app;
+			}
+		}
+		return null;
 	}
 
 }

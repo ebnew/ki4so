@@ -32,6 +32,11 @@ public class App implements Serializable {
 	 * 应用登出地址。
 	 */
 	private String logoutUrl;
+	
+	/**
+	 * 是否是ki4so服务器应用本身。
+	 */
+	private boolean ki4soServer = false;
 
 	public String getAppId() {
 		return appId;
@@ -64,11 +69,20 @@ public class App implements Serializable {
 	public void setLogoutUrl(String logoutUrl) {
 		this.logoutUrl = logoutUrl;
 	}
+	
+	public boolean isKi4soServer() {
+		return ki4soServer;
+	}
+
+	public void setKi4soServer(boolean ki4soServer) {
+		this.ki4soServer = ki4soServer;
+	}
 
 	@Override
 	public String toString() {
 		return "App [appId=" + appId + ", appName=" + appName + ", host="
-				+ host + ", logoutUrl=" + logoutUrl + "]";
+				+ host + ", logoutUrl=" + logoutUrl + ", ki4soServer="
+				+ ki4soServer + "]";
 	}
 	
 }
