@@ -86,7 +86,7 @@ public class AppServiceImpl extends FileSystemDao implements AppService {
 	
 	public static void main(String[] args) {
 		AppServiceImpl appServiceImpl = new AppServiceImpl();
-		System.out.println(appServiceImpl.findAppById("1"));
+		System.out.println(appServiceImpl.findAppById("1001"));
 	}
 
 	@Override

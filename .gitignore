@@ -20,3 +20,8 @@
 /ki4so-web/ki4so-web.iml
 /ki4so-web/.idea
 /ki4so-common/ki4so-common.iml
+
+/ki4so-app/.project
+/ki4so-app/.settings
+/ki4so-app/target
+/ki4so-app/.classpath
