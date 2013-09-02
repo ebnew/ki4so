@@ -26,7 +26,7 @@ public class AppServiceImpl extends FileSystemDao implements AppService {
 	/**
 	 * 外部数据文件地址，优先级更高。
 	 */
-	public static final String  DEFAULT_EXTERNAL_DATA =  "E:\\workspace\\ki4so\\ki4so-core\\target\\classes\\apps.js";
+	public static final String  DEFAULT_EXTERNAL_DATA =  "D:\\workspace\\ki4so\\ki4so-core\\src\\main\\resources\\apps.js";
 	
 	/**
 	 * 默认的数据文件地址，在classpath下。
@@ -101,7 +101,7 @@ public class AppServiceImpl extends FileSystemDao implements AppService {
 		}
 		Collection<App> apps = appMap.values();
 		for(App app: apps){
-			if(host.startsWith(app.getHost())){
+			if(!StringUtils.isEmpty(app.getHost()) && host.startsWith(app.getHost())){
 				return app;
 			}
 		}

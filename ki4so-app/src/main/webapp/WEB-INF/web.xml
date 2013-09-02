@@ -6,7 +6,7 @@
 
 	<display-name>ki4so-web</display-name>
 	<description>
-		本项目是ki4so的web工程，提供了对外的http接口。
+		本项目是ki4so的客户端应用示例工程，演示了如何继承Ki4so单点登录服务。
 	</description>
 
 	<!-- 配置Spring MVC -->
@@ -24,6 +24,46 @@
 		<servlet-name>springmvc</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
+	
+	<!-- ki4so集成的过滤器，必须集成该过滤器，放在最前面的位置。 -->
+	<filter>
+		<filter-name>ki4soClientFilter</filter-name>
+		<filter-class>com.github.ebnew.ki4so.client.web.filters.Ki4soClientFilter</filter-class>
+		<init-param>
+			<description>ki4so服务器主机地址</description>
+			<param-name>ki4soServerHost</param-name>
+			<param-value>http://localhost:8080/ki4so-web/</param-value>
+		</init-param>
+		
+		<init-param>
+			<description>ki4so服务器登录地址</description>
+			<param-name>ki4soServerLoginUrl</param-name>
+			<param-value>http://localhost:8080/ki4so-web/login.do</param-value>
+		</init-param>
+		
+		<init-param>
+			<description>ki4so服务器获取应用秘钥信息的URL地址</description>
+			<param-name>ki4soServerFetchKeyUrl</param-name>
+			<param-value>http://localhost:8080/ki4so-web/fetchKey.do</param-value>
+		</init-param>
+		
+		<init-param>
+			<description>本应用在ki4so服务器上的应用ID值</description>
+			<param-name>ki4soClientAppId</param-name>
+			<param-value>1001</param-value>
+		</init-param>
+		
+		<init-param>
+			<description>登录本应用处理器类</description>
+			<param-name>appClientLoginHandlerClass</param-name>
+			<param-value>com.github.ebnew.ki4so.app.custom.Ki4soAppClientHandlerImpl</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>ki4soClientFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
 	
 	<welcome-file-list>
 		<welcome-file>/index.jsp</welcome-file>

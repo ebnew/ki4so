@@ -1,7 +1,5 @@
 package com.github.ebnew.ki4so.core.authentication.handlers;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.ebnew.ki4so.core.authentication.Credential;
@@ -48,18 +46,13 @@ public class EncryCredentialAuthenticationHandler extends
 			EncryCredential encryCredential = (EncryCredential)credential;
 			try{
 				EncryCredentialInfo encryCredentialInfo = this.encryCredentialManager.decrypt(encryCredential);
+				//设置凭据信息的关联性。
 				if(encryCredentialInfo!=null){
 					encryCredential.setEncryCredentialInfo(encryCredentialInfo);
-					Date now = new Date();
-					if(encryCredentialInfo.getExpiredTime()!=null){
-						//比较过期时间与当前时间。
-						long bet = now.getTime()-encryCredentialInfo.getExpiredTime().getTime();
-						//若凭据未过期，则直接返true.
-						if(bet>0){
-							return true;
-						}
-					}
 				}
+				//检查加密凭据的合法性。
+				return this.encryCredentialManager.checkEncryCredentialInfo(encryCredentialInfo);
+				//检查凭据信息的合法性。
 			}catch (InvalidEncryCredentialException e) {
 				return false;
 			}

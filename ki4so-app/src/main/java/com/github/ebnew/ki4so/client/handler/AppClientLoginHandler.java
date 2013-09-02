@@ -1,17 +1,24 @@
 package com.github.ebnew.ki4so.client.handler;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.github.ebnew.ki4so.core.model.EncryCredentialInfo;
+
 /**
- * ±¾Ó¦ÓÃµÇÂ¼´¦ÀíÆ÷½Ó¿Ú£¬ÇëÊµÏÖ¸Ã´¦ÀíÆ÷£¬
- * ÊµÏÖ±¾½Ó¿Ú£¬½«±¾Ó¦ÓÃµÄµÇÂ¼Âß¼­Ğ´ÔÚÕâÀï¡£
+ * æœ¬åº”ç”¨ç™»å½•å¤„ç†å™¨æ¥å£ï¼Œè¯·å®ç°è¯¥å¤„ç†å™¨ï¼Œ
+ * å®ç°æœ¬æ¥å£ï¼Œå°†æœ¬åº”ç”¨çš„ç™»å½•é€»è¾‘å†™åœ¨è¿™é‡Œã€‚
  * @author Administrator
  *
  */
 public interface AppClientLoginHandler {
 	
 	/**
-	 * µÇÂ¼±¾Ó¦ÓÃ¡£
-	 * @param id ÓÃ»§±êÊ¶ĞÅÏ¢£¬Î¨Ò»±êÊ¶Ò»¸öÓÃ»§¡£
+	 * ç™»å½•æœ¬åº”ç”¨ã€‚
+	 * @param encryCredentialInfo ç”¨æˆ·å‡­æ®ä¿¡æ¯ï¼Œè¡¨ç¤ºå½“å‰ç™»å½•çš„ç”¨æˆ·ã€‚
+	 * @param request httpè¯·æ±‚å¯¹è±¡ã€‚
+	 * @param response httpå“åº”å¯¹è±¡ã€‚
 	 */
-	public void loginClient(String id);
+	public void loginClient(EncryCredentialInfo encryCredentialInfo, HttpServletRequest request, HttpServletResponse response);
 
 }

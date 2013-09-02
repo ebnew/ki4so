@@ -49,8 +49,10 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 	private EncryCredentialInfo parseEncryCredential(String credential) throws InvalidEncryCredentialException{
 		EncryCredentialInfo encryCredentialInfo = new EncryCredentialInfo();
 		try{
-			//先使用URL进行解码。
+			//先使用URL解码，再用BASE64进行解码。
 			credential = URLDecoder.decode(credential, "UTF-8");
+			credential = new String(Base64Coder.decryptBASE64(credential));
+			
 			//问号分割字符串。
 			String[] items = credential.split("\\?");
 			//如果长度是2.
@@ -132,7 +134,8 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 				String data = encryptSensitiveInfo(encryCredentialInfo);
 				sb.append(data).append("?appId=").append(encryCredentialInfo.getAppId())
 				.append("&keyId=").append(encryCredentialInfo.getKeyId());
-				return URLEncoder.encode(sb.toString(), "UTF-8");
+				//再进行BASE64编码，避免传输错误。
+				return URLEncoder.encode(Base64Coder.encryptBASE64(sb.toString().getBytes()), "UTF-8");
 			} catch (Exception e) {
 				LOGGER.log(Level.SEVERE, "encrypt data exception", e);
 			}
@@ -151,9 +154,31 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 			//查询键值。
 			Key key = ki4soKey.toSecurityKey();
 			byte[] data = DESCoder.encrypt(JSON.toJSONBytes(map), key);
+			//先用BASE64编码，再用URL编码。
 			return Base64Coder.encryptBASE64(data);
 		}
 		return null;
+	}
+
+	@Override
+	public boolean checkEncryCredentialInfo(
+			EncryCredentialInfo encryCredentialInfo) {
+		if(encryCredentialInfo!=null){
+			//无凭据对应的用户标识，则无效。
+			if(StringUtils.isEmpty(encryCredentialInfo.getUserId())){
+				return false;
+			}
+			Date now = new Date();
+			if(encryCredentialInfo.getExpiredTime()!=null){
+				//将未来过期时间减去当前时间。
+				long deta = encryCredentialInfo.getExpiredTime().getTime() - now.getTime();
+				//若差值大于0，表示过期时间还没有到，凭据继续可以有效使用。
+				if(deta>0){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 

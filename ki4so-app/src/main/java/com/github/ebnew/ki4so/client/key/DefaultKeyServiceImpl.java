@@ -1,26 +1,94 @@
 package com.github.ebnew.ki4so.client.key;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+
+import com.alibaba.fastjson.JSON;
+import com.github.ebnew.ki4so.core.key.KeyService;
 import com.github.ebnew.ki4so.core.key.Ki4soKey;
 
 /**
- * Ä¬ÈÏµÄÃØÔ¿ĞÅÏ¢»ñÈ¡ÊµÏÖÀà£¬¸ÃÀàÖ»ÊÇÒ»¸ö¼òµ¥µÄÊµÏÖ£¬·Ç³£²»°²È«¡£
- * ÔÚÉú²ú»·¾³£¬½¨ÒéÇëÊ¹ÓÃ¹«Ô¿ºÍË½Ô¿µÄ·½Ê½¶ÔÃØÔ¿ĞÅÏ¢
- * ½øĞĞ¼ÓÃÜ£¬±ÜÃâÃØÔ¿ÔÚ¹«Íø»·¾³ÏÂĞ¹Â¶¡£Çë×ÔĞĞ¼ÓÇ¿°²È«ĞÔ¡£
+ * é»˜è®¤çš„ç§˜é’¥ä¿¡æ¯è·å–å®ç°ç±»ï¼Œè¯¥ç±»åªæ˜¯ä¸€ä¸ªç®€å•çš„å®ç°ï¼Œéå¸¸ä¸å®‰å…¨ã€‚ åœ¨ç”Ÿäº§ç¯å¢ƒï¼Œå»ºè®®è¯·ä½¿ç”¨å…¬é’¥å’Œç§é’¥çš„æ–¹å¼å¯¹ç§˜é’¥ä¿¡æ¯
+ * è¿›è¡ŒåŠ å¯†ï¼Œé¿å…ç§˜é’¥åœ¨å…¬ç½‘ç¯å¢ƒä¸‹æ³„éœ²ã€‚è¯·è‡ªè¡ŒåŠ å¼ºå®‰å…¨æ€§ã€‚
+ * 
  * @author Administrator
  */
-public class DefaultKeyServiceImpl implements KeyService{
-	
+@SuppressWarnings("deprecation")
+public class DefaultKeyServiceImpl implements KeyService {
+
+	private static Logger logger = Logger.getLogger(DefaultKeyServiceImpl.class
+			.getName());
+
 	private String ki4soServerFetchKeyUrl;
-	
-	public DefaultKeyServiceImpl(String ki4soServerFetchKeyUrl) {
+
+	/**
+	 * æœ¬åº”ç”¨çš„ç§˜é’¥ä¿¡æ¯ã€‚
+	 */
+	private Ki4soKey ki4soKey;
+
+	/**
+	 * æœ¬åº”ç”¨çš„åº”ç”¨id.
+	 */
+	private String appId;
+
+	private static DefaultHttpClient httpClient = new DefaultHttpClient();
+
+	public DefaultKeyServiceImpl(String ki4soServerFetchKeyUrl, String appId) {
 		super();
 		this.ki4soServerFetchKeyUrl = ki4soServerFetchKeyUrl;
+		this.appId = appId;
 	}
-
 
 	@Override
 	public Ki4soKey findKeyByAppId(String appId) {
+		if (ki4soKey == null) {
+			// do fetch key from remote server.
+			this.ki4soKey = fetchKeyFromKi4soServer();
+		}
+		return ki4soKey;
+	}
+
+	private Ki4soKey fetchKeyFromKi4soServer() {
+		HttpPost httpPost = null;
+		try {
+			httpPost = new HttpPost(ki4soServerFetchKeyUrl);
+			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+			nvps.add(new BasicNameValuePair("appId", this.appId));
+			httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+			HttpResponse response = httpClient.execute(httpPost);
+			if (response.getStatusLine().getStatusCode() == 200) {
+				HttpEntity entity = response.getEntity();
+				String content = EntityUtils.toString(entity);
+				EntityUtils.consume(entity);
+				return JSON.parseObject(content, Ki4soKey.class);
+			}
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "fetch ki4so key from server error", e);
+		} finally {
+			if (httpPost != null) {
+				httpPost.releaseConnection();
+			}
+		}
 		return null;
+	}
+
+	@Override
+	public Ki4soKey findKeyByKeyId(String keyId) {
+		if (ki4soKey == null) {
+			return this.findKeyByAppId(null);
+		}
+		return ki4soKey;
 	}
 
 }

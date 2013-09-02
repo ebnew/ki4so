@@ -6,6 +6,7 @@ import org.springframework.web.util.WebUtils;
 
 import com.github.ebnew.ki4so.core.authentication.AbstractParameter;
 import com.github.ebnew.ki4so.core.authentication.Credential;
+import com.github.ebnew.ki4so.web.utils.WebConstants;
 
 /**
  * 组合凭据解析器，组合两种解析器，按照优先级顺序，从http请求参数或者cookie中解析出优先级较高的凭据，若无优先级高的凭据，则解析优先级低的凭据。
@@ -57,6 +58,10 @@ public class CompositeCredentialResolver implements CredentialResolver {
 			AbstractParameter abstractParameter = (AbstractParameter)credential;
 			//将所有的参数设置到参数列表中，方便以后处理使用。
 			abstractParameter.setParameters(WebUtils.getParametersStartingWith(request, null));
+			//如果参数列表中无service,则从session中获取。
+			if(abstractParameter.getParameterValue(WebConstants.SERVICE_PARAM_NAME)==null){
+				abstractParameter.getParameters().put(WebConstants.SERVICE_PARAM_NAME, request.getSession().getAttribute(WebConstants.KI4SO_SERVICE_KEY_IN_SESSION));
+			}
 		}
 		return credential;
 	}

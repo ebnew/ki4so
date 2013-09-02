@@ -12,7 +12,7 @@
 
 	
 	<!-- 把标记了@Controller注解的类转换为bean -->
-	<context:component-scan base-package="com.github.ebnew.ki4so.web.action" />
+	<context:component-scan base-package="com.github.ebnew.ki4so.client.web.action" />
 	
 	<!-- 添加注解驱动 -->
 	<mvc:annotation-driven />

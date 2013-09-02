@@ -12,6 +12,7 @@ import com.github.ebnew.ki4so.core.exception.NoKi4soKeyException;
 import com.github.ebnew.ki4so.core.key.KeyService;
 import com.github.ebnew.ki4so.core.key.Ki4soKey;
 import com.github.ebnew.ki4so.core.model.EncryCredentialInfo;
+import com.github.ebnew.ki4so.web.utils.WebConstants;
 
 /**
  * 默认的认证后处理器实现类，提供抽象方法由具体子类实现。
@@ -26,7 +27,7 @@ public class DefaultAuthenticationPostHandler implements
 	/**
 	 * 密钥持续过期时间，3个月。
 	 */
-	private static final long DURATION = 3*30*24*60*60*1000;
+	private static final long DURATION = 3L*30*24*60*60*1000;
 	
 	private EncryCredentialManager encryCredentialManager;
 	
@@ -104,8 +105,8 @@ public class DefaultAuthenticationPostHandler implements
 			abstractParameter = (AbstractParameter)credential;
 		}
 		//若登录对应的服务参数service的值不为空，则使用该service对应的应用的key进行加密。
-		if(abstractParameter!=null && abstractParameter.getParameterValue("service")!=null){
-			String service = abstractParameter.getParameterValue("service").toString();
+		if(abstractParameter!=null && abstractParameter.getParameterValue(WebConstants.SERVICE_PARAM_NAME)!=null){
+			String service = abstractParameter.getParameterValue(WebConstants.SERVICE_PARAM_NAME).toString();
 			//service不为空，且符合Http协议URL格式，则继续加密。
 			if(service.length()>0 && service.startsWith("http://")){
 				//查找ki4so服务对应的应用信息。
@@ -118,7 +119,7 @@ public class DefaultAuthenticationPostHandler implements
 						attributes = new HashMap<String, Object>();
 					}
 					attributes.put(KI4SO_CLIENT_EC_KEY, encryCredential);
-					attributes.put("service", service);
+					attributes.put(WebConstants.SERVICE_PARAM_NAME, service);
 					authentication.setAttributes(attributes);
 				}
 			}
@@ -128,6 +129,10 @@ public class DefaultAuthenticationPostHandler implements
 	private EncryCredentialInfo buildEncryCredentialInfo(String appId, AuthenticationImpl authentication, Principal principal){
 		EncryCredentialInfo encryCredentialInfo = new EncryCredentialInfo();
 		Ki4soKey ki4soKey = keyService.findKeyByAppId(appId);
+		if(ki4soKey==null){
+			logger.info("no key for app id "+ appId);
+			throw new NoKi4soKeyException();
+		}
 		encryCredentialInfo.setAppId(appId);
 		encryCredentialInfo.setCreateTime(authentication.getAuthenticatedDate());
 		encryCredentialInfo.setUserId(principal.getId());

@@ -1,6 +1,7 @@
 package com.github.ebnew.ki4so.web.action;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import junit.framework.Assert;
@@ -76,7 +77,7 @@ public class LoginActionTest extends AbstractJUnit4SpringContextTests{
 		LoginResultToView loginResultToView = Mockito.mock(LoginResultToView.class);
 		action.setLoginResultToView(loginResultToView);
 		Mockito.when(ki4soService.login(Mockito.any(Credential.class))).thenReturn(loginResult);
-		Mockito.when(loginResultToView.loginResultToView(Mockito.any(ModelAndView.class), Mockito.any(LoginResult.class), Mockito.any(HttpServletResponse.class))).thenReturn(result);
+		Mockito.when(loginResultToView.loginResultToView(Mockito.any(ModelAndView.class), Mockito.any(LoginResult.class), Mockito.any(HttpServletRequest.class), Mockito.any(HttpServletResponse.class))).thenReturn(result);
 		mv = action.login(request, response);
 		Assert.assertTrue(mv == result);
 	}
@@ -126,7 +127,7 @@ public class LoginActionTest extends AbstractJUnit4SpringContextTests{
 		request = new MockHttpServletRequest();
 		response = new MockHttpServletResponse();
 		//传入参数service表示用户要访问的受保护地址URL.
-		request.setParameter("service", "http://test.com/user.jsp");
+		request.setParameter(WebConstants.SERVICE_PARAM_NAME, "http://test.com/user.jsp");
 		//设置cookie中合法的已认证凭据。
 		String encCredential = "a valid KI4SO_SERVER_EC value";
 		cookie = new Cookie(WebConstants.KI4SO_SERVER_ENCRYPTED_CREDENTIAL_COOKIE_KEY, encCredential);

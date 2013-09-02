@@ -13,6 +13,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.github.ebnew.ki4so.core.authentication.Credential;
 import com.github.ebnew.ki4so.core.service.Ki4soService;
+import com.github.ebnew.ki4so.web.utils.WebConstants;
 
 /**
  * 登出web控制器，处理登出的请求。
@@ -74,14 +75,15 @@ public class LogoutAction {
 		
 		//清除用户登录应用列表。
 		
-		
 		//清除cookie值。
 		Cookie[] cookies = request.getCookies();
 		if(cookies!=null && cookies.length>0){
 			for(Cookie cookie:cookies){
-				//设置过期时间为立即。
-				cookie.setMaxAge(0);
-				response.addCookie(cookie);
+				if(WebConstants.KI4SO_SERVER_ENCRYPTED_CREDENTIAL_COOKIE_KEY.equals(cookie.getName())){
+					//设置过期时间为立即。
+					cookie.setMaxAge(0);
+					response.addCookie(cookie);
+				}
 			}
 		}
 		//登出后返回登录页面。
