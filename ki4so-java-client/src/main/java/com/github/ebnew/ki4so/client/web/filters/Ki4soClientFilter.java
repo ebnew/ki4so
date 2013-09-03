@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
-import org.springframework.web.util.WebUtils;
 
 import com.github.ebnew.ki4so.client.handler.AppClientLoginHandler;
 import com.github.ebnew.ki4so.client.key.DefaultKeyServiceImpl;
@@ -239,7 +239,7 @@ public class Ki4soClientFilter implements Filter {
 			ec = request.getParameter(WebConstants.KI4SO_CLIENT_ENCRYPTED_CREDENTIAL_COOKIE_KEY);
 			//再从cookie中获取值。
 			if(StringUtils.isEmpty(ec)){
-				Cookie cookie = WebUtils.getCookie(request, WebConstants.KI4SO_CLIENT_ENCRYPTED_CREDENTIAL_COOKIE_KEY);
+				Cookie cookie = getCookie(request, WebConstants.KI4SO_CLIENT_ENCRYPTED_CREDENTIAL_COOKIE_KEY);
 				if(cookie!=null){
 					ec = cookie.getValue().trim();
 				}
@@ -271,7 +271,7 @@ public class Ki4soClientFilter implements Filter {
 	 * @param response Http响应对象。
 	 */
 	private void removeCookeEC(HttpServletRequest request, HttpServletResponse response){
-		Cookie cookie = WebUtils.getCookie(request, WebConstants.KI4SO_CLIENT_ENCRYPTED_CREDENTIAL_COOKIE_KEY);
+		Cookie cookie = getCookie(request, WebConstants.KI4SO_CLIENT_ENCRYPTED_CREDENTIAL_COOKIE_KEY);
 		if(cookie!=null){
 			//设置过期时间为立即。
 			cookie.setMaxAge(0);
@@ -279,4 +279,24 @@ public class Ki4soClientFilter implements Filter {
 		}
 	}
 	
+	
+	/**
+	 * Retrieve the first cookie with the given name. Note that multiple
+	 * cookies can have the same name but different paths or domains.
+	 * @param request current servlet request
+	 * @param name cookie name
+	 * @return the first cookie with the given name, or {@code null} if none is found
+	 */
+	public static Cookie getCookie(HttpServletRequest request, String name) {
+		Assert.notNull(request, "Request must not be null");
+		Cookie cookies[] = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (name.equals(cookie.getName())) {
+					return cookie;
+				}
+			}
+		}
+		return null;
+	}
 }
