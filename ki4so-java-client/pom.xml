@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<groupId>com.github.ki4so</groupId>
+		<artifactId>ki4so-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>ki4so-java-client</artifactId>
+	<packaging>jar</packaging>
+	<name>ki4so的java原生客户端</name>
+	<description>
+	简约单点系统的java原生客户端。通过集成该jar包，能够非常方便得与java web应用进行单点登录集成。
+	简化了ki4so集成的难度，降低了成本，应用只需要通过简单的配置即可实现集成ki4so。并且遵循最小依赖和最小侵入的原则，
+	让应用尽可能简单方便得使用ki4so.
+	</description>
+
+	<dependencies>
+	
+		<dependency>
+			<groupId>com.github.ki4so</groupId>
+			<artifactId>ki4so-common</artifactId>
+			<version>${ki4so.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+		
+	</dependencies>
+
+</project>

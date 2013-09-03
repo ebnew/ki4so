@@ -23,6 +23,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		<module>ki4so-core</module>
 		<module>ki4so-web</module>
 		<module>ki4so-common</module>
+		<module>ki4so-java-client</module>
 		<module>ki4so-app</module>
 	</modules>
 	

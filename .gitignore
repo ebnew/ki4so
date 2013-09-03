@@ -25,3 +25,7 @@
 /ki4so-app/.settings
 /ki4so-app/target
 /ki4so-app/.classpath
+/ki4so-java-client/.project
+/ki4so-java-client/.settings
+/ki4so-java-client/target
+/ki4so-java-client/.classpath

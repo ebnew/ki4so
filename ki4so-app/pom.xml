@@ -20,7 +20,7 @@
 	
 		<dependency>
 			<groupId>com.github.ki4so</groupId>
-			<artifactId>ki4so-common</artifactId>
+			<artifactId>ki4so-java-client</artifactId>
 			<version>${ki4so.version}</version>
 		</dependency>
 		
