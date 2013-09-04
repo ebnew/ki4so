@@ -74,6 +74,9 @@ public class LogoutAction {
 		ModelAndView mv = new ModelAndView();
 		
 		//清除用户登录应用列表。
+		//解析用户凭据。
+		Credential credential = credentialResolver.resolveCredential(request);
+		this.ki4soService.logout(credential);
 		
 		//清除cookie值。
 		Cookie[] cookies = request.getCookies();
