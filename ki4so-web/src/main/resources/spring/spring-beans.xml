@@ -14,9 +14,7 @@
 	</bean>
 	
 	<!-- ki4so中心接口服务 -->
-	<bean id="ki4soService" class="com.github.ebnew.ki4so.core.service.Ki4soServiceImpl">
-		<property name="authenticationManager" ref="authenticationManager"></property>
-	</bean>
+	<bean id="ki4soService" class="com.github.ebnew.ki4so.core.service.Ki4soServiceImpl" autowire="byName"></bean>
 	
 	<bean id="loginResultToView" class="com.github.ebnew.ki4so.web.action.DefaultLoginResultToView"></bean>
 	
@@ -26,6 +24,10 @@
 	
 	<bean id="encryCredentialManager" class="com.github.ebnew.ki4so.core.authentication.EncryCredentialManagerImpl" autowire="byName"></bean>
 
+	
+	<!-- 默认的用户登录状态存储器服务。 -->
+	<bean id="userLoggedStatusStore" class="com.github.ebnew.ki4so.core.authentication.status.DefaultUserLoggedStatusStore"></bean>
+	
 	<!-- 认证管理器对象。 -->
 	<bean id="authenticationManager" class="com.github.ebnew.ki4so.core.authentication.AuthenticationManagerImpl">
 		<property name="authenticationHandlers">

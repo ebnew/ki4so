@@ -5,9 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.github.ebnew.ki4so.core.app.App;
+import com.github.ebnew.ki4so.core.app.AppService;
 import com.github.ebnew.ki4so.core.authentication.Authentication;
 import com.github.ebnew.ki4so.core.authentication.AuthenticationManager;
 import com.github.ebnew.ki4so.core.authentication.Credential;
+import com.github.ebnew.ki4so.core.authentication.status.UserLoggedStatus;
+import com.github.ebnew.ki4so.core.authentication.status.UserLoggedStatusStore;
 import com.github.ebnew.ki4so.core.exception.InvalidCredentialException;
 
 /**
@@ -18,6 +22,18 @@ import com.github.ebnew.ki4so.core.exception.InvalidCredentialException;
 public class Ki4soServiceImpl implements Ki4soService {
 
 	private AuthenticationManager authenticationManager;
+	
+	private UserLoggedStatusStore userLoggedStatusStore;
+	
+	private AppService appService;
+
+	public void setAppService(AppService appService) {
+		this.appService = appService;
+	}
+
+	public void setUserLoggedStatusStore(UserLoggedStatusStore userLoggedStatusStore) {
+		this.userLoggedStatusStore = userLoggedStatusStore;
+	}
 
 	public void setAuthenticationManager(AuthenticationManager authenticationManager) {
 		this.authenticationManager = authenticationManager;
@@ -63,12 +79,39 @@ public class Ki4soServiceImpl implements Ki4soService {
 
 	@Override
 	public void logout(Credential credential) {
-		// TODO Auto-generated method stub
-		
+		try{
+			//对凭据做一次认证。
+			Authentication authentication = authenticationManager.authenticate(credential);
+			//清除用户登录状态。
+			this.userLoggedStatusStore.clearUpUserLoggedStatus(authentication.getPrincipal().getId());
+			//登录成功。
+		}catch (InvalidCredentialException e) {
+			//登录失败。
+		}
 	}
 
 	@Override
-	public List<Map<String, Object>> getAppList(Credential credential) {
+	public List<Map<String, Object>> getAppList(Credential credential){
+		try{
+			//对凭据做一次认证。
+			Authentication authentication = authenticationManager.authenticate(credential);
+			//清除用户登录状态。
+			List<UserLoggedStatus> list = this.userLoggedStatusStore.findUserLoggedStatus(authentication.getPrincipal().getId());
+			List<App> apps = new ArrayList<App>();
+			//批量查询对应的应用信息。
+			if(list!=null&& list.size()>0){
+				for(UserLoggedStatus status:list){
+					App app = appService.findAppById(status.getAppId());
+					if(app!=null){
+						apps.add(app);
+					}
+				}
+			}
+			//登录成功。
+		}catch (InvalidCredentialException e) {
+			//登录失败。
+		}
+		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("appId", "1");

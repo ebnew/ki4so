@@ -1,4 +1,4 @@
-package com.github.ebnew.ki4so.client.web.action;
+package com.github.ebnew.ki4so.app.web.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,12 +11,12 @@ import com.github.ebnew.ki4so.app.custom.Ki4soAppClientHandlerImpl;
 
 @Controller
 public class HomeAction {
-	
+
 	@RequestMapping("home")
 	public ModelAndView home(HttpServletRequest request, HttpSession session){
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("user", session.getAttribute(Ki4soAppClientHandlerImpl.USER_KEY));
-		
+
 		return mv;
 	}
 

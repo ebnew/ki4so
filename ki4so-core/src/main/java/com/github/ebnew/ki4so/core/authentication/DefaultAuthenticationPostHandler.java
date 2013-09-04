@@ -8,6 +8,8 @@ import java.util.logging.Logger;
 
 import com.github.ebnew.ki4so.core.app.App;
 import com.github.ebnew.ki4so.core.app.AppService;
+import com.github.ebnew.ki4so.core.authentication.status.UserLoggedStatus;
+import com.github.ebnew.ki4so.core.authentication.status.UserLoggedStatusStore;
 import com.github.ebnew.ki4so.core.exception.NoKi4soKeyException;
 import com.github.ebnew.ki4so.core.key.KeyService;
 import com.github.ebnew.ki4so.core.key.Ki4soKey;
@@ -34,6 +36,12 @@ public class DefaultAuthenticationPostHandler implements
 	private KeyService keyService;
 	
 	private AppService appService;
+	
+	private UserLoggedStatusStore userLoggedStatusStore;
+
+	public void setUserLoggedStatusStore(UserLoggedStatusStore userLoggedStatusStore) {
+		this.userLoggedStatusStore = userLoggedStatusStore;
+	}
 
 	public AppService getAppService() {
 		return appService;
@@ -121,6 +129,10 @@ public class DefaultAuthenticationPostHandler implements
 					attributes.put(KI4SO_CLIENT_EC_KEY, encryCredential);
 					attributes.put(WebConstants.SERVICE_PARAM_NAME, service);
 					authentication.setAttributes(attributes);
+					
+					//更新用户登录状态到存储器中。
+					UserLoggedStatus status = new UserLoggedStatus(principal.getId(), clientApp.getAppId(), authentication.getAuthenticatedDate());
+					userLoggedStatusStore.addUserLoggedStatus(status);
 				}
 			}
 		}
