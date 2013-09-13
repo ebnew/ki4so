@@ -1,9 +1,7 @@
 package com.github.ebnew.ki4so.core.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.github.ebnew.ki4so.core.app.App;
 import com.github.ebnew.ki4so.core.app.AppService;
@@ -91,13 +89,13 @@ public class Ki4soServiceImpl implements Ki4soService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getAppList(Credential credential){
+	public List<App> getAppList(Credential credential){
+		List<App> apps = new ArrayList<App>();
 		try{
 			//对凭据做一次认证。
 			Authentication authentication = authenticationManager.authenticate(credential);
 			//清除用户登录状态。
 			List<UserLoggedStatus> list = this.userLoggedStatusStore.findUserLoggedStatus(authentication.getPrincipal().getId());
-			List<App> apps = new ArrayList<App>();
 			//批量查询对应的应用信息。
 			if(list!=null&& list.size()>0){
 				for(UserLoggedStatus status:list){
@@ -111,19 +109,7 @@ public class Ki4soServiceImpl implements Ki4soService {
 		}catch (InvalidCredentialException e) {
 			//登录失败。
 		}
-		
-		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("appId", "1");
-		data.put("url", "http://www.test.com/app1/logout.do");
-		list.add(data);
-		
-		data = new HashMap<String, Object>();
-		data.put("appId", "2");
-		data.put("url", "http://www.test.com/app2/logout.do");
-		list.add(data);
-		
-		return list;
+		return apps;
 	}
 
 }

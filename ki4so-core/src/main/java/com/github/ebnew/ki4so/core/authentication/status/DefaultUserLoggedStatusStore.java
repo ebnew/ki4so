@@ -33,14 +33,14 @@ public class DefaultUserLoggedStatusStore implements UserLoggedStatusStore {
 			//避免数据为空。
 			if(userLoggedStatus.getLoggedDate()==null){
 				userLoggedStatus.setLoggedDate(new Date());
-				this.loggedStatus.add(userLoggedStatus);
-				List<UserLoggedStatus> list = this.userIdIndexMap.get(userLoggedStatus.getUserId());
-				if(list==null){
-					list = new ArrayList<UserLoggedStatus>();
-					this.userIdIndexMap.put(userLoggedStatus.getUserId(), list);
-				}
-				list.add(userLoggedStatus);
 			}
+			this.loggedStatus.add(userLoggedStatus);
+			List<UserLoggedStatus> list = this.userIdIndexMap.get(userLoggedStatus.getUserId());
+			if(list==null){
+				list = new ArrayList<UserLoggedStatus>();
+				this.userIdIndexMap.put(userLoggedStatus.getUserId(), list);
+			}
+			list.add(userLoggedStatus);
 		}
 	}
 

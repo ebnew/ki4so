@@ -1,8 +1,8 @@
 package com.github.ebnew.ki4so.core.service;
 
 import java.util.List;
-import java.util.Map;
 
+import com.github.ebnew.ki4so.core.app.App;
 import com.github.ebnew.ki4so.core.authentication.Credential;
 
 /**
@@ -32,7 +32,7 @@ public interface Ki4soService {
 	 * @param credential 用户凭据。
 	 * @return 该用户登录的应用列表。
 	 */
-	public List<Map<String, Object>> getAppList(Credential credential);
+	public List<App> getAppList(Credential credential);
 	
 
 }
