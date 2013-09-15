@@ -46,48 +46,48 @@ public class Ki4soClientFilter implements Filter {
 	/**
 	 * ki4so服务器主机地址。
 	 */
-	private String ki4soServerHost = "http://localhost:8080/ki4so-web/";
+	protected String ki4soServerHost = "http://localhost:8080/ki4so-web/";
 	
 	/**
 	 * ki4so服务器登录URL地址。
 	 */
-	private String ki4soServerLoginUrl = ki4soServerHost+"login.do";
+	protected String ki4soServerLoginUrl = ki4soServerHost+"login.do";
 	
 	/**
 	 * ki4so服务器获取应用秘钥信息的URL地址。
 	 */
-	private String ki4soServerFetchKeyUrl = ki4soServerHost+"fetchKey.do";
+	protected String ki4soServerFetchKeyUrl = ki4soServerHost+"fetchKey.do";
 	
 	/**
 	 * 本应用在ki4so服务器上的应用ID值。
 	 */
-	private String ki4soClientAppId = "1001";
+	protected String ki4soClientAppId = "1001";
 	
 	/**
 	 * 登录本应用处理器类，由此类进行构造一个对象。
 	 */
-	private String appClientLoginHandlerClass = "com.github.ebnew.ki4so.app.custom.Ki4soAppClientHandlerImpl";
+	protected String appClientLoginHandlerClass = "com.github.ebnew.ki4so.app.custom.Ki4soAppClientLoginHandlerImpl";
 	
 	
 	/**
 	 * 本应用对应的加密key.
 	 */
-	private Ki4soKey ki4soKey;
+	protected Ki4soKey ki4soKey;
 	
 	/**
 	 * 秘钥获取服务。
 	 */
-	private KeyService keyService = null;
+	protected KeyService keyService = null;
 	
 	/**
 	 * 凭据管理器。
 	 */
-	private EncryCredentialManagerImpl encryCredentialManager;
+	protected EncryCredentialManagerImpl encryCredentialManager;
 	
 	/**
 	 * 登录本应用的处理器。
 	 */
-	private AppClientLoginHandler appClientLoginHandler;
+	protected AppClientLoginHandler appClientLoginHandler;
 	
 
 	@Override
@@ -196,7 +196,7 @@ public class Ki4soClientFilter implements Filter {
 		
 	}
 	
-	private String buildRedirectToKi4soServer(HttpServletRequest servletRequest){
+	protected String buildRedirectToKi4soServer(HttpServletRequest servletRequest){
 		StringBuffer sb = new StringBuffer(this.ki4soServerLoginUrl);
 		if(this.ki4soServerLoginUrl.contains("?")){
 			sb.append("&");
@@ -220,7 +220,7 @@ public class Ki4soClientFilter implements Filter {
 	 * @param defalutValue
 	 * @return
 	 */
-	private String getInitParameterWithDefalutValue(FilterConfig filterConfig, String paramName, String defalutValue){
+	protected String getInitParameterWithDefalutValue(FilterConfig filterConfig, String paramName, String defalutValue){
 		String value = filterConfig.getInitParameter(paramName);
 		if(StringUtils.isEmpty(value)){
 			value = defalutValue;
@@ -233,7 +233,7 @@ public class Ki4soClientFilter implements Filter {
 	 * @param request http请求对象。
 	 * @return EC值。
 	 */
-	private String getClientEC(HttpServletRequest request){
+	protected String getClientEC(HttpServletRequest request){
 		String ec = null;
 		if(request!=null){
 			ec = request.getParameter(WebConstants.KI4SO_CLIENT_ENCRYPTED_CREDENTIAL_COOKIE_KEY);
@@ -253,7 +253,7 @@ public class Ki4soClientFilter implements Filter {
 	 * @param ec EC值。
 	 * @param response Http响应对象。
 	 */
-	private void writeEC(String ec, HttpServletResponse response){
+	protected void writeEC(String ec, HttpServletResponse response){
 		//使用URL进行编码，避免写入cookie错误。
 		try {
 			ec = URLEncoder.encode(ec, "UTF-8");
@@ -270,7 +270,7 @@ public class Ki4soClientFilter implements Filter {
 	 * @param ec EC值。
 	 * @param response Http响应对象。
 	 */
-	private void removeCookeEC(HttpServletRequest request, HttpServletResponse response){
+	protected void removeCookeEC(HttpServletRequest request, HttpServletResponse response){
 		Cookie cookie = getCookie(request, WebConstants.KI4SO_CLIENT_ENCRYPTED_CREDENTIAL_COOKIE_KEY);
 		if(cookie!=null){
 			//设置过期时间为立即。

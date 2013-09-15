@@ -20,5 +20,5 @@ public interface AppClientLoginHandler {
 	 * @param response http响应对象。
 	 */
 	public void loginClient(EncryCredentialInfo encryCredentialInfo, HttpServletRequest request, HttpServletResponse response);
-
+	
 }

@@ -7,10 +7,12 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
+import com.github.ebnew.ki4so.core.service.Ki4soService;
 import com.github.ebnew.ki4so.web.utils.WebConstants;
 
 /**
@@ -36,6 +38,12 @@ public class LogoutActionTest {
 	public void testLogout() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpServletResponse response = new MockHttpServletResponse();
+		
+		CredentialResolver credentialResolver = Mockito.mock(CredentialResolver.class);
+		logoutAction.setCredentialResolver(credentialResolver);
+		
+		Ki4soService ki4soService = Mockito.mock(Ki4soService.class);
+		logoutAction.setKi4soService(ki4soService);
 		
 		//测试没有cookie的情况。
 		logoutAction.logout(request, response);

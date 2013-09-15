@@ -56,13 +56,30 @@
 		<init-param>
 			<description>登录本应用处理器类</description>
 			<param-name>appClientLoginHandlerClass</param-name>
-			<param-value>com.github.ebnew.ki4so.app.custom.Ki4soAppClientHandlerImpl</param-value>
+			<param-value>com.github.ebnew.ki4so.app.custom.Ki4soAppClientLoginHandlerImpl</param-value>
 		</init-param>
 	</filter>
 	
 	<filter-mapping>
 		<filter-name>ki4soClientFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	
+	<!-- ki4so处理本地应用登出逻辑的过滤器。 -->
+	<filter>
+		<filter-name>ki4soClientLogoutFilter</filter-name>
+		<filter-class>com.github.ebnew.ki4so.client.web.filters.Ki4soClientLogoutFilter</filter-class>
+		
+		<init-param>
+			<description>登出本应用处理器类</description>
+			<param-name>appClientLogoutHandler</param-name>
+			<param-value>com.github.ebnew.ki4so.app.custom.Ki4soAppClientLogoutHandlerImpl</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>ki4soClientLogoutFilter</filter-name>
+		<url-pattern>/logout.do</url-pattern>
 	</filter-mapping>
 	
 	<welcome-file-list>

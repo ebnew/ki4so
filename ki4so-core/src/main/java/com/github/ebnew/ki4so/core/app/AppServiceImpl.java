@@ -31,7 +31,7 @@ public class AppServiceImpl extends FileSystemDao implements AppService {
 	/**
 	 * 默认的数据文件地址，在classpath下。
 	 */
-	public static final String DEFAULT_CLASSPATH_DATA = "classpath:apps.js";
+	public static final String DEFAULT_CLASSPATH_DATA = "apps.js";
 	
 	/**
 	 * 应用的映射表，key是appId，value是应用对象信息。
@@ -59,17 +59,19 @@ public class AppServiceImpl extends FileSystemDao implements AppService {
 			String s = this.readDataFromFile();
 			//将读取的应用列表转换为应用map。
 			List<App> apps = JSON.parseObject(s, new TypeReference<List<App>>(){});
-			appMap = new HashMap<String, App>(apps.size());
-			for(App app:apps){
-				appMap.put(app.getAppId(), app);
-				//设置ki4so应用服务器。
-				if(ki4soServerApp==null){
-					if(app.isKi4soServer()){
-						this.ki4soServerApp = app;
+			if(apps!=null){
+				appMap = new HashMap<String, App>(apps.size());
+				for(App app:apps){
+					appMap.put(app.getAppId(), app);
+					//设置ki4so应用服务器。
+					if(ki4soServerApp==null){
+						if(app.isKi4soServer()){
+							this.ki4soServerApp = app;
+						}
 					}
 				}
+				apps = null;
 			}
-			apps = null;
 		}catch (Exception e) {
 			logger.log(Level.SEVERE, "load app data file error.", e);
 		}

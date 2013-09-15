@@ -5,6 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>登录成功</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+<script src="js/logout.js" type="text/javascript"></script>
 </head>
 <body>
 <h1>恭喜您，登录成功！</h1>
@@ -15,7 +17,7 @@
 认证时间：${authentication.authenticatedDate}
 </p>
 <p>
-<a href="logout.do">注销登录</a>&nbsp;&nbsp;&nbsp;
+<a href="javascript:logout();">统一注销</a>&nbsp;&nbsp;&nbsp;
 <a href="login.do">返回登录</a>
 </p>
 </body>

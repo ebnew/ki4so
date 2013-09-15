@@ -28,7 +28,7 @@ public class KeyServiceImpl extends FileSystemDao implements KeyService {
 	/**
 	 * 默认的数据文件地址，在classpath下。
 	 */
-	public static final String DEFAULT_CLASSPATH_DATA = "classpath:keys.js";
+	public static final String DEFAULT_CLASSPATH_DATA = "keys.js";
 	
 	/**
 	 * 秘钥映射表，key是keyId,value是Key对象。
@@ -52,13 +52,15 @@ public class KeyServiceImpl extends FileSystemDao implements KeyService {
 			String s = this.readDataFromFile();
 			//将读取的应用列表转换为应用map。
 			List<Ki4soKey> keys = JSON.parseObject(s, new TypeReference<List<Ki4soKey>>(){});
-			keyMap = new HashMap<String, Ki4soKey>(keys.size());
-			appIdMap = new HashMap<String, Ki4soKey>(keys.size());
-			for(Ki4soKey key:keys){
-				keyMap.put(key.getKeyId(), key);
-				appIdMap.put(key.getAppId(), key);
+			if(keys!=null){
+				keyMap = new HashMap<String, Ki4soKey>(keys.size());
+				appIdMap = new HashMap<String, Ki4soKey>(keys.size());
+				for(Ki4soKey key:keys){
+					keyMap.put(key.getKeyId(), key);
+					appIdMap.put(key.getAppId(), key);
+				}
+				keys = null;
 			}
-			keys = null;
 		}catch (Exception e) {
 			logger.log(Level.SEVERE, "load app data file error.", e);
 		}

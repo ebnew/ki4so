@@ -13,16 +13,16 @@ import com.github.ebnew.ki4so.core.model.EncryCredentialInfo;
  * @author burgess yang
  *
  */
-public class Ki4soAppClientHandlerImpl implements AppClientLoginHandler {
+public class Ki4soAppClientLoginHandlerImpl implements AppClientLoginHandler {
 	
-	private static Logger logger = Logger.getLogger(Ki4soAppClientHandlerImpl.class.getName());
+	private static Logger logger = Logger.getLogger(Ki4soAppClientLoginHandlerImpl.class.getName());
 
 	public static final String USER_KEY = "USER_KEY_SESSON";
 	
 	@Override
 	public void loginClient(EncryCredentialInfo encryCredentialInfo, HttpServletRequest request, HttpServletResponse response) {
 		request.getSession().setAttribute(USER_KEY, encryCredentialInfo);
-		logger.info("the user id is "+encryCredentialInfo.getUserId() +" has logined the app");
+		logger.info("the user id is "+encryCredentialInfo.getUserId() +" has logined in the app");
 	}
 
 }
