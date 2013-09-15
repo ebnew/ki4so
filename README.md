@@ -1,6 +1,10 @@
 ki4so
 =====
+#项目主页
 [http://ebnew.github.io/ki4so](http://ebnew.github.io/ki4so "项目主页")
+
+#项目持续集成地址
+[https://travis-ci.org/ebnew/ki4so](https://travis-ci.org/ebnew/ki4so "项目持续集成地址")
 
 #项目介绍
 ##简介
@@ -13,8 +17,15 @@ ki4so，英文全称是：kiss sso意思是简约单点登录系统，由于s太
 
 #产品状态
 目前ki4so处于1.0.0-SNAPSHOT的开发期，目前还没有可以发布正式可以用的版本。目前产品完成的需求如下：
-a.完成统一登录。b.统一登录完成80%。c.客户端目前只完成了java原生应用客户端，其它语言暂时未开发。d.测试有待补充，性能测试及优化还未进行。
+a.完成统一登录。
 
+b.完成统一登出，有待继续完善。
+
+c.客户端目前只完成了java原生应用客户端，其它语言暂时未开发。
+
+d.测试有待补充，性能测试及优化还未进行。
+
+e.代码结构有待优化。
 
 #项目许可协议
 项目遵循[Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)开源协议
