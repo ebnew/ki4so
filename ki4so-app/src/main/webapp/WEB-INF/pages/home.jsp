@@ -7,7 +7,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Ki4so单点登录系统集成示例</title>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
 <script src="js/logout.js" type="text/javascript"></script>
 </head>
 <body>

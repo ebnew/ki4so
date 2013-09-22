@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.ebnew.ki4so.core.key.KeyService;
-import com.github.ebnew.ki4so.core.key.Ki4soKey;
 
 /**
  * 与秘钥相关的web请求处理类，处理查询应用的秘钥等信息。

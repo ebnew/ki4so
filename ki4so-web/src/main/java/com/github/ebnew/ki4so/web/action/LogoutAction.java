@@ -1,16 +1,22 @@
 package com.github.ebnew.ki4so.web.action;
 
+import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.alibaba.fastjson.JSON;
+import com.github.ebnew.ki4so.core.app.App;
 import com.github.ebnew.ki4so.core.authentication.Credential;
 import com.github.ebnew.ki4so.core.service.Ki4soService;
 import com.github.ebnew.ki4so.web.utils.WebConstants;
@@ -43,21 +49,44 @@ public class LogoutAction {
 	}
 	
 	/**
-	 * 查询用户登录的所有应用列表。输出一个json串，该串表示的是当前用户登录的应用列表。
-	 * json串的格式如下所示：
-	 * {[{appId:1, appName:'系统1', logoutUrl:'http://www.test.com/app1/logout.do'}, {appId:2, appName:'系统2', logoutUrl:'http://www.test.com/app2/logout.do'}]}
+	 * 查询用户登录的所有应用列表。输出一个jsonp格式的javascript代码，该代码表示的是当前用户登录的应用列表。
+	 * jsonp串的格式如下所示：
+	 * fetchAppList({[{appId:1, appName:'系统1', logoutUrl:'http://www.test.com/app1/logout.do'}, {appId:2, appName:'系统2', logoutUrl:'http://www.test.com/app2/logout.do'}]});
 	 * @param request 请求对象。
 	 * @param response 响应对象。
 	 * @return 模型和视图对象。
 	 */
 	@RequestMapping("/getAppList")
-	@ResponseBody
-	public Object getAppList(HttpServletRequest request,
+	public void getAppList(HttpServletRequest request,
 			HttpServletResponse response){
 		//解析用户凭据。
 		Credential credential = credentialResolver.resolveCredential(request);
 		//实现输出为json串。
-		return this.ki4soService.getAppList(credential);
+		List<App> list =  this.ki4soService.getAppList(credential);
+		String json = JSON.toJSONString(list);
+		StringBuffer sb = new StringBuffer();
+		sb.append(getCallbackName(request))
+		.append("(")
+		.append(json)
+		.append(");");
+		try {
+			response.setContentType("application/x-javascript");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().println(sb.toString());
+		} catch (IOException e) {
+		}
+	}
+	
+	private String getCallbackName(HttpServletRequest request){
+		//默认的回调函数名称。
+		String defalutCallbackName="fetchAppList";
+		//获得传递的回调函数名。
+		String callbackName = request.getParameter("callbackName");
+		//如果参数是空，则使用默认的回调函数名。
+		if(StringUtils.isEmpty(callbackName)){
+			callbackName = defalutCallbackName;
+		}
+		return callbackName;
 	}
 	
 	/**
