@@ -22,6 +22,12 @@
 		</dependency>
 		
 		<dependency>
+			<groupId>com.github.ki4so</groupId>
+			<artifactId>ki4so-java-client</artifactId>
+			<version>${ki4so.version}</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 			<version>${spring.version}</version>

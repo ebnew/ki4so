@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Ki4so单点登录系统集成示例</title>
-<script src="js/logout.js" type="text/javascript"></script>
+<script src="logout.js" type="text/javascript"></script>
 </head>
 <body>
 <p>这是ki4so集成单点登录系统的示例一个用，演示了如何集成单点登录系统ki4so.</p>

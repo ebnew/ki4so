@@ -25,6 +25,18 @@
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	
+	
+	<!-- ki4so处理登出的javascript文件请求的过滤器。 -->
+	<filter>
+		<filter-name>ki4soLogoutJavascriptFilter</filter-name>
+		<filter-class>com.github.ebnew.ki4so.client.web.filters.Ki4soLogoutJavascriptFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>ki4soLogoutJavascriptFilter</filter-name>
+		<url-pattern>/logout.js</url-pattern>
+	</filter-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>/index.jsp</welcome-file>
 	</welcome-file-list>

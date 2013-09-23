@@ -11,9 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.alibaba.fastjson.JSON;
 import com.github.ebnew.ki4so.core.app.App;
@@ -65,7 +62,7 @@ public class LogoutAction {
 		List<App> list =  this.ki4soService.getAppList(credential);
 		String json = JSON.toJSONString(list);
 		StringBuffer sb = new StringBuffer();
-		sb.append(getCallbackName(request))
+		sb.append(getCallbackName("fetchAppList", request))
 		.append("(")
 		.append(json)
 		.append(");");
@@ -77,9 +74,13 @@ public class LogoutAction {
 		}
 	}
 	
-	private String getCallbackName(HttpServletRequest request){
-		//默认的回调函数名称。
-		String defalutCallbackName="fetchAppList";
+	/**
+	 * 获得回调函数的名称
+	 * @param defalutCallbackName 默认的回调函数名称。
+	 * @param request 请求对象。
+	 * @return 回调函数的名称
+	 */
+	private String getCallbackName(String defalutCallbackName, HttpServletRequest request){
 		//获得传递的回调函数名。
 		String callbackName = request.getParameter("callbackName");
 		//如果参数是空，则使用默认的回调函数名。
@@ -90,18 +91,16 @@ public class LogoutAction {
 	}
 	
 	/**
-	 * 登出接口，该接口处理所有与登录有关的请求。
+	 * 处理登出ki4so服务器的请求。
 	 * 1.清除用户登录的状态信息，即用户登录了那些应用。
 	 * 2.清除sso服务端的cookie。
 	 * @param request 请求对象。
 	 * @param response 响应对象。
-	 * @return 模型和视图对象。
+	 * 直接将jsonp格式的登出结果输出到response中。
 	 */
 	@RequestMapping("/logout")
-	public ModelAndView logout(HttpServletRequest request,
+	public void logout(HttpServletRequest request,
 			HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView();
-		
 		//清除用户登录应用列表。
 		//解析用户凭据。
 		Credential credential = credentialResolver.resolveCredential(request);
@@ -118,9 +117,20 @@ public class LogoutAction {
 				}
 			}
 		}
-		//登出后返回登录页面。
-		mv.setView(new RedirectView("login.do"));
-		return mv;
+		String json = "{result:true}";
+		//拼接jsonp格式的数据。
+		StringBuffer sb = new StringBuffer();
+		sb.append(getCallbackName("logoutKi4soServer", request))
+		.append("(")
+		.append(json)
+		.append(");");
+		//写入jsonp格式的数据。
+		try {
+			response.setContentType("application/x-javascript");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().println(sb.toString());
+		} catch (IOException e) {
+		}
 	}
 
 }
