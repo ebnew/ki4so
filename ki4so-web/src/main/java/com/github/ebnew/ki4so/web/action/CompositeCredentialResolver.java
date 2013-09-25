@@ -60,7 +60,9 @@ public class CompositeCredentialResolver implements CredentialResolver {
 			abstractParameter.setParameters(WebUtils.getParametersStartingWith(request, null));
 			//如果参数列表中无service,则从session中获取。
 			if(abstractParameter.getParameterValue(WebConstants.SERVICE_PARAM_NAME)==null){
-				abstractParameter.getParameters().put(WebConstants.SERVICE_PARAM_NAME, request.getSession().getAttribute(WebConstants.KI4SO_SERVICE_KEY_IN_SESSION));
+				if(request.getSession().getAttribute(WebConstants.KI4SO_SERVICE_KEY_IN_SESSION)!=null){
+					abstractParameter.getParameters().put(WebConstants.SERVICE_PARAM_NAME, request.getSession().getAttribute(WebConstants.KI4SO_SERVICE_KEY_IN_SESSION));
+				}
 			}
 		}
 		return credential;

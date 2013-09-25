@@ -16,6 +16,7 @@ public interface LoginResultToView {
 	
 	/**
 	 * 将登录结果对象相应到模型和视图中。
+	 * 所有参数均不允许输入null.
 	 * @param mv 模型视图对象。
 	 * @param result 登录结果信息。
 	 * @param request http请求对象。

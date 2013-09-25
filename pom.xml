@@ -71,6 +71,20 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 					<inputEncoding>UTF-8</inputEncoding>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+					<encoding>UTF-8</encoding>  
+                    <check>true</check>
+                    <formats>  
+						<format>html</format>  
+						<format>xml</format>  
+					</formats>  
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 	

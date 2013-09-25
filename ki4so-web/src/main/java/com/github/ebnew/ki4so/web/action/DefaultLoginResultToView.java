@@ -28,6 +28,12 @@ public class DefaultLoginResultToView implements LoginResultToView {
 	public ModelAndView loginResultToView(ModelAndView mv, LoginResult result, HttpServletRequest request,
 			HttpServletResponse response) {
 		// 若登录成功，则返回成功页面。
+		if(mv==null){
+			mv = new ModelAndView();
+		}
+		if(result==null || request==null || response==null){
+			return mv;
+		}
 		if (result.isSuccess()) {
 			//登录结果对象。
 			Authentication authentication = result.getAuthentication();

@@ -9,6 +9,8 @@ import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.github.ebnew.ki4so.core.authentication.Credential;
+import com.github.ebnew.ki4so.core.authentication.UsernamePasswordCredential;
+import com.github.ebnew.ki4so.web.utils.WebConstants;
 
 public class CompositeCredentialResolverTest {
 	
@@ -77,6 +79,42 @@ public class CompositeCredentialResolverTest {
 		Assert.assertNotNull(result);
 		Assert.assertEquals(result, credential1);
 		
+	}
+	
+	/**
+	 * 测试凭据是参数类型的凭据对象。
+	 */
+	@Test
+	public void testResolveCredentialWithAbstractParameter(){
+		//准备测试数据。
+		//测试request中有service参数的情况。
+		UsernamePasswordCredential credential = new UsernamePasswordCredential();
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		request.setParameter(WebConstants.SERVICE_PARAM_NAME, "http://localhost/sss.test.htm");
+		request.setParameter("param1", "1");
+		
+		CredentialResolver usernamePasswordCredentialResolver = Mockito.mock(CredentialResolver.class);
+		Mockito.when(usernamePasswordCredentialResolver.resolveCredential(request)).thenReturn(credential);
+		resolver.setUsernamePasswordCredentialResolver(usernamePasswordCredentialResolver);
+		Credential result = this.resolver.resolveCredential(request);
+		Assert.assertEquals(result, credential);
+		Assert.assertEquals(2, credential.getParameters().size());
+		Assert.assertEquals("http://localhost/sss.test.htm", credential.getParameterValue(WebConstants.SERVICE_PARAM_NAME));
+		Assert.assertEquals("1", credential.getParameterValue("param1"));
+		
+		//测试request没有service参数的情况，session中有参数的情况。
+		credential = new UsernamePasswordCredential();
+		Mockito.when(usernamePasswordCredentialResolver.resolveCredential(request)).thenReturn(credential);
+		request.removeAllParameters();//清除原参数。
+		request.getSession().setAttribute(WebConstants.KI4SO_SERVICE_KEY_IN_SESSION, "http://localhost/test.htm");
+		request.setParameter("param2", "2");
+		request.setParameter("param3", "3");
+		result = this.resolver.resolveCredential(request);
+		Assert.assertEquals(result, credential);
+		Assert.assertEquals(3, credential.getParameters().size());
+		Assert.assertEquals("http://localhost/test.htm", credential.getParameterValue(WebConstants.SERVICE_PARAM_NAME));
+		Assert.assertEquals("2", credential.getParameterValue("param2"));
+		Assert.assertEquals("3", credential.getParameterValue("param3"));
 	}
 
 }
