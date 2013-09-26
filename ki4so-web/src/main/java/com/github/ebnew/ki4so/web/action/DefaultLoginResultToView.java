@@ -99,14 +99,13 @@ public class DefaultLoginResultToView implements LoginResultToView {
 			String encryCredential) {
 		StringBuffer sb = new StringBuffer(service);
 		if (service.contains("?")) {
-			sb.append("&")
-					.append(WebConstants.KI4SO_CLIENT_ENCRYPTED_CREDENTIAL_COOKIE_KEY)
-					.append("=").append(encryCredential);
+			sb.append("&");
+					
 		} else {
-			sb.append("?")
-					.append(WebConstants.KI4SO_CLIENT_ENCRYPTED_CREDENTIAL_COOKIE_KEY)
-					.append("=").append(encryCredential);
+			sb.append("?");
 		}
+		sb.append(WebConstants.KI4SO_CLIENT_ENCRYPTED_CREDENTIAL_COOKIE_KEY)
+		.append("=").append(encryCredential);
 		return new RedirectView(sb.toString());
 	}
 

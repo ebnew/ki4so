@@ -54,8 +54,9 @@ public class LoginActionTest extends AbstractJUnit4SpringContextTests{
 		action.setCredentialResolver(credentialResolver);
 		
 		/**
-		 * 测试无任何认证凭据的情况。
+		 * 测试无任何认证凭据的情况。但是带有service参数，则应该放入到session中保持该参数值。
 		 */
+		request.setParameter(WebConstants.SERVICE_PARAM_NAME, "http://test.com/hello.jsp");
 		ModelAndView mv = action.login(request, response);
 		Mockito.when(credentialResolver.resolveCredential(request)).thenReturn(null);
 		Assert.assertNotNull(mv);
@@ -63,9 +64,10 @@ public class LoginActionTest extends AbstractJUnit4SpringContextTests{
 		Assert.assertEquals("login", mv.getViewName());
 		//无参数输出。
 		Assert.assertEquals(0, mv.getModel().size());
+		Assert.assertEquals("http://test.com/hello.jsp", request.getSession().getAttribute(WebConstants.KI4SO_SERVICE_KEY_IN_SESSION));
 		
 		/**
-		 * 测试返回凭据对象的情况。
+		 * 测试返回凭据对象的情况，且存在service参数的情况。
 		 */
 		Credential credential = Mockito.mock(Credential.class);
 		LoginResult loginResult = Mockito.mock(LoginResult.class);
