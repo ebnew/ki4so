@@ -54,20 +54,27 @@ public abstract class FileSystemDao {
 		try{
 			InputStream inputStream = null;
 			//优先使用外部数据文件。
-			if(!StringUtils.isEmpty(externalData)){
+			if(!StringUtils.isEmpty(this.getExternalData())){
 				try{
-					inputStream = new FileInputStream(externalData);
+					inputStream = new FileInputStream(this.getExternalData());
 				}catch (Exception e) {
 					inputStream = null;
 				}
 			}
 			//若无外部文件，则使用默认的内部资源文件。
 			if(inputStream==null){
-				Resource resource = new ClassPathResource(classPathData);
-				inputStream = resource.getInputStream();
+				if(!StringUtils.isEmpty(this.getClassPathData())){
+					try{
+						Resource resource = new ClassPathResource(this.getClassPathData());
+						inputStream = resource.getInputStream();
+					}catch (Exception e) {
+						inputStream = null;
+					}
+				}
 			}
-			return new String(readStream(inputStream));
-			
+			if(inputStream!=null){
+				return new String(readStream(inputStream));
+			}
 		}catch (Exception e) {
 			logger.log(Level.SEVERE, "load app data file error.", e);
 		}

@@ -86,11 +86,6 @@ public class AppServiceImpl extends FileSystemDao implements AppService {
 		return null;
 	}
 	
-	public static void main(String[] args) {
-		AppServiceImpl appServiceImpl = new AppServiceImpl();
-		System.out.println(appServiceImpl.findAppById("1001"));
-	}
-
 	@Override
 	public App findKi4soServerApp() {
 		return this.ki4soServerApp;

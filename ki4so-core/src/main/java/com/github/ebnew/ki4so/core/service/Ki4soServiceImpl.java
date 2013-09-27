@@ -39,11 +39,6 @@ public class Ki4soServiceImpl implements Ki4soService {
 
 	public Ki4soServiceImpl(){}
 
-
-	public void getKey(){
-
-	}
-
 	/**
 	 * 实现登录逻辑。
 	 */
@@ -71,43 +66,45 @@ public class Ki4soServiceImpl implements Ki4soService {
 		return loginResult;
 	}
 
-	public void logout(){
-
-	}
-
 	@Override
 	public void logout(Credential credential) {
 		try{
+			if(credential==null){
+				return;
+			}
 			//对凭据做一次认证。
 			Authentication authentication = authenticationManager.authenticate(credential);
 			//清除用户登录状态。
-			this.userLoggedStatusStore.clearUpUserLoggedStatus(authentication.getPrincipal().getId());
-			//登录成功。
+			if(authentication!=null && authentication.getPrincipal()!=null){
+				this.userLoggedStatusStore.clearUpUserLoggedStatus(authentication.getPrincipal().getId());
+			}
 		}catch (InvalidCredentialException e) {
-			//登录失败。
 		}
 	}
 
 	@Override
 	public List<App> getAppList(Credential credential){
 		List<App> apps = new ArrayList<App>();
+		if(credential==null){
+			return apps;
+		}
 		try{
 			//对凭据做一次认证。
 			Authentication authentication = authenticationManager.authenticate(credential);
-			//清除用户登录状态。
-			List<UserLoggedStatus> list = this.userLoggedStatusStore.findUserLoggedStatus(authentication.getPrincipal().getId());
-			//批量查询对应的应用信息。
-			if(list!=null&& list.size()>0){
-				for(UserLoggedStatus status:list){
-					App app = appService.findAppById(status.getAppId());
-					if(app!=null){
-						apps.add(app);
+			if(authentication!=null && authentication.getPrincipal()!=null){
+				List<UserLoggedStatus> list = this.userLoggedStatusStore.findUserLoggedStatus(authentication.getPrincipal().getId());
+				//批量查询对应的应用信息。
+				if(list!=null&& list.size()>0){
+					for(UserLoggedStatus status:list){
+						App app = appService.findAppById(status.getAppId());
+						if(app!=null){
+							apps.add(app);
+						}
 					}
 				}
 			}
-			//登录成功。
+			
 		}catch (InvalidCredentialException e) {
-			//登录失败。
 		}
 		return apps;
 	}

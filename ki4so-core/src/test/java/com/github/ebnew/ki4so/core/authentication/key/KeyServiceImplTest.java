@@ -47,5 +47,30 @@ public class KeyServiceImplTest {
 		Assert.assertNotNull(key);
 		System.out.println(key);
 	}
+	
+	/**
+	 * 测试读取文件数据方法。
+	 */
+	@Test
+	public void testReadDataFromFile(){
+		
+		KeyServiceImpl keyServiceImpl = new KeyServiceImpl();
+		//测试文件为空的情况。
+		//设置文件路径空。
+		keyServiceImpl.setClassPathData(null);
+		keyServiceImpl.setExternalData(null);
+		//读取文件。
+		Assert.assertNull(keyServiceImpl.readDataFromFile());
+		
+		//测试错误的文件路径的情况。
+		keyServiceImpl.setExternalData("ssss");
+		//读取文件。
+		Assert.assertNull(keyServiceImpl.readDataFromFile());
+		
+		//测试错误的文件路径的情况。
+		keyServiceImpl.setClassPathData("ssss");
+		//读取文件。
+		Assert.assertNull(keyServiceImpl.readDataFromFile());
+	}
 
 }
