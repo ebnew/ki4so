@@ -17,18 +17,27 @@ public class DefaultUserLoggedStatusStore implements UserLoggedStatusStore {
 	 */
 	private Set<UserLoggedStatus> loggedStatus = new HashSet<UserLoggedStatus>();
 
+	public Set<UserLoggedStatus> getLoggedStatus() {
+		return loggedStatus;
+	}
+
+
 	/**
 	 * 用户标识和用户状态列表之间的映射表，相当于一个索引，方便根据用户标识查询所有的登录状态标。
 	 * 其中map中的key是用户标识，value是该用户所有的登录状态列表。 
 	 */
 	private Map<String, List<UserLoggedStatus>> userIdIndexMap = new HashMap<String, List<UserLoggedStatus>>();
 	
+	public Map<String, List<UserLoggedStatus>> getUserIdIndexMap() {
+		return userIdIndexMap;
+	}
+
 	@Override
 	public synchronized void addUserLoggedStatus(UserLoggedStatus userLoggedStatus) {
 		//检查数据的合法性。
 		if(userLoggedStatus!=null 
 				&& !StringUtils.isEmpty(userLoggedStatus.getAppId())
-				&& !StringUtils.isEmpty(userLoggedStatus.getAppId())
+				&& !StringUtils.isEmpty(userLoggedStatus.getUserId())
 				){
 			//避免数据为空。
 			if(userLoggedStatus.getLoggedDate()==null){
@@ -64,6 +73,7 @@ public class DefaultUserLoggedStatusStore implements UserLoggedStatusStore {
 			if(list!=null){
 				list.clear();
 				this.userIdIndexMap.put(userId, null);
+				this.userIdIndexMap.clear();
 			}
 		}
 	}
