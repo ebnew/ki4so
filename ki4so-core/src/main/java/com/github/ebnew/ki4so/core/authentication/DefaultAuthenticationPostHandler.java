@@ -85,7 +85,7 @@ public class DefaultAuthenticationPostHandler implements
 	 */
 	private void encryCredentialWithKi4soKey(AuthenticationImpl authentication, Credential credential, Principal principal){
 		//如果是原始凭据，则需要进行加密处理。
-		if(credential.isOriginal()){
+		if(credential!=null && credential.isOriginal()){
 			//查找ki4so服务对应的应用信息。
 			App ki4soApp = appService.findKi4soServerApp();
 			if(ki4soApp==null){
@@ -109,14 +109,14 @@ public class DefaultAuthenticationPostHandler implements
 	private void encryCredentialWithAppKey(AuthenticationImpl authentication, Credential credential, Principal principal){
 		//获得登录的应用信息。
 		AbstractParameter abstractParameter = null;
-		if(credential instanceof AbstractParameter){
+		if(credential!=null && credential instanceof AbstractParameter){
 			abstractParameter = (AbstractParameter)credential;
 		}
 		//若登录对应的服务参数service的值不为空，则使用该service对应的应用的key进行加密。
-		if(abstractParameter!=null && abstractParameter.getParameterValue(WebConstants.SERVICE_PARAM_NAME)!=null){
-			String service = abstractParameter.getParameterValue(WebConstants.SERVICE_PARAM_NAME).toString();
+		if(authentication!=null && abstractParameter!=null && abstractParameter.getParameterValue(WebConstants.SERVICE_PARAM_NAME)!=null){
+			String service = abstractParameter.getParameterValue(WebConstants.SERVICE_PARAM_NAME).toString().trim().toLowerCase();
 			//service不为空，且符合Http协议URL格式，则继续加密。
-			if(service.length()>0 && service.startsWith("http://")){
+			if(service.length()>0){
 				//查找ki4so服务对应的应用信息。
 				App clientApp = appService.findAppByHost(service);
 				if(clientApp!=null){
@@ -140,9 +140,12 @@ public class DefaultAuthenticationPostHandler implements
 	
 	private EncryCredentialInfo buildEncryCredentialInfo(String appId, AuthenticationImpl authentication, Principal principal){
 		EncryCredentialInfo encryCredentialInfo = new EncryCredentialInfo();
+                if(authentication==null || principal==null){
+                    return encryCredentialInfo;
+                }
 		Ki4soKey ki4soKey = keyService.findKeyByAppId(appId);
 		if(ki4soKey==null){
-			logger.info("no key for app id "+ appId);
+			logger.log(Level.INFO, "no key for app id {0}", appId);
 			throw new NoKi4soKeyException();
 		}
 		encryCredentialInfo.setAppId(appId);
