@@ -19,7 +19,10 @@ public class Base64Coder {
      * @param filecontent  
      * @return String  
      */ 
-	public static String encryptBASE64(byte[] bstr){  
+	public static String encryptBASE64(byte[] bstr){
+		if(bstr==null || bstr.length==0){
+			return null;
+		}
 		return new sun.misc.BASE64Encoder().encode(bstr);  
     }  
  
@@ -29,13 +32,16 @@ public class Base64Coder {
      * @return string  
      */ 
 	public static byte[] decryptBASE64(String str){  
+		if(str==null || str.length()==0){
+			return null;
+		}
 	    byte[] bt = null;  
-	    try {  
-	        sun.misc.BASE64Decoder decoder = new sun.misc.BASE64Decoder();  
-	        bt = decoder.decodeBuffer( str );  
-	    } catch (IOException e) {  
-	        e.printStackTrace();  
-	    }  
+	    sun.misc.BASE64Decoder decoder = new sun.misc.BASE64Decoder();  
+	    try {
+			bt = decoder.decodeBuffer(str);
+		} catch (IOException e) {
+			throw new RuntimeException("decrypt base64 error.", e);
+		}  
         return bt;  
     }  
 }

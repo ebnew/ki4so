@@ -7,6 +7,8 @@ package com.github.ebnew.ki4so.core.exception;
  */
 public class InvalidEncryCredentialException extends InvalidCredentialException {
 	
+	public static final InvalidEncryCredentialException INSTANCE = new InvalidEncryCredentialException();
+	
 	/**
 	 * 
 	 */

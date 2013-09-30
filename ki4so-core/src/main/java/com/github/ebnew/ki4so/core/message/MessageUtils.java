@@ -37,7 +37,6 @@ public class MessageUtils {
 		msgMap.put(EmptyCredentialException.MSG_KEY, "凭据为空");
 		msgMap.put(UnsupportedCredentialsException.MSG_KEY, "不支持的用户凭据");
 		msgMap.put(NoAuthenticationPostHandlerException.MSG_KEY, "无合法的认证后处理器");
-		
 		msgMap.put(NoKi4soKeyException.MSG_KEY, "系统没有配置ki4so服务器本身的key信息，请检查配置。");
 	}
 	

@@ -42,17 +42,21 @@ public class EncryCredentialAuthenticationHandler extends
 	@Override
 	protected boolean doAuthentication(Credential credential)
 			throws AuthenticationException {
+		//不支持的凭据直接返回false.
+		if(!this.supports(credential)){
+			return false;
+		}
 		if(credential!=null && credential instanceof EncryCredential){
 			EncryCredential encryCredential = (EncryCredential)credential;
 			try{
+				//解密凭据信息。
 				EncryCredentialInfo encryCredentialInfo = this.encryCredentialManager.decrypt(encryCredential);
 				//设置凭据信息的关联性。
 				if(encryCredentialInfo!=null){
 					encryCredential.setEncryCredentialInfo(encryCredentialInfo);
+					//检查加密凭据的合法性。
+					return this.encryCredentialManager.checkEncryCredentialInfo(encryCredentialInfo);
 				}
-				//检查加密凭据的合法性。
-				return this.encryCredentialManager.checkEncryCredentialInfo(encryCredentialInfo);
-				//检查凭据信息的合法性。
 			}catch (InvalidEncryCredentialException e) {
 				return false;
 			}
