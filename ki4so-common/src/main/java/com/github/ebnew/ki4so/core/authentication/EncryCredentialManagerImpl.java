@@ -146,18 +146,25 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 	private String encryptSensitiveInfo(EncryCredentialInfo encryCredentialInfo) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", encryCredentialInfo.getUserId());
-		map.put("createTime", encryCredentialInfo.getCreateTime().getTime());
-		map.put("expiredTime", encryCredentialInfo.getExpiredTime().getTime());
+		if(encryCredentialInfo.getCreateTime()!=null){
+			map.put("createTime", encryCredentialInfo.getCreateTime().getTime());
+		}
+		if(encryCredentialInfo.getExpiredTime()!=null){
+			map.put("expiredTime", encryCredentialInfo.getExpiredTime().getTime());
+		}
 		//查询键值。
 		Ki4soKey ki4soKey = keyService.findKeyByKeyId(encryCredentialInfo.getKeyId());
 		if(ki4soKey!=null){
 			//查询键值。
 			Key key = ki4soKey.toSecurityKey();
-			byte[] data = DESCoder.encrypt(JSON.toJSONBytes(map), key);
-			//先用BASE64编码，再用URL编码。
-			return Base64Coder.encryptBASE64(data);
+			if(key!=null){
+				byte[] data = DESCoder.encrypt(JSON.toJSONBytes(map), key);
+				//先用BASE64编码，再用URL编码。
+				return Base64Coder.encryptBASE64(data);
+			}
+			return "";
 		}
-		return null;
+		return "";
 	}
 
 	@Override
