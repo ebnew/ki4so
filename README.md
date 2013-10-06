@@ -59,6 +59,22 @@ e.代码结构有待优化。
 2. 简单轻量级。
 3. 性能高。
 4. 安全性高。
+5. 质量搞，有大量的单元测试保障代码质量。
+
+#ki4so代码质量
+##ki4so-core工程代码测试覆盖率
+
+![ki4so-core工程代码测试覆盖率](http://github.com/ebnew/ki4so/raw/master/images/cobertura_ki4so_core.jpg)
+
+##ki4so-web工程代码测试覆盖率
+
+![ki4so-web工程代码测试覆盖率](http://github.com/ebnew/ki4so/raw/master/images/cobertura_ki4so_web.jpg)
+
+##ki4so-common工程代码测试覆盖率
+
+![ki4so-common工程代码测试覆盖率](http://github.com/ebnew/ki4so/raw/master/images/cobertura_ki4so_common.jpg)
+
+
 
 #使用安装说明
 ##依赖信息
