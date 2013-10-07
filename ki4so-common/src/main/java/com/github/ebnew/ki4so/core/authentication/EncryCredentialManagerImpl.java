@@ -175,7 +175,7 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 			if(StringUtils.isEmpty(encryCredentialInfo.getUserId())){
 				return false;
 			}
-			Date now = new Date();
+			Date now = getCurrentDate();
 			if(encryCredentialInfo.getExpiredTime()!=null){
 				//将未来过期时间减去当前时间。
 				long deta = encryCredentialInfo.getExpiredTime().getTime() - now.getTime();
@@ -187,6 +187,12 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 		}
 		return false;
 	}
-
-
+	
+	/**
+	 * 获得当前时间。
+	 * @return
+	 */
+	private Date getCurrentDate(){
+		return new Date();
+	}
 }
