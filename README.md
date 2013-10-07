@@ -76,10 +76,9 @@ e.代码结构有待优化。
 
 
 
-#使用安装说明
-##依赖信息
-##安装手册
-##用户手册
+#ki4so安装使用说明
+[https://github.com/ebnew/ki4so/wiki/ki4so%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E](ki4so安装使用说明 "ki4so安装使用说明")
+
 
 
 
