@@ -55,3 +55,47 @@ maven安装。
 ![源代码编译成功](http://github.com/ebnew/ki4so/raw/master/images/install/install_sucess.jpg)
 
 
+在maven工程ki4so-web的target目录下有一个打包好的ki4so工程。如下图所示就是。
+
+
+![ki4so服务器打包](http://github.com/ebnew/ki4so/raw/master/images/install/packaged.jpg)
+
+图中所示的ki4so-web-1.0.0-SNAPSHOT.war文件就是打好的ki4so的war包。
+
+
+3. 安装ki4so服务器
+
+将打好的war包直接安装到Tomcat服务器中即可。Tomcat服务器如何安装请参考Tomcat官网说明。[http://tomcat.apache.org/](http://tomcat.apache.org/)
+
+最简单的安装方法直接将war包放入到Tomcat安装根目录的webapps目录下，修改war包名称为ki4so即可（修改一个更加简短的的目录，访问的时候使用该目录），如下图所示。
+
+
+![ki4so服务器打包](http://github.com/ebnew/ki4so/raw/master/images/install/install_in_server.jpg)
+
+安装好之后启动Tomcat服务器，点击Tomcat安装目录下的bin目录中的 startup.bat命令行即可。
+
+启动好之后会出现如下命令行提示。
+
+![ki4so服务器打包](http://github.com/ebnew/ki4so/raw/master/images/install/server_startup.jpg)
+
+则服务器从8080端口启动，启动成功之后，直接在浏览器里访问ki4so服务。
+
+4. 访问ki4so服务
+
+在浏览器中输入地址： [http://localhost:8080/ki4so](http://localhost:8080/ki4so)
+
+这个地址是假设你安装的Tomcat服务器的端口是8080，ki4so的war包改名为ki4so之后的结果。则访问的结果如下图。
+
+![ki4so服务器打包](http://github.com/ebnew/ki4so/raw/master/images/install/visit_ki4so.jpg)
+
+5. 登录ki4so服务
+
+访问ki4so通过"登录”链接进入登录页面，则显示如下页面。
+
+![ki4so服务器打包](http://github.com/ebnew/ki4so/raw/master/images/install/login_ki4so.jpg)
+
+在登录页面中输入相同的用户名密码，例如用户名输入：test，密码也输入:test，点击登录则可以登录成功，登录成功后显示的页面内容如下所示。
+
+
+![ki4so服务器打包](http://github.com/ebnew/ki4so/raw/master/images/install/login_sucess_ki4so.jpg)
+

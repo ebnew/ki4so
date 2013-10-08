@@ -77,9 +77,14 @@ e.代码结构有待优化。
 
 
 #ki4so安装使用说明
-[https://github.com/ebnew/ki4so/wiki/ki4so%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E](ki4so安装使用说明 "ki4so安装使用说明")
 
+[ki4so服务器快速安装说明](https://github.com/ebnew/ki4so/blob/master/INSTALL.md "ki4so服务器快速安装说明")
 
+[ki4so服务器配置详细说明，待完善](https://github.com/ebnew/ki4so/blob/master/INSTALL.md "ki4so服务器配置详细说明")
+
+[ki4so客户端配置详细说明，待完善](https://github.com/ebnew/ki4so/blob/master/INSTALL.md "ki4so客户端配置详细说明")
+
+[ki4so客户端开发包协议说明，待完善](https://github.com/ebnew/ki4so/blob/master/INSTALL.md "ki4so客户端开发包协议说明")
 
 
 #谁在用ki4so?
