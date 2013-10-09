@@ -6,7 +6,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	<groupId>com.github.ki4so</groupId>
 	<artifactId>ki4so-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0-RELEASE</version>
 	<name>简约单点登录系统</name>
 	
 	<description>ki4so是一个简约、无状态、易扩展、易伸缩的适合于大型互联网web应用场景的单点登录系统，它功能简单，只实现了统一登录和登出，它最大的特色是将用户状态写入到cookie中，最大程度减少了单点登录服务端的状态，服务端只需要存储公共的应用密钥，将用户凭证的认证分散到各应用服务中，最大程度减轻了ki4so服务器的压力。</description>
@@ -15,7 +15,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		<junit.version>4.10</junit.version>
 		<spring.version>3.2.2.RELEASE</spring.version>
 		<mockito.version>1.9.0</mockito.version>
-		<ki4so.version>1.0.0-SNAPSHOT</ki4so.version>
+		<ki4so.version>1.0.0-RELEASE</ki4so.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
