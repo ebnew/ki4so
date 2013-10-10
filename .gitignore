@@ -29,3 +29,7 @@
 /ki4so-java-client/.settings
 /ki4so-java-client/target
 /ki4so-java-client/.classpath
+/ki4so-jdbc/.project
+/ki4so-jdbc/.settings
+/ki4so-jdbc/target
+/ki4so-jdbc/.classpath
