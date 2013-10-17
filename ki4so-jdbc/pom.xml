@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.github.ki4so</groupId>
 		<artifactId>ki4so-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>ki4so-jdbc</artifactId>
@@ -13,9 +13,12 @@
 	<description>
 		使用JDBC连接数据库，实现与用户信息存储在数据库中的集成。
 	</description>
-
-	<dependencies>
 	
+	<properties>
+		<druid-version>0.2.26</druid-version>
+	</properties>
+	
+	<dependencies>
 		<dependency>
 			<groupId>com.github.ki4so</groupId>
 			<artifactId>ki4so-core</artifactId>
@@ -26,6 +29,18 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>mysql</groupId>
+		  <artifactId>mysql-connector-java</artifactId>
+		  <version>5.1.19</version>
 		</dependency>
 
 		<dependency>
@@ -42,6 +57,18 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.26</version>
+		</dependency>
+            
+		<dependency>
+	        <groupId>com.alibaba</groupId>
+	        <artifactId>druid</artifactId>
+	        <version>${druid-version}</version>
+	    </dependency>
 		
 	</dependencies>
 
