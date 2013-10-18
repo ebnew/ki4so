@@ -23,6 +23,10 @@ ki4so，英文全称是：kiss sso意思是简约单点登录系统，由于s太
 4. 安全性高。
 5. 质量高，有大量的单元测试保障代码质量。
 
+#ki4so常见问题指南
+
+[ki4so常见问题指南](https://github.com/ebnew/ki4so/blob/master/docs/user/FAQ.md "ki4so常见问题指南")
+
 #ki4so安装使用说明
 
 [ki4so服务器快速安装说明](https://github.com/ebnew/ki4so/blob/master/docs/user/INSTALL.md "ki4so服务器快速安装说明")
