@@ -60,4 +60,67 @@ ki4so服务器配置详细说明
 
 # 配置认证处理器 #
 
-对于了解j2EE开发的同学来说，应该对于Spring不会陌生的，同样为了提高ki4so的代码灵活性和通用性，ki4so也使用了Spring的IOC来配置bean，对于自己实现的认证处理器
+对于了解j2EE开发的同学来说，应该对于Spring不会陌生的，同样为了提高ki4so的代码灵活性和通用性，ki4so也使用了Spring的IOC来配置bean，对于自己实现的认证处理器可以通过Spring配置文件注入到ki4so中。
+
+打开配置文件ki4so-web\src\main\resources\spring\spring-beans.xml。 找到配置beanauthenticationManager的那行信息，修改该bean中属性的配置信息，请参考如下示例进行设置。
+
+
+    <!-- 认证管理器对象。 -->
+	<bean id="authenticationManager" class="com.github.ebnew.ki4so.core.authentication.AuthenticationManagerImpl">
+		<property name="authenticationHandlers">
+			<list>
+				<bean class="com.github.ebnew.ki4so.core.authentication.handlers.jdbc.QueryDatabaseAuthenticationHandler">
+					<property name="dataSource" ref="dataSource"></property>
+					<property name="sql">
+						<value>select PASSWORD from zt_user where account=?</value>
+					</property>
+					<property name="passwordEncoder" ref="defaultPasswordEncoder"></property>
+				</bean>
+				<bean class="com.github.ebnew.ki4so.core.authentication.handlers.EncryCredentialAuthenticationHandler" autowire="byName"/>
+			</list>
+		</property>
+		
+		<property name="credentialToPrincipalResolvers">
+			<list>
+				<bean class="com.github.ebnew.ki4so.core.authentication.resolvers.UsernamePasswordCredentialToPrincipalResolver"></bean>
+				<bean class="com.github.ebnew.ki4so.core.authentication.resolvers.EncryCredentialToPrincipalResolver" autowire="byName"></bean>
+			</list>
+		</property>
+		
+		<property name="authenticationPostHandler">
+			<bean class="com.github.ebnew.ki4so.core.authentication.DefaultAuthenticationPostHandler" autowire="byName"></bean>
+		</property>
+	</bean>
+	
+	<!-- 密码加密器 -->
+	<bean class="com.github.ebnew.ki4so.core.authentication.handlers.DefaultPasswordEncoder" id="defaultPasswordEncoder">
+		<constructor-arg index="0" value="MD5"></constructor-arg>
+		<property name="characterEncoding" value="UTF-8"></property>
+	</bean>
+	
+	<!-- 数据源配置 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
+	      <!-- 基本属性 url、user、password -->
+	      <property name="url" value="${jdbc_url}" />
+	      <property name="username" value="${jdbc_user}" />
+	      <property name="password" value="${jdbc_password}" />
+	
+	      <!-- 配置初始化大小、最小、最大 -->
+	      <property name="initialSize" value="1" />
+	      <property name="minIdle" value="1" /> 
+	      <property name="maxActive" value="20" />
+	
+	      <!-- 配置获取连接等待超时的时间 -->
+	      <property name="maxWait" value="60000" />
+  	</bean>
+
+
+###配置详细说明
+1.authenticationManager对象配置。该对象是认证管理器，有一个属性authenticationHandlers是认证处理器列表，是一个List类型的集合。在该属性中添加自己定义的认证处理器，请去除类为com.github.ebnew.ki4so.core.authentication.handlers.SimpleTestUsernamePasswordAuthenticationHandler的认证处理器对象配置。
+
+2.defaultPasswordEncoder是密码编码器。用于对密码进行编码。这里配置的是默认的MD5算法的编码器，可以配置为其它算法或者自己定义的密码编码器实现类。
+
+3.dataSource。数据库数据源对象。示例中使用了阿里巴巴开源的数据库连接池druid（见官网 [https://github.com/alibaba/druid](https://github.com/alibaba/druid "druid")）。具体配置方法也可以参考druid，你可以设置为自己的数据库连接池。
+
+
+
