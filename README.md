@@ -33,9 +33,9 @@ ki4so，英文全称是：kiss sso意思是简约单点登录系统，由于s太
 
 [ki4so服务器配置详细说明](https://github.com/ebnew/ki4so/blob/master/docs/user/KI4SO_SERVER_CONFIG.md "ki4so服务器配置详细说明")
 
-[ki4so客户端配置详细说明，待完善](https://github.com/ebnew/ki4so/blob/master/docs/user/INSTALL.md "ki4so客户端配置详细说明")
+[ki4so客户端配置详细说明](https://github.com/ebnew/ki4so/blob/master/docs/user/KI4SO_CLIENT_CONFIG.md "ki4so客户端配置详细说明")
 
-[ki4so客户端开发包协议说明，待完善](https://github.com/ebnew/ki4so/blob/master/docs/user/INSTALL.md "ki4so客户端开发包协议说明")
+[ki4so客户端开发包协议说明](https://github.com/ebnew/ki4so/blob/master/docs/user/KI4SO_CLIENT_DEV_GUIDE.md "ki4so客户端开发包协议说明")
 
 
 #ki4so代码质量
