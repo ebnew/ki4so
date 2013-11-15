@@ -40,13 +40,11 @@ public class DESCoder {
 		//返回生成指定算法的秘密密钥的 KeyGenerator 对象
 		KeyGenerator keyPairGen = KeyGenerator.getInstance(KEY_ALGORITHM);
 		//初始化此密钥生成器，使其具有确定的密钥大小
-		
-		SecureRandom secureRandom = new SecureRandom();
+		SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
 		secureRandom.setSeed(seed.getBytes());
 		keyPairGen.init(KEY_SIZE, secureRandom);
 		//生成一个密钥
 		SecretKey  secretKey = keyPairGen.generateKey();
-		
 		//实例化DES密钥规则
 		DESedeKeySpec dks = new DESedeKeySpec(secretKey.getEncoded());
 		//实例化密钥工厂
