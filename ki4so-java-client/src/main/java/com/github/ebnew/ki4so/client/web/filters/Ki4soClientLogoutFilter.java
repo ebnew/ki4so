@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -25,7 +24,7 @@ import com.github.ebnew.ki4so.client.handler.AppClientLogoutHandler;
  * @author Administrator
  *
  */
-public class Ki4soClientLogoutFilter extends Ki4soClientFilter implements Filter  {
+public class Ki4soClientLogoutFilter extends BaseClientFilter{
 	
 	/**
 	 * 登录本应用处理器类，由此类进行构造一个对象。
@@ -40,7 +39,7 @@ public class Ki4soClientLogoutFilter extends Ki4soClientFilter implements Filter
 	private static Logger logger = Logger.getLogger(Ki4soClientLogoutFilter.class.getName());
 
 	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
+	public void doInit(FilterConfig filterConfig) throws ServletException {
 		appClientLogoutHandlerClass = getInitParameterWithDefalutValue(filterConfig, "appClientLoginHandlerClass", appClientLogoutHandlerClass);
 		//构造登录本应用的处理器对象。
 		if(!StringUtils.isEmpty(appClientLogoutHandlerClass)){

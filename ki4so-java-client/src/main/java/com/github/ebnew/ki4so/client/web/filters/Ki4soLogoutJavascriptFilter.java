@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -16,7 +15,13 @@ import javax.servlet.ServletResponse;
  * @author burgess yang
  *
  */
-public class Ki4soLogoutJavascriptFilter implements Filter {
+public class Ki4soLogoutJavascriptFilter extends BaseClientFilter {
+	
+	//当前应用的登出地址
+	private String currentAppLogoutUrl = "http://localhost:8080/ki4so-web/logout.do";
+	
+	//
+	private String logoutSuccessUrl = "http://localhost:8080/ki4so-web";
 	
 	/**
 	 * javascirpt片段缓存。
@@ -24,8 +29,10 @@ public class Ki4soLogoutJavascriptFilter implements Filter {
 	private String javascript;
 
 	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-
+	public void doInit(FilterConfig filterConfig) throws ServletException {
+		//初始化参数值。
+		currentAppLogoutUrl = this.getInitParameterWithDefalutValue(filterConfig, "currentAppLogoutUrl", currentAppLogoutUrl);
+		logoutSuccessUrl = this.getInitParameterWithDefalutValue(filterConfig, "logoutSuccessUrl", logoutSuccessUrl);
 	}
 
 	@Override
@@ -35,6 +42,10 @@ public class Ki4soLogoutJavascriptFilter implements Filter {
 			if(javascript==null){
 				//读取javascript模版文件。
 				javascript = new String(readStream(Ki4soLogoutJavascriptFilter.class.getResourceAsStream("logout.js")));
+				//替换一些参数值。
+				javascript = javascript.replaceAll("\\$\\{currentAppLogoutUrl\\}", currentAppLogoutUrl);
+				javascript = javascript.replaceAll("\\$\\{logoutSuccessUrl\\}", logoutSuccessUrl);
+				javascript = javascript.replaceAll("\\$\\{ki4soServerHost\\}", ki4soServerHost);
 			}
 			//替换一些参数值。
 			try {
@@ -51,12 +62,10 @@ public class Ki4soLogoutJavascriptFilter implements Filter {
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
-
 	}
 
 	/**
 	 * 读取流
-	 * 
 	 * @param inStream
 	 * @return 字节数组
 	 * @throws Exception

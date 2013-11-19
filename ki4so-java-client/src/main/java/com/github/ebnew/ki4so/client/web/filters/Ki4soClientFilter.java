@@ -6,7 +6,6 @@ import java.net.URLEncoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import com.github.ebnew.ki4so.client.handler.AppClientLoginHandler;
@@ -34,7 +32,7 @@ import com.github.ebnew.ki4so.web.utils.WebConstants;
  * 此过滤器必须安装或者自己实现。
  * @author Administrator
  */
-public class Ki4soClientFilter implements Filter {
+public class Ki4soClientFilter extends BaseClientFilter {
 	
 	private static Logger logger = Logger.getLogger(Ki4soClientFilter.class.getName());
 	
@@ -43,10 +41,7 @@ public class Ki4soClientFilter implements Filter {
 	 */
 	public static final String USER_STATE_IN_SESSION_KEY = "ki4so_client_user_info_session_key";
 	
-	/**
-	 * ki4so服务器主机地址。
-	 */
-	protected String ki4soServerHost = "http://localhost:8080/ki4so-web/";
+	
 	
 	/**
 	 * ki4so服务器登录URL地址。
@@ -91,11 +86,10 @@ public class Ki4soClientFilter implements Filter {
 	
 
 	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		ki4soServerHost = getInitParameterWithDefalutValue(filterConfig, "ki4soServerHost", ki4soServerHost);
+	public void doInit(FilterConfig filterConfig) throws ServletException {
 		ki4soClientAppId = getInitParameterWithDefalutValue(filterConfig, "ki4soClientAppId", ki4soClientAppId);
-		ki4soServerLoginUrl = getInitParameterWithDefalutValue(filterConfig, "ki4soServerLoginUrl", ki4soServerLoginUrl);
-		ki4soServerFetchKeyUrl = getInitParameterWithDefalutValue(filterConfig, "ki4soServerFetchKeyUrl", ki4soServerFetchKeyUrl);
+		ki4soServerLoginUrl = ki4soServerHost+"login.do";
+		ki4soServerFetchKeyUrl = ki4soServerHost+"fetchKey.do";
 		appClientLoginHandlerClass = getInitParameterWithDefalutValue(filterConfig, "appClientLoginHandlerClass", appClientLoginHandlerClass);
 		//构造key服务等相关对象。
 		//构造登录本应用的处理器对象。
@@ -112,6 +106,7 @@ public class Ki4soClientFilter implements Filter {
 		logger.info("the ki4so sever is :"+this.ki4soServerHost+", please check this service is ok.");
 	}
 
+	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
@@ -213,20 +208,6 @@ public class Ki4soClientFilter implements Filter {
 		this.ki4soKey = null;
 	}
 	
-	/**
-	 * 获取过滤器参数值，带有默认值，若没有配置，则使用默认值。
-	 * @param filterConfig
-	 * @param paramName
-	 * @param defalutValue
-	 * @return
-	 */
-	protected String getInitParameterWithDefalutValue(FilterConfig filterConfig, String paramName, String defalutValue){
-		String value = filterConfig.getInitParameter(paramName);
-		if(StringUtils.isEmpty(value)){
-			value = defalutValue;
-		}
-		return value;
-	}
 	
 	/**
 	 * 从客户端参数或者cookie中获取EC值。
@@ -265,38 +246,4 @@ public class Ki4soClientFilter implements Filter {
 		
 	}
 	
-	/**
-	 * 删除cookie中的异常信息。
-	 * @param ec EC值。
-	 * @param response Http响应对象。
-	 */
-	protected void removeCookeEC(HttpServletRequest request, HttpServletResponse response){
-		Cookie cookie = getCookie(request, WebConstants.KI4SO_CLIENT_ENCRYPTED_CREDENTIAL_COOKIE_KEY);
-		if(cookie!=null){
-			//设置过期时间为立即。
-			cookie.setMaxAge(0);
-			response.addCookie(cookie);
-		}
-	}
-	
-	
-	/**
-	 * Retrieve the first cookie with the given name. Note that multiple
-	 * cookies can have the same name but different paths or domains.
-	 * @param request current servlet request
-	 * @param name cookie name
-	 * @return the first cookie with the given name, or {@code null} if none is found
-	 */
-	public static Cookie getCookie(HttpServletRequest request, String name) {
-		Assert.notNull(request, "Request must not be null");
-		Cookie cookies[] = request.getCookies();
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if (name.equals(cookie.getName())) {
-					return cookie;
-				}
-			}
-		}
-		return null;
-	}
 }

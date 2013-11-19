@@ -86,6 +86,24 @@
 	<filter>
 		<filter-name>ki4soLogoutJavascriptFilter</filter-name>
 		<filter-class>com.github.ebnew.ki4so.client.web.filters.Ki4soLogoutJavascriptFilter</filter-class>
+		
+		<init-param>
+			<description>ki4so服务器主机地址</description>
+			<param-name>ki4soServerHost</param-name>
+			<param-value>http://localhost:8080/ki4so-web/</param-value>
+		</init-param>
+		
+		<init-param>
+			<description>当前应用的登出地址</description>
+			<param-name>currentAppLogoutUrl</param-name>
+			<param-value>http://localhost:8080/ki4so-app/logout.do</param-value>
+		</init-param>
+		
+		<init-param>
+			<description>登出后跳转地址</description>
+			<param-name>logoutSuccessUrl</param-name>
+			<param-value>http://localhost:8080/ki4so-app</param-value>
+		</init-param>
 	</filter>
 	
 	<filter-mapping>

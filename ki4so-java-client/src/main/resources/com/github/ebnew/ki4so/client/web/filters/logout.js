@@ -17,14 +17,26 @@ function fetchAppList(appList) {
 }
 
 /**
+ * 登出本应用，至少要登出本应用。
+ * @param {Object} data 登录后的数据
+ */
+function logoutCurrentApp(){
+	//本应用登出地址。
+	var currentAppLogoutUrl = "${currentAppLogoutUrl}";
+	//登出ki4so服务器。
+	addScriptTag(currentAppLogoutUrl);
+}
+
+/**
  * 登出Ki4so服务器的处理函数。
  * @param {Object} data 登录后的数据
  */
 function logoutKi4soServer(data){
+	//登出ki4so服务器后的跳转地址。
+	var logoutSuccessUrl = "${logoutSuccessUrl}";
 	if(data.result){
-		alert("登出ki4so server");
 		//登出后的处理。
-		window.location.href = "http://localhost:8080/ki4so-app/";
+		window.location.href = logoutSuccessUrl;
 	}
 }
 
@@ -41,9 +53,13 @@ function addScriptTag(src){
 }
 
 function logout() {
+	var ki4soServerHost = "${ki4soServerHost}";
 	//获取登录的应用列表。
-	addScriptTag("http://localhost:8080/ki4so-web/getAppList.do?callbackName=fetchAppList");
+	addScriptTag(ki4soServerHost+"getAppList.do?callbackName=fetchAppList");
 	
 	//登出ki4so服务器。
-	addScriptTag("http://localhost:8080/ki4so-web/logout.do?callbackName=logoutKi4soServer");
+	addScriptTag(ki4soServerHost+"logout.do?callbackName=logoutKi4soServer");
+	
+	//登出本应用地址。
+	logoutCurrentApp();
 }
