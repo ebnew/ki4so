@@ -74,7 +74,7 @@ public class DefaultKeyServiceImpl implements KeyService {
 				return JSON.parseObject(content, Ki4soKey.class);
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "fetch ki4so key from server error", e);
+			logger.log(Level.SEVERE, "fetch ki4so key from server error, the url is ["+ki4soServerFetchKeyUrl+"]", e);
 		} finally {
 			if (httpPost != null) {
 				httpPost.releaseConnection();

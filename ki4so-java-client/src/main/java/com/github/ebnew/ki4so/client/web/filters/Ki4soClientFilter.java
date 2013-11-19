@@ -88,8 +88,8 @@ public class Ki4soClientFilter extends BaseClientFilter {
 	@Override
 	public void doInit(FilterConfig filterConfig) throws ServletException {
 		ki4soClientAppId = getInitParameterWithDefalutValue(filterConfig, "ki4soClientAppId", ki4soClientAppId);
-		ki4soServerLoginUrl = ki4soServerHost+"login.do";
-		ki4soServerFetchKeyUrl = ki4soServerHost+"fetchKey.do";
+		ki4soServerLoginUrl = getInitParameterWithDefalutValue(filterConfig, "ki4soServerLoginUrl", ki4soServerHost+"login.do");;
+		ki4soServerFetchKeyUrl = getInitParameterWithDefalutValue(filterConfig, "ki4soServerFetchKeyUrl", ki4soServerHost+"fetchKey.do");
 		appClientLoginHandlerClass = getInitParameterWithDefalutValue(filterConfig, "appClientLoginHandlerClass", appClientLoginHandlerClass);
 		//构造key服务等相关对象。
 		//构造登录本应用的处理器对象。

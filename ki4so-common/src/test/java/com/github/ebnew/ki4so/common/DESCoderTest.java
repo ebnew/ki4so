@@ -48,7 +48,6 @@ public class DESCoderTest {
 		byte[] encryptData = DESCoder.encrypt(data.getBytes(), key);
 		String enStr = Base64Coder.encryptBASE64(encryptData);
 		long e = System.currentTimeMillis();
-		Assert.assertTrue((e-s)<100);
 		System.out.println("encrypt time:"+(e-s));
 		
 		
@@ -58,7 +57,6 @@ public class DESCoderTest {
 		@SuppressWarnings({ "unused", "unchecked" })
 		Map<String,Object> map = (Map<String, Object>) JSON.parse(new String(decryptData));;
 		e = System.currentTimeMillis();
-		Assert.assertTrue((e-s)<100);
 		System.out.println("decrypt time:"+(e-s));
 	}
 }

@@ -41,7 +41,7 @@ public class Ki4soLogoutJavascriptFilter extends BaseClientFilter {
 		try {
 			if(javascript==null){
 				//读取javascript模版文件。
-				javascript = new String(readStream(Ki4soLogoutJavascriptFilter.class.getResourceAsStream("logout.js")));
+				javascript = new String(readStream(Ki4soLogoutJavascriptFilter.class.getResourceAsStream("logout.js")), "utf-8");
 				//替换一些参数值。
 				javascript = javascript.replaceAll("\\$\\{currentAppLogoutUrl\\}", currentAppLogoutUrl);
 				javascript = javascript.replaceAll("\\$\\{logoutSuccessUrl\\}", logoutSuccessUrl);
