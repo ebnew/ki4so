@@ -119,7 +119,10 @@ ki4so客户端配置详细说明
 
 ki4so是在客户端实现所有应用退出的，这样实现方式减轻了ki4so服务器的压力，由客户端对已经登录的所有应用逐一退出。因此ki4so-java-client模块提供了一个js文件，该文件中的函数能够实现统一登录。因此需要配置该过滤器。
 
-
+这个过滤器有如下参数需要配置。
+- ki4soServerHost。该参数表示是ki4so服务器主机地址，必须。示例：http://localhost:8080/ki4so-web/
+- currentAppLogoutUrl。该参数表示当前这个应用过的登出地址，比如：http://localhost:8080/ki4so-app/logout.do
+- logoutSuccessUrl。该参数表示当前应用登出后跳转的地址，必填。示例：http://localhost:8080/ki4so-app
 
 配置信息参考一个完整的示例，见ki4so工程中的配置文件 /ki4so-app/src/main/webapp/WEB-INF/web.xml
 该文件中的配置内容如下。
@@ -128,6 +131,23 @@ ki4so是在客户端实现所有应用退出的，这样实现方式减轻了ki4
 	<filter>
 		<filter-name>ki4soLogoutJavascriptFilter</filter-name>
 		<filter-class>com.github.ebnew.ki4so.client.web.filters.Ki4soLogoutJavascriptFilter</filter-class>
+		<init-param>
+			<description>ki4so服务器主机地址</description>
+			<param-name>ki4soServerHost</param-name>
+			<param-value>http://localhost:8080/ki4so-web/</param-value>
+		</init-param>
+		
+		<init-param>
+			<description>当前应用的登出地址</description>
+			<param-name>currentAppLogoutUrl</param-name>
+			<param-value>http://localhost:8080/ki4so-app/logout.do</param-value>
+		</init-param>
+		
+		<init-param>
+			<description>登出后跳转地址</description>
+			<param-name>logoutSuccessUrl</param-name>
+			<param-value>http://localhost:8080/ki4so-app</param-value>
+		</init-param>
 	</filter>
 	
 	<filter-mapping>
