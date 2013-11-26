@@ -47,7 +47,8 @@ public class KeyServiceImpl extends FileSystemDao implements KeyService {
 		loadAppData();
 	}
 	
-	private void loadAppData(){
+	@Override
+	protected void loadAppData(){
 		try{
 			String s = this.readDataFromFile();
 			//将读取的应用列表转换为应用map。

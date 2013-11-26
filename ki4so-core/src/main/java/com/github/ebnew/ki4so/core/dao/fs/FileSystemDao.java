@@ -33,9 +33,22 @@ public abstract class FileSystemDao {
 		return externalData;
 	}
 
+	/**
+	 * 重新设置外部数据文件路径。
+	 * 设置成功后，需要触发重新加载数据内容。
+	 */
 	public void setExternalData(String externalData) {
-		this.externalData = externalData;
+		//设置的参数不为空。
+		if(externalData!=null && externalData.length()>0){
+			//外部数据文件路径不同。
+			if(!externalData.equals(this.externalData)){
+				this.externalData = externalData;
+				//重新加载数据。
+				this.loadAppData();
+			}
+		}
 	}
+
 
 	public String getClassPathData() {
 		return classPathData;
@@ -45,6 +58,10 @@ public abstract class FileSystemDao {
 		this.classPathData = classPathData;
 	}
 	
+	/**
+	 * 从数据文件中加载数据，抽象方法，由具体子类实现逻辑。
+	 */
+	protected abstract void loadAppData();
 	
 	/**
 	 * 从数据文件中读取数据。

@@ -52,5 +52,4 @@ public class AppServiceImplTest {
 		Assert.assertNotNull(app);
 		System.out.println(app);
 	}
-
 }

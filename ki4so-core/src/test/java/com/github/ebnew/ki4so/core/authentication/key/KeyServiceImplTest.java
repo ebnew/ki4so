@@ -72,5 +72,4 @@ public class KeyServiceImplTest {
 		//读取文件。
 		Assert.assertNull(keyServiceImpl.readDataFromFile());
 	}
-
 }

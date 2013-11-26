@@ -54,8 +54,17 @@ public class AppServiceImpl extends FileSystemDao implements AppService {
 		loadAppData();
 	}
 	
-	private void loadAppData(){
+
+	@Override
+	protected void loadAppData(){
 		try{
+			//先清空原来的数据文件。
+			if(appMap!=null){
+				appMap.clear();
+			}
+			appMap = null;
+			
+			//读取数据文件。
 			String s = this.readDataFromFile();
 			//将读取的应用列表转换为应用map。
 			List<App> apps = JSON.parseObject(s, new TypeReference<List<App>>(){});
