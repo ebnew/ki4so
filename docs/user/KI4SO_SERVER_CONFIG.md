@@ -124,3 +124,51 @@ ki4so服务器配置详细说明
 
 
 
+# 配置客户端列表 #
+在ki4so服务端需要统一配置一下单点登录客户端应用列表，包括应用的标识，秘钥等信息。具体配置方法如下。
+
+##配置spring-beans.xml
+配置ki4so-web项目中的spring配置文件，目录是/ki4so-web/src/main/resources/spring/spring-beans.xml。
+找到appService和keyService的两个bean的配置位置，配置为如下所示的配置信息。
+
+    <bean id="appService" class="com.github.ebnew.ki4so.core.app.AppServiceImpl">
+		<property name="externalData">
+			<value>C:\\apps.js</value>
+		</property>
+	</bean>
+	
+	<bean id="keyService" class="com.github.ebnew.ki4so.core.key.KeyServiceImpl">
+		<property name="externalData">
+			<value>C:\\keys.js</value>
+		</property>
+	</bean>
+
+上述配置信息中的属性externalData表示外部配置文件的路径。
+appService是表示客户端应用信息的配置，externalData是表示客户端应用的配置信息的文件路径。具体文件的配置格式如下。
+
+    [
+	 {appId:"1", appName:"ki4so", ki4soServer:true},
+	 {appId:"1001", appName:"ki4so-app", host:"http://localhost:8080/ki4so-app", logoutUrl:"http://localhost:8080/ki4so-app/logout.do"}
+	]
+
+其中上述配置格式的含义是，每一个数据项表示一个客户端应用信息，其中appId为1的是ki4so服务器的应用信息。各字段的含义如下：
+
+- appId，表示应用标识。必填。是一个字符串，长度不超过32个字符，应该以字符和数字组成。如：1001
+- appName，应用名称，必填。应用的名称，可以是中文或者英文字符。如：ki4so
+- host,表示客户端应用的URL地址，是客户端应用的前缀地址，比如：http://localhost:8080/ki4so-app，可选。若是ki4so服务器则不需要填写。
+- logoutUrl,表示客户端应用的登出地址，可选。若是ki4so服务器则不需要填写。
+
+
+keyService是表示客户端秘钥信息的配置，externalData是表示客户端秘钥信息的配置信息的文件路径。具体文件的配置格式如下。
+
+    [
+ 	{keyId:"1", appId:"1", value:"d#@$%Dfdsadadf"},
+ 	{keyId:"2", appId:"1001", value:"a4323##@0D#@"}
+	]
+
+其中上述配置格式的含义是，每一个数据项表示一个客户端应用秘钥的配置信息，各字段的含义如下：
+
+- appId，表示应用标识。必填。是一个字符串，长度不超过32个字符，应该以字符和数字组成。如：1001
+- keyId，秘钥标识，必填。是一个字符串，长度不超过32个字符，应该以字符和数字组成。如：2
+- value,秘钥值，必填，英文字符加字母组成，32位以内的字符。如：a4323##@0D#@
+
