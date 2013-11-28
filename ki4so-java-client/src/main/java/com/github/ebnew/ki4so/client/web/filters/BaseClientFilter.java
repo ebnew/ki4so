@@ -6,10 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
-
+import com.github.ebnew.ki4so.common.utils.StringUtils;
 import com.github.ebnew.ki4so.web.utils.WebConstants;
 
 /**
@@ -79,7 +76,6 @@ public abstract class BaseClientFilter implements Filter{
 	 * @return the first cookie with the given name, or {@code null} if none is found
 	 */
 	public static Cookie getCookie(HttpServletRequest request, String name) {
-		Assert.notNull(request, "Request must not be null");
 		Cookie cookies[] = request.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {

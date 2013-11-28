@@ -5,7 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import com.github.ebnew.ki4so.common.utils.StringUtils;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -15,9 +15,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.springframework.util.StringUtils;
-
 import com.github.ebnew.ki4so.client.handler.AppClientLoginHandler;
 import com.github.ebnew.ki4so.client.key.DefaultKeyServiceImpl;
 import com.github.ebnew.ki4so.core.authentication.EncryCredential;

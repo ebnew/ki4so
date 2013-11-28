@@ -8,12 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.springframework.util.StringUtils;
-
 import com.alibaba.fastjson.JSON;
 import com.github.ebnew.ki4so.common.Base64Coder;
 import com.github.ebnew.ki4so.common.DESCoder;
+import com.github.ebnew.ki4so.common.utils.StringUtils;
 import com.github.ebnew.ki4so.core.exception.InvalidEncryCredentialException;
 import com.github.ebnew.ki4so.core.key.KeyService;
 import com.github.ebnew.ki4so.core.key.Ki4soKey;
@@ -58,7 +56,7 @@ public class EncryCredentialManagerImpl implements EncryCredentialManager{
 			//如果长度是2.
 			if(items.length==2){
 				//第2个字符串不为空，先解析第二个字符串。
-				if(!StringUtils.isEmpty(items[1])){
+				if(items[1]!=null && items[1].length()>0){
 					//使用&分割字符。
 					String[] params = items[1].split("&");
 					for(int i=0; i<params.length; i++){

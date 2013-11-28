@@ -47,6 +47,13 @@ public abstract class FileSystemDao {
 				this.loadAppData();
 			}
 		}
+		else{
+			if(this.externalData!=null && this.externalData.length()>0){
+				this.externalData=externalData;
+				//重新加载数据。
+				this.loadAppData();
+			}
+		}
 	}
 
 

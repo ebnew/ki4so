@@ -13,9 +13,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.springframework.util.StringUtils;
-
+import com.github.ebnew.ki4so.common.utils.StringUtils;
 import com.github.ebnew.ki4so.client.handler.AppClientLogoutHandler;
 
 /**

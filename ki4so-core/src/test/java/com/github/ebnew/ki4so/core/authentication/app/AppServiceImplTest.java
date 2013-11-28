@@ -29,8 +29,9 @@ public class AppServiceImplTest {
 		
 		Assert.assertNull(appServiceImpl.findAppById("not exsited"));
 		
-		App app = appServiceImpl.findAppById("1");
+		App app = appServiceImpl.findAppById("1001");
 		Assert.assertNotNull(app);
+		Assert.assertEquals("http://localhost:8080/ki4so-app/", app.getHost());
 		System.out.println(app);
 	}
 
@@ -43,13 +44,27 @@ public class AppServiceImplTest {
 
 	@Test
 	public void testFindAppByHost() {
+		//查询异常情况。
 		Assert.assertNull(appServiceImpl.findAppByHost(""));
 		Assert.assertNull(appServiceImpl.findAppByHost(null));
 		
 		Assert.assertNull(appServiceImpl.findAppByHost("ddddddddddd"));
 		
-		App app = appServiceImpl.findAppByHost("http://localhost:8080/ki4so-app");
+		//查询带斜线和不带斜线的情况。
+		App app = appServiceImpl.findAppByHost("http://localhost:8080/ki4so-app/");
 		Assert.assertNotNull(app);
-		System.out.println(app);
+		Assert.assertEquals("1001", app.getAppId());
+		
+		app = appServiceImpl.findAppByHost("http://localhost:8080/ki4so-app");
+		Assert.assertNotNull(app);
+		Assert.assertEquals("1001", app.getAppId());
+		
+		app = appServiceImpl.findAppByHost("http://localhost:8080/ki4so-app/dafdasfdas");
+		Assert.assertNotNull(app);
+		Assert.assertEquals("1001", app.getAppId());
+		
+		app = appServiceImpl.findAppByHost("http://localhost:8080/ki4so-app/hell/w3d.htm?a=b");
+		Assert.assertNotNull(app);
+		Assert.assertEquals("1001", app.getAppId());
 	}
 }
