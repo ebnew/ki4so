@@ -67,7 +67,7 @@ maven安装。
 
 将打好的war包直接安装到Tomcat服务器中即可。Tomcat服务器如何安装请参考Tomcat官网说明。[http://tomcat.apache.org/](http://tomcat.apache.org/)
 
-最简单的安装方法直接将war包放入到Tomcat安装根目录的webapps目录下，修改war包名称为ki4so即可（修改一个更加简短的的目录，访问的时候使用该目录），如下图所示。
+最简单的安装方法直接将war包放入到Tomcat安装根目录的webapps目录下，修改war包名称为ki4so-web即可（修改一个更加简短的的目录，访问的时候使用该目录），如下图所示。
 
 
 ![ki4so服务器打包](http://github.com/ebnew/ki4so/raw/master/images/install/install_in_server.jpg)
@@ -80,11 +80,11 @@ maven安装。
 
 则服务器从8080端口启动，启动成功之后，直接在浏览器里访问ki4so服务。
 
-4. 访问ki4so服务
+4. 访问ki4so-web服务
 
-在浏览器中输入地址： [http://localhost:8080/ki4so](http://localhost:8080/ki4so)
+在浏览器中输入地址： [http://localhost:8080/ki4so](http://localhost:8080/ki4so-web)
 
-这个地址是假设你安装的Tomcat服务器的端口是8080，ki4so的war包改名为ki4so之后的结果。则访问的结果如下图。
+这个地址是假设你安装的Tomcat服务器的端口是8080，ki4so的war包改名为ki4so-web之后的结果。则访问的结果如下图。
 
 ![ki4so服务器打包](http://github.com/ebnew/ki4so/raw/master/images/install/visit_ki4so.jpg)
 
