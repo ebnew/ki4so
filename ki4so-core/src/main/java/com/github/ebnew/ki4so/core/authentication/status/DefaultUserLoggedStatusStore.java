@@ -73,7 +73,6 @@ public class DefaultUserLoggedStatusStore implements UserLoggedStatusStore {
 			if(list!=null){
 				list.clear();
 				this.userIdIndexMap.put(userId, null);
-				this.userIdIndexMap.clear();
 			}
 		}
 	}
