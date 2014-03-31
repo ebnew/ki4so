@@ -11,9 +11,9 @@ ki4so
 最新版源码下载地址： [http://www.kuaipan.cn/file/id_42549120015023151.htm?source=1](http://www.kuaipan.cn/file/id_42549120015023151.htm?source=1 "最新版源码")
 
 
-最新版服务器war包下载地址： [http://www.kuaipan.cn/file/id_42549120015023151.htm?source=1](http://www.kuaipan.cn/file/id_42549120015023151.htm?source=1 "最新版服务器war包")
+最新版服务器war包下载地址： [http://www.kuaipan.cn/file/id_42549120015023153.htm?source=1](http://www.kuaipan.cn/file/id_42549120015023153.htm?source=1 "最新版服务器war包")
 
-最新版客户端示例war包下载地址： [http://www.kuaipan.cn/file/id_42549120015023151.htm?source=1](http://www.kuaipan.cn/file/id_42549120015023151.htm?source=1 "最新版客户端示例war包")
+最新版客户端示例war包下载地址： [http://www.kuaipan.cn/file/id_42549120015023152.htm?source=1](http://www.kuaipan.cn/file/id_42549120015023152.htm?source=1 "最新版客户端示例war包")
 
 
 
