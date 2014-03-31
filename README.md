@@ -6,6 +6,17 @@ ki4so
 #项目持续集成地址
 [https://travis-ci.org/ebnew/ki4so](https://travis-ci.org/ebnew/ki4so "项目持续集成地址")
 
+#下载地址
+
+最新版源码下载地址： [http://www.kuaipan.cn/file/id_42549120015023151.htm?source=1](http://www.kuaipan.cn/file/id_42549120015023151.htm?source=1 "最新版源码")
+
+
+最新版服务器war包下载地址： [http://www.kuaipan.cn/file/id_42549120015023151.htm?source=1](http://www.kuaipan.cn/file/id_42549120015023151.htm?source=1 "最新版服务器war包")
+
+最新版客户端示例war包下载地址： [http://www.kuaipan.cn/file/id_42549120015023151.htm?source=1](http://www.kuaipan.cn/file/id_42549120015023151.htm?source=1 "最新版客户端示例war包")
+
+
+
 #项目介绍
 ##简介
 ki4so是一个简约、无状态、易扩展、易伸缩的适合于大型互联网web应用场景的单点登录系统，它功能简单，只实现了统一登录和登出，它最大的特色是将用户状态写入到cookie中，最大程度减少了单点登录服务端的状态，服务端只需要存储公共的应用密钥，将用户凭证的认证分散到各应用服务中，最大程度减轻了ki4so服务器的压力。
