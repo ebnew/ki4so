@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>ki4so-app</artifactId>
 	<packaging>war</packaging>
-	<name>简约单点系统的示例客户端应用</name>
+	<name>ki4so-app</name>
 	<description>
 	简约单点系统的实例应用，其它的需要集成ki4so的java web应用可以参考本应用实现。
 	如果是其它语言的应用需要集成ki4so，只需要遵循协议约束实现即可，各种平台的客户端包

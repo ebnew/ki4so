@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>ki4so-web</artifactId>
 	<packaging>war</packaging>
-	<name>简约单点登录系统web模块</name>
+	<name>ki4so-web</name>
 	<description>
 	简约单点登录系统web模块，该模块是ki4so服务端模块，定义并实现了处理各种外部接口的类，包括登录、登出和查询应用key值等接口。
   </description>

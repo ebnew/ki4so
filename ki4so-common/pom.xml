@@ -9,7 +9,7 @@
 	<groupId>com.github.ki4so</groupId>
 	<artifactId>ki4so-common</artifactId>
 	<version>${ki4so.version}</version>
-	<name>简约单点登录系统工具模块</name>
+	<name>ki4so-common</name>
 	<description>简约单点登录系统工具模块，提供加密解密等工具类</description>
 	
 	<properties>

@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>ki4so-core</artifactId>
   <packaging>jar</packaging>
-  <name>简约单点登录系统核心模块</name>
+  <name>ki4so-core</name>
   <description>
 	简约单点登录系统核心模块，定义了最核心的一些接口，抽象类以及一些默认的实现类，该模块是最核心的模块，其他模块均依赖本模块。
   </description>

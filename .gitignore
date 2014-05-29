@@ -33,3 +33,8 @@
 /ki4so-jdbc/.settings
 /ki4so-jdbc/target
 /ki4so-jdbc/.classpath
+/.settings
+/ki4so-app/.mymetadata
+/ki4so-app/.springBeans
+/ki4so-web/.mymetadata
+/ki4so-web/.springBeans

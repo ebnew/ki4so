@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>ki4so-jdbc</artifactId>
 	<packaging>jar</packaging>
-	<name>ki4so的使用JDBC集成模块</name>
+	<name>ki4so-jdbc</name>
 	<description>
 		使用JDBC连接数据库，实现与用户信息存储在数据库中的集成。
 	</description>

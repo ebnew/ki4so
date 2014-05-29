@@ -7,7 +7,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	<artifactId>ki4so-parent</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0.1-SNAPSHOT</version>
-	<name>简约单点登录系统</name>
+	<name>ki4so-parent</name>
 	
 	<description>ki4so是一个简约、无状态、易扩展、易伸缩的适合于大型互联网web应用场景的单点登录系统，它功能简单，只实现了统一登录和登出，它最大的特色是将用户状态写入到cookie中，最大程度减少了单点登录服务端的状态，服务端只需要存储公共的应用密钥，将用户凭证的认证分散到各应用服务中，最大程度减轻了ki4so服务器的压力。</description>
 	
