@@ -11,12 +11,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	
 	<description>ki4so是一个简约、无状态、易扩展、易伸缩的适合于大型互联网web应用场景的单点登录系统，它功能简单，只实现了统一登录和登出，它最大的特色是将用户状态写入到cookie中，最大程度减少了单点登录服务端的状态，服务端只需要存储公共的应用密钥，将用户凭证的认证分散到各应用服务中，最大程度减轻了ki4so服务器的压力。</description>
 	
-	<properties>
-		<junit.version>4.10</junit.version>
-		<spring.version>3.2.2.RELEASE</spring.version>
-		<mockito.version>1.9.0</mockito.version>
-		<ki4so.version>1.0.1-SNAPSHOT</ki4so.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<properties>		<junit.version>4.10</junit.version>		<spring.version>3.2.2.RELEASE</spring.version>		<mockito.version>1.9.0</mockito.version>		<ki4so.version>1.0.1-SNAPSHOT</ki4so.version>		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding><javac.version>9+181-r4173-1</javac.version>
 	</properties>
 	
 	<modules>
@@ -86,6 +81,27 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 					</formats>  
                 </configuration>
             </plugin>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-compiler-plugin</artifactId>
+<version>3.5.1</version>
+<configuration>
+	<source>8</source>
+	<target>8</target>
+	<showWarnings>true</showWarnings>
+	<compilerArgs>
+		<arg>-XDcompilePolicy=simple</arg>
+		<arg>-Xplugin:ErrorProne -XepAllErrorsAsWarnings -Xep:AndroidJdkLibsChecker:ERROR -Xep:AssistedInjectAndInjectOnSameConstructor:ERROR -Xep:AutoFactoryAtInject:ERROR -Xep:ClassName:ERROR -Xep:ComparisonContractViolated:ERROR -Xep:DepAnn:ERROR -Xep:DivZero:ERROR -Xep:EmptyIf:ERROR -Xep:FuzzyEqualsShouldNotBeUsedInEqualsMethod:ERROR -Xep:InjectInvalidTargetingOnScopingAnnotation:ERROR -Xep:InjectMoreThanOneQualifier:ERROR -Xep:InjectScopeAnnotationOnInterfaceOrAbstractClass:ERROR -Xep:InjectScopeOrQualifierAnnotationRetention:ERROR -Xep:InjectedConstructorAnnotations:ERROR -Xep:InsecureCryptoUsage:ERROR -Xep:IterablePathParameter:ERROR -Xep:JMockTestWithoutRunWithOrRuleAnnotation:ERROR -Xep:Java7ApiChecker:ERROR -Xep:JavaxInjectOnFinalField:ERROR -Xep:LockMethodChecker:ERROR -Xep:LongLiteralLowerCaseSuffix:ERROR -Xep:NoAllocation:ERROR -Xep:NumericEquality:ERROR -Xep:ParameterPackage:ERROR -Xep:RestrictTo:ERROR -Xep:StaticOrDefaultInterfaceMethod:ERROR -Xep:UnlockMethod:ERROR -Xep:AnnotateFormatMethod:ERROR -Xep:AnnotationPosition:ERROR -Xep:AssertFalse:ERROR -Xep:AssistedInjectAndInjectOnConstructors:ERROR -Xep:BinderIdentityRestoredDangerously:ERROR -Xep:BindingToUnqualifiedCommonType:ERROR -Xep:ConstructorInvokesOverridable:ERROR -Xep:ConstructorLeaksThis:ERROR -Xep:EmptyTopLevelDeclaration:ERROR -Xep:EqualsBrokenForNull:ERROR -Xep:ExpectedExceptionChecker:ERROR -Xep:FunctionalInterfaceClash:ERROR -Xep:HardCodedSdCardPath:ERROR -Xep:InconsistentOverloads:ERROR -Xep:InvalidParam:ERROR -Xep:InvalidTag:ERROR -Xep:InvalidThrows:ERROR -Xep:MissingDefault:ERROR -Xep:MutableMethodReturnType:ERROR -Xep:NoFunctionalReturnType:ERROR -Xep:NonCanonicalStaticMemberImport:ERROR -Xep:NullableDereference:ERROR -Xep:PrimitiveArrayPassedToVarargsMethod:ERROR -Xep:ProtosAsKeyOfSetOrMap:ERROR -Xep:ProvidesFix:ERROR -Xep:QualifierWithTypeUse:ERROR -Xep:RedundantThrows:ERROR -Xep:ReturnFromVoid:ERROR -Xep:StaticQualifiedUsingExpression:ERROR -Xep:StringEquality:ERROR -Xep:SystemExitOutsideMain:ERROR -Xep:TestExceptionChecker:ERROR -Xep:UnnecessaryDefaultInEnumSwitch:ERROR -Xep:Unused:ERROR -Xep:UnusedException:ERROR -Xep:Var:ERROR -Xep:BooleanParameter:ERROR -Xep:ClassNamedLikeTypeParameter:ERROR -Xep:ConstantField:ERROR -Xep:EmptySetMultibindingContributions:ERROR -Xep:ExpectedExceptionRefactoring:ERROR -Xep:FieldCanBeFinal:ERROR -Xep:FieldMissingNullable:ERROR -Xep:ImmutableRefactoring:ERROR -Xep:LambdaFunctionalInterface:ERROR -Xep:MethodCanBeStatic:ERROR -Xep:MixedArrayDimensions:ERROR -Xep:MultiVariableDeclaration:ERROR -Xep:MultipleTopLevelClasses:ERROR -Xep:MultipleUnaryOperatorsInMethodCall:ERROR -Xep:PackageLocation:ERROR -Xep:ParameterComment:ERROR -Xep:ParameterNotNullable:ERROR -Xep:PrivateConstructorForNoninstantiableModule:ERROR -Xep:PrivateConstructorForUtilityClass:ERROR -Xep:RemoveUnusedImports:ERROR -Xep:ReturnMissingNullable:ERROR -Xep:ScopeOnModule:ERROR -Xep:SwitchDefault:ERROR -Xep:TestExceptionRefactoring:ERROR -Xep:ThrowsUncheckedException:ERROR -Xep:TryFailRefactoring:ERROR -Xep:TypeParameterNaming:ERROR -Xep:UngroupedOverloads:ERROR -Xep:UnnecessarySetDefault:ERROR -Xep:UnnecessaryStaticImport:ERROR -Xep:UseBinds:ERROR -Xep:WildcardImport:ERROR</arg>
+	</compilerArgs>
+	<annotationProcessorPaths>
+		<path>
+			<groupId>com.google.errorprone</groupId>
+			<artifactId>error_prone_core</artifactId>
+			<version>2.3.2</version>
+		</path>
+	</annotationProcessorPaths>
+</configuration>
+</plugin>
 		</plugins>
 	</build>
 	
@@ -140,84 +156,31 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 
 		</dependencies>
 	</dependencyManagement>
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>index</report>
-							<report>dependencies</report>
-							<report>dependency-convergence</report>
-							<report>dependency-management</report>
-							<report>cim</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.5</version>
-				<configuration>
-					<encoding>GBK</encoding>
-					<charset>GBK</charset>
-				</configuration>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>javadoc</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>2.4.2</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.3</version>
-				<configuration>
-					<configLocation>checkstyle.xml</configLocation>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-clover-plugin</artifactId>
-				<configuration>
-					<licenseLocation>clover.license</licenseLocation>
-					<generateHistorical>true</generateHistorical>
-					<generateXml>true</generateXml>
-					<generateHtml>true</generateHtml>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<configuration>
-					<linkXref>true</linkXref>
-					<targetJdk>1.6</targetJdk>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>2.0.1</version>
-				<configuration>
-					<findbugsXmlOutput>true</findbugsXmlOutput>
-					<findbugsXmlWithMessages>true</findbugsXmlWithMessages>
-					<xmlOutput>true</xmlOutput>
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
+	<reporting>		<plugins>			<plugin>				<groupId>org.apache.maven.plugins</groupId>				<artifactId>maven-project-info-reports-plugin</artifactId>				<reportSets>					<reportSet>						<reports>							<report>index</report>							<report>dependencies</report>							<report>dependency-convergence</report>							<report>dependency-management</report>							<report>cim</report>						</reports>					</reportSet>				</reportSets>			</plugin>			<plugin>				<groupId>org.apache.maven.plugins</groupId>				<artifactId>maven-javadoc-plugin</artifactId>				<version>2.5</version>				<configuration>					<encoding>GBK</encoding>					<charset>GBK</charset>				</configuration>				<reportSets>					<reportSet>						<reports>							<report>javadoc</report>						</reports>					</reportSet>				</reportSets>			</plugin>			<plugin>				<groupId>org.apache.maven.plugins</groupId>				<artifactId>maven-surefire-report-plugin</artifactId>				<version>2.4.2</version>			</plugin>			<plugin>				<groupId>org.apache.maven.plugins</groupId>				<artifactId>maven-checkstyle-plugin</artifactId>				<version>2.3</version>				<configuration>					<configLocation>checkstyle.xml</configLocation>				</configuration>			</plugin>			<plugin>				<groupId>org.apache.maven.plugins</groupId>				<artifactId>maven-clover-plugin</artifactId>				<configuration>					<licenseLocation>clover.license</licenseLocation>					<generateHistorical>true</generateHistorical>					<generateXml>true</generateXml>					<generateHtml>true</generateHtml>				</configuration>			</plugin>			<plugin>				<groupId>org.apache.maven.plugins</groupId>				<artifactId>maven-pmd-plugin</artifactId>				<configuration>					<linkXref>true</linkXref>					<targetJdk>1.6</targetJdk>				</configuration>			</plugin>			<plugin>				<groupId>org.codehaus.mojo</groupId>				<artifactId>findbugs-maven-plugin</artifactId>				<version>2.0.1</version>				<configuration>					<findbugsXmlOutput>true</findbugsXmlOutput>					<findbugsXmlWithMessages>true</findbugsXmlWithMessages>					<xmlOutput>true</xmlOutput>				</configuration>			</plugin>		</plugins>	</reporting>
 	
 	<distributionManagement>
 
 	</distributionManagement>
+<profiles>
+<profile>
+<id>jdk8</id>
+<activation>
+	<jdk>1.8</jdk>
+</activation>
+<build>
+	<plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<configuration>
+				<fork>true</fork>
+				<compilerArgs combine.children="append">
+					<arg>-J-Xbootclasspath/p:${settings.localRepository}/com/google/errorprone/javac/${javac.version}/javac-${javac.version}.jar</arg>
+				</compilerArgs>
+			</configuration>
+		</plugin>
+	</plugins>
+</build>
+</profile>
+</profiles>
 </project>
